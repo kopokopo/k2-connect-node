@@ -91,10 +91,10 @@ var stkOptions = {
       reference: '123456',
       notes: 'Payment for invoice 123456'
     },
-    _links: {
-      //This is where once the request is completed kopokopo will post the response
-      call_back_url: 'http://localhost:8000/stk/requestresponse'
-    }
+    //This is where once the request is completed kopokopo will post the response
+    //Replace this with your url
+    call_back_url: 'http://localhost:8000/stk/requestresponse'
+    
   };
   
   // Send message and capture the response or error
