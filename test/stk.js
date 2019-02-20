@@ -34,10 +34,8 @@ describe('StkService', function () {
         opts.last_name = 'Doe'
         opts.email = 'janedoe@example.com'
         opts.phone = '07012345678'
-        opts.amount = {
-            currency: 'KES',
-            value: 200
-        }
+        opts.currency = 'KES'
+        opts.amount = 20
         opts.call_back_url = 'http://localhost:8000/stk/requestresponse'
         opts.token_details = { 'token_type': 'Bearer',
                             'expires_in': 3600,

@@ -46,10 +46,8 @@ describe('PayService', function () {
         it('#sendPay() has to have token details', function () {
             var opts = {}
             opts.destination = 'my_destination'
-            opts.amount = {
-                currency: 'KES',
-                value: '200'
-            }
+            opts.currency = 'KES'
+            opts.amount = 20
             opts.callback_url = 'https://your-call-bak.yourapplication.com/payment_result'  
             // opts.token_details = token_details
 
@@ -62,10 +60,8 @@ describe('PayService', function () {
         var opts = {}
 
         opts.destination = 'my_destination'
-        opts.amount = {
-            currency: 'KES',
-            value: '200'
-        }
+        opts.currency = 'KES'
+        opts.amount = 20
         opts.callback_url = 'https://your-call-bak.yourapplication.com/payment_result'  
         opts.token_details = {
             'token_type': 'Bearer',

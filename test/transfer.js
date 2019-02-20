@@ -24,10 +24,8 @@ describe('TransferService', function () {
         })
 
         it('#settleFunds() has to have token details', function () {
-            opts.amount = {
-                currency: 'KES',
-                value: '200'
-            }
+            opts.currency = 'KES'
+            opts.amount = 20
             opts.destination = 'my_destination'
              
             // opts.token_details = token_details
@@ -56,10 +54,8 @@ describe('TransferService', function () {
         var opts = {}
 
         opts.destination = 'my_destination'
-        opts.amount = {
-            currency: 'KES',
-            value: '200'
-        }
+        opts.currency = 'KES'
+        opts.amount = 20
         opts.token_details = { 'token_type': 'Bearer',
                                 'expires_in': 3600,
                                 'access_token': 'hardToGuessKey' }
