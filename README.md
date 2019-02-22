@@ -2,8 +2,6 @@
 
 This is a module to assist developers in consuming Kopokopo's API
 
-
-
 ## Installation
 To install run the following command on your project's directory:
 ```
@@ -80,10 +78,7 @@ const subscribeOptions = {
     event_type: 'buy_goods_received',
     url: 'https://my-valid-url.com/endpoint',
     webhook_secret: 'my_webhook_secret',
-    token_details: {
-      token_type:'Bearer',
-      access_token: 'my_access_token'
-    }
+    access_token: 'my_access_token'
 }
 
 Webhooks
@@ -110,10 +105,8 @@ var stkOptions = {
     currency: 'KES',
     amount: 20,
     call_back_url: 'https://my-valid-url.com/endpoint',
-    token_details: {
-      token_type:'Bearer',
-      access_token: 'my_access_token'
-    },
+    access_token: 'my_access_token',
+    
     //A maximum of 5 key value pairs
     metadata: {
       customer_id: '123456789',
@@ -141,7 +134,12 @@ The methods are asynchronous.
 The only supported ISO currency code at the moment is: `KES`
 
 ### `TokenService`
-- `TokenService.getToken()` to get an access token
+- `TokenService.getToken()` to get an access token.
+    - The response will contain: `token type`, `expires_in` and `access_token`
+
+
+NB: The access token is required to send subsequent requests
+
 
 ### `StkService`
 
@@ -154,7 +152,7 @@ The only supported ISO currency code at the moment is: `KES`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
   - `call_back_url`: Amount to charge. `REQUIRED`
-  - `token_details`: Contains `access_token` and `token_type` `REQUIRED`
+  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs 
 - `StkService.paymentRequestStatus({ location })`:
     - `location`: The request location you get when you send a request
@@ -171,14 +169,14 @@ For more information, please read [https://api-docs.kopokopo.com/#receive-paymen
   - `phone`: Pay recipient's phone number `REQUIRED`
   - `email`: Pay recipient's email number 
   - `network`: Pay recipient's network `REQUIRED`
-  - `token_details`: Contains `access_token` and `token_type` `REQUIRED`
+  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 - `PayService.sendPay({ payOptions })`:
   `payOptions`: A hash of objects containing the following keys:
   - `destination`: The destination `REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
   - `call_back_url`: Amount to charge. `REQUIRED`
-  - `token_details`: Contains `access_token` and `token_type` `REQUIRED`
+  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs 
 
 - `PayService.payStatus({ location })`:
@@ -194,13 +192,13 @@ For more information, please read [https://api-docs.kopokopo.com/#send-money-pay
   - `bankRef`: Settlement Bank Reference `REQUIRED`
   - `bankBranchRef`: Settlement Bank Branch Reference `REQUIRED`
   - `accountNumber`: Settlement account number `REQUIRED`
-  - `token_details`: Contains `access_token` and `token_type` `REQUIRED`
+  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 - `TransferService.settleFunds({ settleOpts })`:
   `settleOpts`: A hash of objects containing the following keys:
   - `destination`: The destination `REQUIRED FOR A TARGETED TRANSFER`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `token_details`: Contains `access_token` and `token_type` `REQUIRED`
+  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
 - `TransferService.settlementStatus({ location })`:
     - `location`: The request location you get when you send a request
