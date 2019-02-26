@@ -54,7 +54,7 @@ describe('TransferService', function () {
 		opts.destination = 'my_destination'
 		opts.currency = 'KES'
 		opts.amount = 20
-		opts.access_token= 'hardToGuessKey'
+		opts.accessToken= 'hardToGuessKey'
 
 		transfer.settleFunds(opts)
 			.then(function (response) {
@@ -73,7 +73,7 @@ describe('TransferService', function () {
 		opts.bankRef = '89076-9ed38155-7d6f-11e3-83c3-5404a6144203-adiu'
 		opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
 		opts.accountNumber = '1234567890'
-		opts.access_token= 'hardToGuessKey'
+		opts.accessToken= 'hardToGuessKey'
 
 
 		transfer.createSettlementAccount(opts)
@@ -90,7 +90,7 @@ describe('TransferService', function () {
 	it('#settlementStatus()', function (done) {
 		var opts = {}
 
-		opts.access_token= 'hardToGuessKey'
+		opts.accessToken= 'hardToGuessKey'
 
 		transfer.settlementStatus(opts)
 			.then(function (response) {

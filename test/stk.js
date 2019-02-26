@@ -29,15 +29,16 @@ describe('StkService', function () {
 	it('#paymentRequest()', function (done) {
 		var opts = {}
 
-		opts.till_identifier = '444555'
-		opts.first_name = 'Jane'
-		opts.last_name = 'Doe'
+		opts.paymentChannel = 'M-PESA'
+		opts.tillNumber = '444555'
+		opts.firstName = 'Jane'
+		opts.lastName = 'Doe'
 		opts.email = 'janedoe@example.com'
 		opts.phone = '+254999999999'
 		opts.currency = 'KES'
 		opts.amount = 20
-		opts.call_back_url = 'http://localhost:8000/stk/requestresponse'
-		opts.access_token= 'hardToGuessKey'
+		opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+		opts.accessToken= 'hardToGuessKey'
 		opts.metadata = {
 			"customer_id": "123456789",
 			"reference": "123456",
@@ -47,7 +48,6 @@ describe('StkService', function () {
 		stk.paymentRequest(opts)
 			.then(function (response) {
 				// pays.should.have.property('resourceId');
-				console.log(response)
 				done()
 			})
 			.catch(function (error) {
@@ -59,7 +59,7 @@ describe('StkService', function () {
 	it('#paymentRequestStatus()', function (done) {
 		var opts = {}
 
-		opts.access_token= 'hardToGuessKey'
+		opts.accessToken= 'hardToGuessKey'
 
 		stk.paymentRequestStatus(opts)
 			.then(function (response) {

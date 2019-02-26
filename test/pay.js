@@ -32,7 +32,6 @@ describe('PayService', function () {
 
 			return pay.addPayRecipient(opts).should.be.rejected()
 		})
-    
 	})
 
 	describe('Pay validation', function () {
@@ -47,11 +46,10 @@ describe('PayService', function () {
 			opts.destination = 'my_destination'
 			opts.currency = 'KES'
 			opts.amount = 20
-			opts.callback_url = 'https://your-call-bak.yourapplication.com/payment_result'  
+			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'  
 
 			return pay.sendPay(opts).should.be.rejected()
 		})
-    
 	})
 
 	it('#sendPay()', function (done) {
@@ -60,8 +58,8 @@ describe('PayService', function () {
 		opts.destination = 'my_destination'
 		opts.currency = 'KES'
 		opts.amount = 20
-		opts.callback_url = 'https://your-call-bak.yourapplication.com/payment_result'  
-		opts.access_token= 'hardToGuessKey'
+		opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'  
+		opts.accessToken= 'hardToGuessKey'
 
 		pay.sendPay(opts)
 			.then(function (response) {
@@ -83,7 +81,7 @@ describe('PayService', function () {
 		opts.email = 'janedoe@example.com'
 		opts.phone = '07012345678'
 		opts.network = 'Safaricom'
-		opts.access_token= 'hardToGuessKey'
+		opts.accessToken= 'hardToGuessKey'
                                 
 		pay.addPayRecipient(opts)
 			.then(function (response) {
@@ -99,7 +97,7 @@ describe('PayService', function () {
 	it('#payStatus()', function (done) {
 		var opts = {}
 
-		opts.access_token= 'hardToGuessKey'
+		opts.accessToken= 'hardToGuessKey'
 
 		pay.payStatus(opts)
 			.then(function (response) {

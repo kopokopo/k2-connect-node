@@ -24,10 +24,10 @@ describe('Webhooks', function () {
 		})
 
 		it('#subscribe() must have token details', function () {
-			opts.event_type = 'buy_goods_received'
+			opts.eventType = 'buy_goods_received'
 			opts.url = null
-			opts.webhook_secret = 'webhook_secret'
-			opts.access_token = null
+			opts.webhookSecret = 'webhook_secret'
+			opts.accessToken = null
 
 			return webhooks.subscribe(opts).should.be.rejected()
 		})
@@ -35,10 +35,10 @@ describe('Webhooks', function () {
 
 	it('#subscribe()', function (done) {
 		var opts = {}
-		opts.event_type = 'buy_goods_received'
+		opts.eventType = 'buy_goods_received'
 		opts.url = 'http://localhost:8000/test'
-		opts.webhook_secret = 'webhook_secret'
-		opts.access_token= 'hardToGuessKey'
+		opts.webhookSecret = 'webhook_secret'
+		opts.accessToken= 'hardToGuessKey'
 
 		webhooks.subscribe(opts)
 			.then(function (subscriptions) {
