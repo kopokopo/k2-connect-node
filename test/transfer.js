@@ -27,7 +27,7 @@ describe('TransferService', function () {
 			opts.currency = 'KES'
 			opts.amount = 20
 			opts.destination = 'my_destination'
-             
+
 			return transfer.settleFunds(opts)
 				.should.be.rejected()
 		})
@@ -42,7 +42,7 @@ describe('TransferService', function () {
 			opts.bankRef = '89076-9ed38155-7d6f-11e3-83c3-5404a6144203-adiu'
 			opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
 			opts.accountNumber = '1234567890'
-             
+
 			return transfer.settleFunds(opts)
 				.should.be.rejected()
 		})
@@ -54,11 +54,11 @@ describe('TransferService', function () {
 		opts.destination = 'my_destination'
 		opts.currency = 'KES'
 		opts.amount = 20
-		opts.accessToken= 'hardToGuessKey'
+		opts.accessToken = 'hardToGuessKey'
 
 		transfer.settleFunds(opts)
 			.then(function (response) {
-				// response.should.have.property('resourceId');
+				response.should.have.property('location')
 				done()
 			})
 			.catch(function (error) {
@@ -73,12 +73,12 @@ describe('TransferService', function () {
 		opts.bankRef = '89076-9ed38155-7d6f-11e3-83c3-5404a6144203-adiu'
 		opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
 		opts.accountNumber = '1234567890'
-		opts.accessToken= 'hardToGuessKey'
+		opts.accessToken = 'hardToGuessKey'
 
 
 		transfer.createSettlementAccount(opts)
 			.then(function (response) {
-				// response.should.have.property('resourceId');
+				// response.should.have.property('resourceId')
 				done()
 			})
 			.catch(function (error) {
@@ -90,11 +90,11 @@ describe('TransferService', function () {
 	it('#settlementStatus()', function (done) {
 		var opts = {}
 
-		opts.accessToken= 'hardToGuessKey'
+		opts.accessToken = 'hardToGuessKey'
 
 		transfer.settlementStatus(opts)
 			.then(function (response) {
-				// response.should.have.property('id');
+				// response.should.have.property('id')
 				done()
 			})
 			.catch(function (error) {

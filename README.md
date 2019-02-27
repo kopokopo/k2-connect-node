@@ -3,12 +3,15 @@
 This is a module to assist developers in consuming Kopokopo's API
 
 ## Installation
+
 To install run the following command on your project's directory:
-```
-npm install --save k2-connect
 
 ```
+npm install --save k2-connect
+```
+
 ## Initialisation
+
 The package should be configured with your client id and client secret which you can get from your account on the kopokopo's app
 
 ```node
@@ -21,21 +24,24 @@ const options = {
 //Including the kopokopo module
 var K2 = require("k2-connect")(options);
 ```
-#### After initialization, you can get instances of offered services as follows:
-- [Tokens](#tokenservice) : ``` var TokenService = K2.TokenService;```
-- [Webhooks](#webhooks) : ``` var Webhooks = K2.Webhooks;```
-- [STK PUSH](#stkservice) : ```var StkService = K2.StkService;```
-- [Pay](#payservice) : ``` var PayService = K2.PayService;```
-- [Transfer](#transferservice) : ```var TransferService = K2.TransferService;```
+
+### After initialization, you can get instances of offered services as follows:
+
+- [Tokens](#tokenservice) : `var TokenService = K2.TokenService;`
+- [Webhooks](#webhooks) : `var Webhooks = K2.Webhooks;`
+- [STK PUSH](#stkservice) : `var StkService = K2.StkService;`
+- [Pay](#payservice) : `var PayService = K2.PayService;`
+- [Transfer](#transferservice) : `var TransferService = K2.TransferService;`
 
 ## Usage
+
 The package needs to be configured with your kopokopo's clientId and Secret Key, which you can get from the kopokopo application.
 
 ### Tokens
+
 To send any requests to Kopokopo's API you'll need an access token
 
 ```node
-
 const TokenService = K2.TokenService;
 
 TokenService
@@ -46,11 +52,11 @@ TokenService
     })
     .catch( error => {
         console.log(error);
-    }); 
-
+    });
 ```
 
 ### Webhooks
+
 - Consuming
 
 ```node
@@ -68,55 +74,49 @@ router.post('/customercreated', function(req, res, next){
             console.log(error);
         });
 })
-
 ```
 
 - Subscription
+
 ```node
+const subscribeOptions = { 
+    eventType: 'buy_goods_received', 
+    url: '<https://my-valid-url.com/endpoint>', 
+    webhookSecret: 'my_webhook_secret', 
+    accessToken: 'my_access_token' }
 
-const subscribeOptions = {
-    event_type: 'buy_goods_received',
-    url: 'https://my-valid-url.com/endpoint',
-    webhook_secret: 'my_webhook_secret',
-    access_token: 'my_access_token'
-}
-
-Webhooks
-    .subscribe(subscribeOptions)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(error => {
-        console.log(error)
-    })
-
-
+Webhooks 
+    .subscribe(subscribeOptions) 
+    .then(response => { console.log(response) }) 
+    .catch(error => { console.log(error) })
 ```
+
 ### STK PUSH
+
 ```node
 const StkService = K2.StkService;
 
 var stkOptions = {
-    till_identifier: 36546,
-    first_name: 'Jane'
-    last_name: 'Doe',
+    tillNumber: 36546,
+    firstName: 'Jane'
+    lastName: 'Doe',
     phone: '+254712345678',
     email: 'example@example.com',
     currency: 'KES',
     amount: 20,
-    call_back_url: 'https://my-valid-url.com/endpoint',
-    access_token: 'my_access_token',
-    
+    callbackUrl: 'https://my-valid-url.com/endpoint',
+    accessToken: 'my_access_token',
+
     //A maximum of 5 key value pairs
     metadata: {
-      customer_id: '123456789',
+      customerId: '123456789',
       reference: '123456',
       notes: 'Payment for invoice 123456'
     }
   };
-  
+
   // Send message and capture the response or error
-  
+
   StkService
     .paymentRequest(stkOptions)
     .then( response => {     
@@ -126,87 +126,92 @@ var stkOptions = {
       console.log(error);
     });
 ```
+
 For other usage examples check out the [example app](https://github.com/NicoNjora/FreshMeatButchery).
 
 ## Services
+
 The methods are asynchronous.
 
 The only supported ISO currency code at the moment is: `KES`
 
 ### `TokenService`
-- `TokenService.getToken()` to get an access token.
-    - The response will contain: `token type`, `expires_in` and `access_token`
 
+- `TokenService.getToken()` to get an access token.
+
+  - The response will contain: `token type`, `expires_in` and `access_token`
 
 NB: The access token is required to send subsequent requests
 
-
 ### `StkService`
 
-- `StkService.paymentRequest({ stkOptions })`: 
-  `stkOptions`: A hash of objects containing the following keys:
-  - `first_name`: Customer's first name `REQUIRED`
-  - `last_name`: Customer's last name `REQUIRED`
+- `StkService.paymentRequest({ stkOptions })`: `stkOptions`: A hash of objects containing the following keys:
+
+  - `firstName`: Customer's first name `REQUIRED`
+  - `lastName`: Customer's last name `REQUIRED`
   - `phone`: Phone number to pull money from. `REQUIRED`
-  - `email`: Amount to charge. 
+  - `email`: Amount to charge.
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `call_back_url`: Amount to charge. `REQUIRED`
-  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-  - `metadata`: It is a hash containing a maximum of 5 key value pairs 
+  - `callbackUrl`: Amount to charge. `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+  - `metadata`: It is a hash containing a maximum of 5 key value pairs
+
 - `StkService.paymentRequestStatus({ location })`:
-    - `location`: The request location you get when you send a request
-    
-For more information, please read [https://api-docs.kopokopo.com/#receive-payments-from-m-pesa-users-via-stk-push](https://api-docs.kopokopo.com/#receive-payments-from-m-pesa-users-via-stk-push)
+
+  - `location`: The request location you get when you send a request
+
+For more information, please read <https://api-docs.kopokopo.com/#receive-payments-from-m-pesa-users-via-stk-push>
 
 ### `PayService`
 
-- `PayService.addPayRecipient({ payRecipientOptions })`: 
-  `payRecipientOptions`: A hash of objects containing the following keys:
+- `PayService.addPayRecipient({ payRecipientOptions })`: `payRecipientOptions`: A hash of objects containing the following keys:
+
   - `type`: Customer's first name `REQUIRED`
   - `firstName`: Pay recipient's first name `REQUIRED`
   - `lastName`: Pay recipient's last name `REQUIRED`
   - `phone`: Pay recipient's phone number `REQUIRED`
-  - `email`: Pay recipient's email number 
+  - `email`: Pay recipient's email number
   - `network`: Pay recipient's network `REQUIRED`
-  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-- `PayService.sendPay({ payOptions })`:
-  `payOptions`: A hash of objects containing the following keys:
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+- `PayService.sendPay({ payOptions })`: `payOptions`: A hash of objects containing the following keys:
+
   - `destination`: The destination `REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `call_back_url`: Amount to charge. `REQUIRED`
-  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-  - `metadata`: It is a hash containing a maximum of 5 key value pairs 
+  - `callbackUrl`: Amount to charge. `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+  - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
 - `PayService.payStatus({ location })`:
-    - `location`: The request location you get when you send a request
-    
-For more information, please read [https://api-docs.kopokopo.com/#send-money-pay](https://api-docs.kopokopo.com/#send-money-pay)
+
+  - `location`: The request location you get when you send a request
+
+For more information, please read <https://api-docs.kopokopo.com/#send-money-pay>
 
 ### `TransferService`
 
-- `TransferService.createSettlementAccount({ accountOpts })`: 
-  `accountOpts`: A hash of objects containing the following keys:
+- `TransferService.createSettlementAccount({ accountOpts })`: `accountOpts`: A hash of objects containing the following keys:
+
   - `accountName`: Settlement Account Name `REQUIRED`
   - `bankRef`: Settlement Bank Reference `REQUIRED`
   - `bankBranchRef`: Settlement Bank Branch Reference `REQUIRED`
   - `accountNumber`: Settlement account number `REQUIRED`
-  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-- `TransferService.settleFunds({ settleOpts })`:
-  `settleOpts`: A hash of objects containing the following keys:
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+- `TransferService.settleFunds({ settleOpts })`: `settleOpts`: A hash of objects containing the following keys:
+
   - `destination`: The destination `REQUIRED FOR A TARGETED TRANSFER`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `access_token`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
 - `TransferService.settlementStatus({ location })`:
-    - `location`: The request location you get when you send a request
-    
-For more information, please read [https://api-docs.kopokopo.com/#transfer-to-your-account-s](https://api-docs.kopokopo.com/#transfer-to-your-account-s)
 
+  - `location`: The request location you get when you send a request
 
-
+For more information, please read <https://api-docs.kopokopo.com/#transfer-to-your-account-s>
 
 ## Development
 
@@ -216,7 +221,6 @@ Run all tests:
 $ npm install
 $ npm test
 ```
-
 
 ## Issues
 
