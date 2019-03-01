@@ -85,7 +85,7 @@ describe('PayService', function () {
                                 
 		pay.addPayRecipient(opts)
 			.then(function (response) {
-				// pays.should.have.property('resourceId');
+				// response.should.have.property('resourceId');
 				done()
 			})
 			.catch(function (error) {
