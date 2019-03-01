@@ -23,7 +23,7 @@ describe('Webhooks', function () {
 				.should.be.rejected()
 		})
 
-		it('#subscribe() must have token details', function () {
+		it('#subscribe() must have accessToken', function () {
 			opts.eventType = 'buy_goods_received'
 			opts.url = null
 			opts.webhookSecret = 'webhook_secret'
