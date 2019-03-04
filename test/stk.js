@@ -17,15 +17,37 @@ describe('StkService', function () {
 		stk = k2.StkService
 	})
 
-	describe('validation', function () {
+	describe('paymentRequest() validation', function () {
 		var opts = {}
 
 		it('#paymentRequest() cannot be empty', function () {
 			return stk.paymentRequest(opts)
 				.should.be.rejected()
 		})
-
 	})
+
+	describe('Stk payment status request validation', function () {
+		var opts = {}
+
+		it('#paymentRequestStatus() cannot be empty', function () {
+			return stk.paymentRequestStatus(opts).should.be.rejected()
+		})
+
+		it('#paymentRequestStatus() has to have accessToken', function () {
+			var opts = {}
+			opts.location = 'my_request_location'
+
+			return stk.paymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+		})
+
+		it('#paymentRequestStatus() has to have location', function () {
+			var opts = {}
+			opts.accessToken= 'hardToGuessKey'
+
+			return stk.paymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
+		})
+	})
+
 	it('#paymentRequest()', function (done) {
 		var opts = {}
 
@@ -51,7 +73,7 @@ describe('StkService', function () {
 				done()
 			})
 			.catch(function (error) {
-				console.error(error)
+				// console.error(error)
 				done()
 			})
 	})
@@ -60,6 +82,7 @@ describe('StkService', function () {
 		var opts = {}
 
 		opts.accessToken= 'hardToGuessKey'
+		opts.location = 'my_request_location'
 
 		stk.paymentRequestStatus(opts)
 			.then(function (response) {

@@ -22,7 +22,7 @@ describe('PayService', function () {
 			return pay.addPayRecipient(opts).should.be.rejected()
 		})
 
-		it('#addPayRecipient() has to have access_token', function () {
+		it('#addPayRecipient() has to have accessToken', function () {
 			opts.type = 'mobile_wallet'
 			opts.firstName = 'Jane'
 			opts.lastName = 'Doe'
@@ -41,7 +41,7 @@ describe('PayService', function () {
 			return pay.sendPay(opts).should.be.rejected()
 		})
 
-		it('#sendPay() has to have access_token', function () {
+		it('#sendPay() has to have accessToken', function () {
 			var opts = {}
 			opts.destination = 'my_destination'
 			opts.currency = 'KES'
@@ -49,6 +49,28 @@ describe('PayService', function () {
 			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'  
 
 			return pay.sendPay(opts).should.be.rejected()
+		})
+	})
+
+	describe('Pay status request validation', function () {
+		var opts = {}
+
+		it('#payStatus() cannot be empty', function () {
+			return pay.payStatus(opts).should.be.rejected()
+		})
+
+		it('#payStatus() has to have accessToken', function () {
+			var opts = {}
+			opts.location = 'my_request_location'
+
+			return pay.payStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' });
+		})
+
+		it('#payStatus() has to have location', function () {
+			var opts = {}
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.payStatus(opts).should.be.rejected()
 		})
 	})
 
@@ -98,6 +120,7 @@ describe('PayService', function () {
 		var opts = {}
 
 		opts.accessToken= 'hardToGuessKey'
+		opts.location = 'my_request_location'
 
 		pay.payStatus(opts)
 			.then(function (response) {
