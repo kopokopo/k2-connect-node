@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "Nicollet Njora",
+  "author": {
+    "name" : "Nicollet Njora"
+  },
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.11",

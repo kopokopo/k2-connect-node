@@ -15,7 +15,7 @@ describe('PayService', function () {
 		pay = k2.PayService
 	})
 
-	describe('Pay Recipient validation', function () {
+	describe('Pay Recipient mobile validation', function () {
 		var opts = {}
 
 		it('#addPayRecipient() cannot be empty', function () {
@@ -94,7 +94,7 @@ describe('PayService', function () {
 			})
 	})
 
-	it('#addPayRecipient()', function (done) {
+	it('#addPayRecipient() mobile', function (done) {
 		var opts = {}
 
 		opts.type = 'mobile_wallet'
@@ -105,6 +105,30 @@ describe('PayService', function () {
 		opts.network = 'Safaricom'
 		opts.accessToken= 'hardToGuessKey'
                                 
+		pay.addPayRecipient(opts)
+			.then(function (response) {
+				// response.should.have.property('resourceId');
+				done()
+			})
+			.catch(function (error) {
+				console.error(error)
+				done()
+			})
+	})
+
+	it('#addPayRecipient() account', function (done) {
+		var opts = {}
+
+		opts.type = 'bank_account'
+		opts.name = 'Jane Doe'
+		opts.accountName = 'Jane Doe'
+		opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
+		opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
+		opts.accountNumber = '123456789'
+		opts.email = 'janedoe@nomail.net'
+		opts.phone = '+2547012345678'
+		opts.accessToken= 'hardToGuessKey'
+		                                
 		pay.addPayRecipient(opts)
 			.then(function (response) {
 				// response.should.have.property('resourceId');
