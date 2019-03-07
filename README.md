@@ -84,7 +84,7 @@ router.post('/customercreated', function(req, res, next){
 ```node
 const subscribeOptions = { 
     eventType: 'buy_goods_received', 
-    url: '<https://my-valid-url.com/endpoint>', 
+    url: 'https://my-valid-url.com/endpoint', 
     webhookSecret: 'my_webhook_secret', 
     accessToken: 'my_access_token' }
 

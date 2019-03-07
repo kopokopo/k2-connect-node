@@ -22,7 +22,56 @@ describe('PayService', function () {
 			return pay.addPayRecipient(opts).should.be.rejected()
 		})
 
+		it('#addPayRecipient() has to have firstName', function () {
+			var opts = {}
+			opts.type = 'mobile_wallet'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '07012345678'
+			opts.network = 'Safaricom'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'First name can\'t be blank; ' })
+		})
+
+		it('#addPayRecipient() has to have lastName', function () {
+			var opts = {}
+			opts.type = 'mobile_wallet'
+			opts.firstName = 'Jane'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '07012345678'
+			opts.network = 'Safaricom'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
+		})
+
+		it('#addPayRecipient() has to have phone', function () {
+			var opts = {}
+			opts.type = 'mobile_wallet'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.network = 'Safaricom'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Phone can\'t be blank; ' })
+		})
+
+		it('#addPayRecipient() has to have network', function () {
+			var opts = {}
+			opts.type = 'mobile_wallet'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '07012345678'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Network can\'t be blank; ' })
+		})
+
 		it('#addPayRecipient() has to have accessToken', function () {
+			var opts = {}
 			opts.type = 'mobile_wallet'
 			opts.firstName = 'Jane'
 			opts.lastName = 'Doe'
@@ -30,7 +79,7 @@ describe('PayService', function () {
 			opts.phone = '07012345678'
 			opts.network = 'Safaricom'
 
-			return pay.addPayRecipient(opts).should.be.rejected()
+			return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 		})
 	})
 
@@ -41,14 +90,54 @@ describe('PayService', function () {
 			return pay.sendPay(opts).should.be.rejected()
 		})
 
+		it('#sendPay() has to have destination', function () {
+			var opts = {}
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Destination can\'t be blank; ' })
+		})
+
+		it('#sendPay() has to have currency', function () {
+			var opts = {}
+			opts.destination = 'my_destination'
+			opts.amount = 20
+			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Currency can\'t be blank; ' })
+		})
+
+		it('#sendPay() has to have amount', function () {
+			var opts = {}
+			opts.destination = 'my_destination'
+			opts.currency = 'KES'
+			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
+		})
+
+		it('#sendPay() has to have callbackUrl', function () {
+			var opts = {}
+			opts.destination = 'my_destination'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
+		})
+
 		it('#sendPay() has to have accessToken', function () {
 			var opts = {}
 			opts.destination = 'my_destination'
 			opts.currency = 'KES'
 			opts.amount = 20
-			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'  
+			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 
-			return pay.sendPay(opts).should.be.rejected()
+			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 		})
 	})
 
@@ -70,7 +159,7 @@ describe('PayService', function () {
 			var opts = {}
 			opts.accessToken= 'hardToGuessKey'
 
-			return pay.payStatus(opts).should.be.rejected()
+			return pay.payStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
 		})
 	})
 

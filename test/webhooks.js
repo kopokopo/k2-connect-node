@@ -23,13 +23,39 @@ describe('Webhooks', function () {
 				.should.be.rejected()
 		})
 
+		it('#subscribe() must have eventType', function () {
+			opts.url = 'http://localhost:8000/test'
+			opts.webhookSecret = 'webhook_secret'
+			opts.accessToken = 'hardToGuessKey'
+
+			return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Event type can\'t be blank; ' })
+		})
+
+		it('#subscribe() must have url', function () {
+			opts.url = null
+			opts.eventType = 'buy_goods_received'
+			opts.webhookSecret = 'webhook_secret'
+			opts.accessToken = 'hardToGuessKey'
+
+			return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Url can\'t be blank; ' })
+		})
+
+		it('#subscribe() must have webhookSecret', function () {
+			opts.eventType = 'buy_goods_received'
+			opts.url = 'http://localhost:8000/test'
+			opts.webhookSecret = null
+			opts.accessToken = 'hardToGuessKey'
+
+			return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Webhook secret can\'t be blank; ' })
+		})
+
 		it('#subscribe() must have accessToken', function () {
 			opts.eventType = 'buy_goods_received'
-			opts.url = null
+			opts.url = 'http://localhost:8000/test'
 			opts.webhookSecret = 'webhook_secret'
 			opts.accessToken = null
 
-			return webhooks.subscribe(opts).should.be.rejected()
+			return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 		})
 	})
 

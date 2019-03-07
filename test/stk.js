@@ -24,6 +24,134 @@ describe('StkService', function () {
 			return stk.paymentRequest(opts)
 				.should.be.rejected()
 		})
+
+		it('#paymentRequest() has to have tillNumber', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have firstName', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'First name can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have lastName', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have phone', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Phone can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have currency', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.amount = 20
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Currency can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have amount', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have callbackUrl', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
+		})
+
+		it('#paymentRequest() has to have accessToken', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+		})
 	})
 
 	describe('Stk payment status request validation', function () {
