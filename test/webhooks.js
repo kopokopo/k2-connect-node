@@ -40,6 +40,15 @@ describe('Webhooks', function () {
 			return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Url can\'t be blank; ' })
 		})
 
+		it('#subscribe() url has to be a valid url', function () {
+			opts.url = 'my_invalid_url'
+			opts.eventType = 'buy_goods_received'
+			opts.webhookSecret = 'webhook_secret'
+			opts.accessToken = 'hardToGuessKey'
+
+			return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Url is not a valid url; ' })
+		})
+
 		it('#subscribe() must have webhookSecret', function () {
 			opts.eventType = 'buy_goods_received'
 			opts.url = 'http://localhost:8000/test'

@@ -130,6 +130,17 @@ describe('PayService', function () {
 			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
 		})
 
+		it('#sendPay() callbackUrl has to be a valid url', function () {
+			var opts = {}
+			opts.destination = 'my_destination'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'an_invalid_url'
+			opts.accessToken= 'hardToGuessKey'
+
+			return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
+		})
+
 		it('#sendPay() has to have accessToken', function () {
 			var opts = {}
 			opts.destination = 'my_destination'

@@ -137,6 +137,23 @@ describe('StkService', function () {
 			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
 		})
 
+		it('#paymentRequest() callbackUrl has to be a valid url', function () {
+			var opts = {}
+	
+			opts.paymentChannel = 'M-PESA'
+			opts.tillNumber = '444555'
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
+			opts.email = 'janedoe@example.com'
+			opts.phone = '+254999999999'
+			opts.currency = 'KES'
+			opts.amount = 20
+			opts.callbackUrl = 'an_invalid_url'
+			opts.accessToken= 'hardToGuessKey'
+	
+			return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
+		})
+		
 		it('#paymentRequest() has to have accessToken', function () {
 			var opts = {}
 	
