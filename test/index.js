@@ -1,6 +1,6 @@
 // var should = require('chai').should()
 var should = require('should')
-var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
+var TEST_ACCOUNT = null
 
 describe('Initialization', function () {
 	this.timeout(5000)
