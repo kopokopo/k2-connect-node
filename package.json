@@ -7,7 +7,7 @@
     "test": "mocha"
   },
   "author": {
-    "name" : "Nicollet Njora"
+    "name": "Nicollet Njora"
   },
   "license": "ISC",
   "dependencies": {
@@ -23,6 +23,7 @@
     "chai": "^4.2.0",
     "eslint": "^5.14.1",
     "mocha": "^5.2.0",
+    "nock": "^10.0.6",
     "should": "^13.2.3"
   }
 }
