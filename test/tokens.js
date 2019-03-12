@@ -1,6 +1,11 @@
 // var should = require('chai').should()
 var should = require('should')
+const expect = require('chai').expect
+const nock = require('nock')
+
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
+const response = require('./response/tokens')
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io'
 
 var k2, tokens
 
@@ -10,19 +15,20 @@ describe('TokenService', function () {
 	before(function () {
 		k2 = require('../lib')(TEST_ACCOUNT)
 		tokens = k2.TokenService
+
+		nock(BASE_URL)
+			.post('/oauth/v4/token')
+			.reply(200, response)
 	})
 
-	var opts = {}
+	it('#getTokens()', () => {
+		tokens.getTokens().then(response => {
+			//expect an object back
+			expect(typeof response).to.equal('object')
 
-	it('#getTokens()', function (done) {
-		tokens.getTokens(opts)
-			.then(function (response) {
-				response.should.have.property('access_token')
-				done()
-			})
-			.catch(function (error) {
-				console.error(error)
-				done()
-			})
+			//Test result of status for the response
+			expect(response.token_type).to.equal('Bearer')
+
+		})
 	})
 })

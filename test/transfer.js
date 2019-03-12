@@ -181,9 +181,9 @@ describe('TransferService', function () {
 
 	describe('settlementStatus()', function () {
 		beforeEach(() => {
-			nock('https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io')
+			nock(BASE_URL)
 				.get('/transfer_status')
-				.reply(200, response.status);
+				.reply(200, response.status)
 		})
 
 		describe('settlementStatus() validation', function () {
@@ -224,12 +224,12 @@ describe('TransferService', function () {
 
 			return transfer.settlementStatus(opts).then(response => {
 				//expect an object back
-				expect(typeof response).to.equal('object');
+				expect(typeof response).to.equal('object')
 
 				//Test result of status for the response
 				expect(response.status).to.equal('Pending')
 
-			});
+			})
 		})
 	})
 })

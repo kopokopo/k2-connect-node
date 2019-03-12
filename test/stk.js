@@ -5,6 +5,8 @@ const nock = require('nock')
 
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
 const response = require('./response/stk')
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io'
+
 
 var k2, stk
 
@@ -19,7 +21,7 @@ describe('StkService', function () {
 
 	describe('paymentRequest() ', function () {
 		beforeEach(() => {
-			nock('https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io')
+			nock(BASE_URL)
 				.post('/payment_requests')
 				.reply(201, {}, response.location)
 		})
@@ -186,14 +188,14 @@ describe('StkService', function () {
 			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 			opts.accessToken = 'hardToGuessKey'
 			opts.metadata = {
-				"customer_id": "123456789",
-				"reference": "123456",
-				"notes": "Payment for invoice 12345"
+				'customer_id': '123456789',
+				'reference': '123456',
+				'notes': 'Payment for invoice 12345'
 			}
 
 			return stk.paymentRequest(opts).then(response => {
 
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/payments/c7f300c0-f1ef-4151-9bbe-005005aa3747')
+				expect(response).to.equal('https://api-sandbox.kopokopo.com/payment_requests/247b1bd8-f5a0-4b71-a898-f62f67b8ae1c')
 
 			})
 		})
@@ -201,7 +203,7 @@ describe('StkService', function () {
 
 	describe('paymentRequestStatus() ', function () {
 		beforeEach(() => {
-			nock('https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io')
+			nock(BASE_URL)
 				.get('/payment_status')
 				.reply(200, response.status)
 		})
@@ -239,7 +241,7 @@ describe('StkService', function () {
 				expect(typeof response).to.equal('object')
 
 				//Test result of status for the response
-				expect(response.status).to.equal('Scheduled')
+				expect(response.payment_request.status).to.equal('Success')
 
 			})
 		})
