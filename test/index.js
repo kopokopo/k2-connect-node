@@ -1,5 +1,4 @@
-// var should = require('chai').should()
-var should = require('should')
+require('should')
 var TEST_ACCOUNT = null
 
 describe('Initialization', function () {

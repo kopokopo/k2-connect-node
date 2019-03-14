@@ -1,5 +1,4 @@
-// var should = require('chai').should()
-var should = require('should')
+require('should')
 const expect = require('chai').expect
 const nock = require('nock')
 
