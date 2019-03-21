@@ -203,7 +203,7 @@ describe('StkService', function () {
 	describe('paymentRequestStatus() ', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
-				.get('/payment_status')
+				.get('/my_stk_request_location')
 				.reply(200, response.status)
 		})
 
@@ -215,7 +215,7 @@ describe('StkService', function () {
 			})
 
 			it('#paymentRequestStatus() has to have accessToken', function () {
-				opts.location = 'my_request_location'
+				opts.location = BASE_URL + '/my_stk_request_location'
 				opts.accessToken = null
 
 				return stk.paymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
@@ -233,11 +233,12 @@ describe('StkService', function () {
 			var opts = {}
 
 			opts.accessToken = 'hardToGuessKey'
-			opts.location = 'my_request_location'
+			opts.location = BASE_URL + '/my_stk_request_location'
 
 			return stk.paymentRequestStatus(opts).then(response => {
 				//expect an object back
 				expect(typeof response).to.equal('object')
+				console.log(response)
 
 				//Test result of status for the response
 				expect(response.payment_request.status).to.equal('Success')

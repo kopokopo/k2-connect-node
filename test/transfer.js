@@ -182,7 +182,7 @@ describe('TransferService', function () {
 	describe('settlementStatus()', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
-				.get('/transfer_status')
+				.get('/my_transfer_request_location')
 				.reply(200, response.status)
 		})
 
@@ -210,7 +210,7 @@ describe('TransferService', function () {
 
 			it('#settlementStatus() has to have accessToken', function () {
 				var opts = {}
-				opts.location = 'my_request_location'
+				opts.location = BASE_URL + '/my_transfer_request_location'
 
 				return transfer.settlementStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -220,12 +220,12 @@ describe('TransferService', function () {
 			var opts = {}
 
 			opts.accessToken = 'hardToGuessKey'
-			opts.location = 'my_request_location'
+			opts.location = BASE_URL + '/my_transfer_request_location'
 
 			return transfer.settlementStatus(opts).then(response => {
 				//expect an object back
 				expect(typeof response).to.equal('object')
-
+				console.log(response)
 				//Test result of status for the response
 				expect(response.status).to.equal('Pending')
 
