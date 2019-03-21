@@ -29,6 +29,19 @@
         "semi": [
             "error",
             "never"
+        ],
+        "spaced-comment": [
+            "error", "always", {
+                "line": {
+                    "markers": ["/"],
+                    "exceptions": ["-", "+"]
+                },
+                "block": {
+                    "markers": ["!"],
+                    "exceptions": ["*"],
+                    "balanced": true
+                }
+            }
         ]
     }
 }
