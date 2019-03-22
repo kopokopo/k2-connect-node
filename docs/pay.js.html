@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pay.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pay.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+const dispatch = require('./helpers/dispatch')
+const payValidate = require('./validate/pay')
+const statusValidate = require('./validate/statusValidate')
+
+const payStatusHandler = require('./helpers/handlers/pay_status')
+
+/**
+ * Handles the pay operations
+ * @module PayService
+ * @constructor
+ * @param {object} options
+ * @param {string} options.baseUrl
+*/
+function PayService(options) {
+	this.options = options
+	const baseUrl = this.options.baseUrl
+
+	/**
+	 * Handles requests for adding a pay recipient
+	 * @function addPayRecipient
+	 * @memberof PayService
+	 * @param {object} opts
+	 * @returns {Promise} Promise object having the location url of the request
+	*/
+	this.addPayRecipient = function (opts) {
+		return new Promise(function (resolve, reject) {
+			let validationError
+			if (opts.type === 'mobile_wallet') {
+				validationError = payValidate.payRecipientMobileValidate(opts)
+			} else {
+				validationError = payValidate.payRecipientAccountValidate(opts)
+			}
+
+			if (validationError) {
+				reject(validationError)
+			}
+
+			if (opts.type === 'bank_account') {
+				var reqBody = {
+					'type': opts.type,
+					'pay_recipient': {
+						'name': opts.name,
+						'account_name': opts.accountName,
+						'bank_id': opts.bankRef,
+						'bank_branch_id': opts.bankBranchRef,
+						'account_number': opts.accountNumber,
+						'email': opts.email,
+						'phone': opts.phone
+					}
+				}
+			} else {
+				reqBody = {
+					'type': opts.type,
+					'pay_recipient': {
+						'firstName': opts.firstName,
+						'lastName': opts.lastName,
+						'email': opts.email,
+						'phone': opts.phone,
+						'network': opts.network
+					}
+				}
+			}
+			dispatch.sendRequest(reqBody, baseUrl + '/pay_recipients', opts.accessToken)
+				.then((response) => {
+					resolve(response.headers['location'])
+				})
+				.catch((error) => {
+					reject(error)
+				})
+		})
+	}
+
+	/**
+	 * Handles requests for sending pay
+	 * @function sendPay
+	 * @memberof PayService
+	 * @param {object} opts
+	 * @param {string} opts.amount - The amount to settle.
+	 * @param {string} opts.currency - The currency to settle to.
+	 * @param {string} opts.destination - The destination of the settlement i.e bank or mobile wallet.
+	 * @param {string} opts.callbackUrl - The url that the result will be posted to asynchronously.
+	 * @param {object} opts.metadata - The extra information a merchant wants to include. A max of 5 key value pairs
+	 * @param {string} opts.accessToken - The access token for authorization.
+	 * @returns {Promise} Promise object having the location url of the request
+	*/
+	this.sendPay = function (opts) {
+		return new Promise(function (resolve, reject) {
+			let validationError = payValidate.payValidate(opts)
+
+			if (validationError) {
+				reject(validationError)
+			}
+			var reqBody = {
+				'destination': opts.destination,
+				'amount': {
+					'currency': opts.currency,
+					'value': opts.amount
+				},
+				'metadata': opts.metadata,
+				'_links': {
+					'callback_url': opts.callbackUrl
+				}
+			}
+			dispatch.sendRequest(reqBody, baseUrl + '/payments', opts.accessToken)
+				.then((response) => {
+					resolve(response.headers['location'])
+				})
+				.catch((error) => {
+					reject(error)
+				})
+		})
+	}
+
+	/**
+	 * Handles requests for querrying a pay request status
+	 * @function payStatus
+	 * @memberof PayService
+	 * @param {object} opts
+	 * @param {string} opts.location - The location url of the request.
+	 * @param {string} opts.accessToken - The access token for authorization.
+	 * @returns {Promise} Promise object having details on the status of the request
+	*/
+	this.payStatus = function (opts) {
+		return new Promise(function (resolve, reject) {
+			let validationError = statusValidate(opts)
+
+			if (validationError) {
+				reject(validationError)
+			}
+
+			dispatch.getContent(opts.location, opts.accessToken)
+				.then((response) => {
+					resolve(payStatusHandler(response))
+				})
+				.catch((error) => {
+					reject(error)
+				})
+		})
+	}
+}
+
+module.exports = {
+	PayService
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="K2.html">K2</a></li><li><a href="PayService.html">PayService</a></li><li><a href="StkService.html">StkService</a></li><li><a href="TokenService.html">TokenService</a></li><li><a href="TransferService.html">TransferService</a></li><li><a href="Webhooks.html">Webhooks</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 22 2019 08:26:16 GMT+0300 (EAT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
