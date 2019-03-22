@@ -238,7 +238,6 @@ describe('StkService', function () {
 			return stk.paymentRequestStatus(opts).then(response => {
 				//expect an object back
 				expect(typeof response).to.equal('object')
-				console.log(response)
 
 				//Test result of status for the response
 				expect(response.payment_request.status).to.equal('Success')

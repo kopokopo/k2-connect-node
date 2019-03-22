@@ -225,7 +225,7 @@ describe('TransferService', function () {
 			return transfer.settlementStatus(opts).then(response => {
 				//expect an object back
 				expect(typeof response).to.equal('object')
-				console.log(response)
+				
 				//Test result of status for the response
 				expect(response.status).to.equal('Pending')
 
