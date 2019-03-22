@@ -21,12 +21,14 @@ The package should be configured with your client id and client secret which you
 //Having stored your client id and client secret as environment variables
 const options = {
   clientId: process.env.K2_CLIENT_ID,
-  clientSecret: process.env.K2_CLIENT_SECRET
+  clientSecret: process.env.K2_CLIENT_SECRET,
+  baseUrl: process.env.K2_BASE_URL
 };
 
 //Including the kopokopo module
 var K2 = require("k2-connect")(options);
 ```
+Note: The `baseUrl` can be custom for testing purposes but we recommend using the sandbox base url during development.
 
 ### After initialization, you can get instances of offered services as follows:
 
@@ -156,7 +158,7 @@ NB: The access token is required to send subsequent requests
   - `email`: Amount to charge.
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `callbackUrl`: Amount to charge. `REQUIRED`
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to  `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
@@ -183,7 +185,7 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
   - `destination`: The destination `REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `callbackUrl`: Amount to charge. `REQUIRED`
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to  `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
@@ -215,6 +217,221 @@ For more information, please read <https://api-docs.kopokopo.com/#send-money-pay
   - `location`: The request location you get when you send a request
 
 For more information, please read <https://api-docs.kopokopo.com/#transfer-to-your-account-s>
+
+### Responses and Results
+
+  - All the post requests are asynchronous apart from `TokenService`. This means that the result will be posted to your custom callback url when the request is complete. The immediate response of the post requests contain the `location` url of the request you have sent which you can use to query the status.
+
+Note: The asynchronous results are processed like webhooks.
+
+#### Webhooks
+- Buygoods Received 
+	```json
+	{
+		"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+		"topic": "transaction_received",
+		"createdAt": "2017-01-20T22:45:12.790Z",
+		"eventType": "Buygoods Transaction",
+		"reference": "KKPPLLMMNN",
+		"originationTime": "2017-01-20T22:45:12.790Z",
+		"senderMsisdn": "+2549703119050",
+		"amount": 3000,
+		"currency": "KES",
+		"tillNumber": "111222",
+		"system": "Lipa Na M-PESA",
+		"status": "Received",
+		"firstName": "John",
+		"middleName": "O",
+		"lastName": "Doe",
+		"linkSelf": "https://api-sandbox.kopokopo.com/events/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"linkResource": "https://api-sandbox.kopokopo.com/buygoods_transaction/cdb5f11f-62df-e611-80ee-0aa34a9b2388"
+	}
+	```
+
+- B2b transaction received
+	```json
+	{
+		"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+		"topic": "transaction_received",
+		"createdAt": "2017-01-20T22:45:12.790Z",
+		"eventType": "B2b Transaction",
+		"reference": "KKPPLLMMNN",
+		"originationTime": "2017-01-20T22:45:12.790Z",
+		"sendingTill": "119050",
+		"amount": 3000,
+		"currency": "KES",
+		"tillNumber": "111222",
+		"system": "Lipa Na M-PESA",
+		"status": "Received",
+		"linkSelf": "https://api-sandbox.kopokopo.com/events/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"linkResource": "https://api-sandbox.kopokopo.com/b2b_transaction/cdb5f11f-62df-e611-80ee-0aa34a9b2388"
+	}
+	```
+- Merchant to merchant transaction received
+	```json
+	{
+		"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+		"topic": "transaction_received",
+		"createdAt": "2017-01-20T22:45:12.790Z",
+		"eventType": "Merchant to Merchant Transaction",
+		"reference": "KKPPLLMMNN",
+		"originationTime": "2017-01-20T22:45:12.790Z",
+		"sendingMerchant": "Kings Landing Enterprises",
+		"amount": 3000,
+		"currency": "KES",
+		"status": "Received",
+		"linkSelf": "https://api-sandbox.kopokopo.com/events/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"linkResource": "https://api-sandbox.kopokopo.com/m2m_transaction/cdb5f11f-62df-e611-80ee-0aa34a9b2388"
+	}
+	```
+- Buygoods transaction reversed
+	```json
+	{
+		"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+		"topic": "buygoods_transaction_reversed",
+		"createdAt": "2017-01-20T22:45:12.790Z",
+		"eventType": "Buygoods Transaction Reversed",
+		"reference": "KKPPLLMMNN",
+		"originationTime": "2018-01-20T22:45:12.790Z",
+		"reversalTime": "2018-01-21T22:45:12.790Z",
+		"senderMsisdn": "+254712345678",
+		"amount": 3000,
+		"currency": "KES",
+		"tillNumber": "111222",
+		"system": "Lipa Na M-PESA",
+		"status": "Reversed",
+		"firstName": "John",
+		"middleName": "O",
+		"lastName": "Doe",
+		"linkSelf": "https://api-sandbox.kopokopo.com/events/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"linkResource": "https://api-sandbox.kopokopo.com/buygoods_transaction/cdb5f11f-62df-e611-80ee-0aa34a9b2388"
+	}
+	```
+- Transfer completed webhook
+	```json
+	{
+		"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+		"topic": "settlement_transfer_completed",
+		"createdAt": "2017-01-20T22:45:12.790Z",
+		"eventType": "Settlement",
+		"reference": "KKPPLLMMNN",
+		"originationTime": "2018-01-20T22:45:12.790Z",
+		"transferTime": "2018-01-21T22:45:12.790Z",
+		"transferType": "Bank Transfer",
+		"amount": 3000,
+		"currency": "KES",
+		"status": "Transferred",
+		"destinationType": "bank",
+		"destinationMode": "RTS",
+		"destinationBank": "Barclays Bank",
+		"destinationBranch": "Ridgeways",
+		"destinationAccountNumber": "99999999999",
+		"linkSelf": "https://api-sandbox.kopokopo.com/events/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"linkResource": "https://api-sandbox.kopokopo.com/transfer_batches/cdb5f11f-62df-e611-80ee-0aa34a9b2388"
+	}
+	```
+- Customer created webhook
+	```json
+	{
+		"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+		"topic": "customer_created",
+		"createdAt": "2017-01-20T22:45:12.790Z",
+		"eventType": "Customer Created",
+		"firstName": "John",
+		"middleName": "O",
+		"lastName": "Doe",
+		"msisdn": "+254712345678",
+		"linkSelf": "https://api-sandbox.kopokopo.com/events/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+		"linkResource": "https://api-sandbox.kopokopo.com/customers/cdb5f11f-62df-e611-80ee-0aa34a9b2388"
+	}
+	```
+- Transfer result
+  ```json
+	{
+		"id": "d76265cd-0951-e511-80da-0aa34a9b2388",
+		"topic": "transfers",
+		"status": "Pending",
+		"completedAt": "2018-05-02T00:30:25.580Z",
+		"amount": "225.00",
+		"currency": "KES",
+		"linkSelf": "https://api-sandbox.kopokopo.com/transfers/d76265cd-0951-e511-80da-0aa34a9b2388"
+	}
+  ```
+- Pay result
+	```json
+	{
+		"topic": "pay_request",
+		"status": "Sent",
+		"reference": "KKKKKKKKK",
+		"originationTime": "2018-07-20T22:45:12.790Z",
+		"destination": "c7f300c0-f1ef-4151-9bbe-005005aa3747",
+		"amount": 20000,
+		"currency": "KES",
+		"metadata": {
+			"customerId": "8675309",
+			"notes": "Salary payment for May 2018"
+		},
+		"linkSelf": "https://api-sandbox.kopokopo.com/payments/d76265cd-0951-e511-80da-0aa34a9b2388"
+	}
+	```
+- Stk Push Result
+	- Successful result
+		```json
+		{
+			"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+			"resourceId": "cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+			"topic": "payment_request",
+			"createdAt": "2018-06-20T22:45:12.790Z",
+			"status": "Received",
+			"eventType": "Payment Request",
+			"reference": "KKPPLLMMNN",
+			"originationTime": "2017-01-20T22:45:12.790Z",
+			"senderMsisdn": "+254712345678",
+			"amount": 20000,
+			"currency": "KES",
+			"tillNumber": "111222",
+			"system": "Lipa Na M-PESA",
+			"firstName": "John",
+			"middleName": "O",
+			"lastName": "Doe",
+			"errors": [],
+			"linkResource": "https://api-sandbox.kopokopo.com/buygoods_transaction/cdb5f11f-62df-e611-80ee-0aa34a9b2388",
+			"metadata": {
+				"customer_id": "123456789",
+				"reference": "123456",
+				"notes": "Payment for invoice 123456"
+			},
+			"linkSelf": "https://api-sandbox.kopokopo.com/payment_request_results/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+			"linkPaymentRequest": "https://api-sandbox.kopokopo.com/payment_requests/cac95329-9fa5-42f1-a4fc-c08af7b868fb"
+		}
+		```
+	- Unsuccessful result
+		```json
+			{
+				"id": "cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+				"resourceId": null,
+				"topic": "payment_request",
+				"createdAt": "2018-06-20T22:45:12.790Z",
+				"status": "Failed",
+				"eventType": "Payment Request",
+				"resource": null,
+				"errorsCode": "501",
+				"errorsDescription": "Insufficient funds",
+				"metadata": {
+					"customer_id": "123456789",
+					"reference": "123456",
+					"notes": "Payment for invoice 123456"
+				},
+				"linkSelf": "https://api-sandbox.kopokopo.com/payment_request_results/cac95329-9fa5-42f1-a4fc-c08af7b868fb",
+				"linkPaymentRequest": "https://api-sandbox.kopokopo.com/payment_requests/cac95329-9fa5-42f1-a4fc-c08af7b868fb"
+			}
+		```
 
 ## Development
 
