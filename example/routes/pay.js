@@ -3,8 +3,8 @@ const router = express.Router()
 
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
-    clientSecret: process.env.K2_CLIENT_SECRET,
-    baseUrl: process.env.K2_BASE_URL
+	clientSecret: process.env.K2_CLIENT_SECRET,
+	baseUrl: process.env.K2_BASE_URL
 }
 
 // Including the kopokopo module
@@ -59,15 +59,15 @@ router.get('/recipients', function (req, res, next) {
 })
 
 router.post('/recipients', function (req, res, next) {
-    var recipientOpts = {
-        type: 'mobile_wallet',
-        firstName: req.body.first_name,
-        lastName: req.body.last_name,
-        email: req.body.email,
-        phone: req.body.phone,
-        network: 'Safaricom',
-        accessToken: token_details.access_token
-    }
+	var recipientOpts = {
+		type: 'mobile_wallet',
+		firstName: req.body.first_name,
+		lastName: req.body.last_name,
+		email: req.body.email,
+		phone: req.body.phone,
+		network: 'Safaricom',
+		accessToken: token_details.access_token
+	}
 
 	// Send message and capture the response or error
 	PayService
@@ -82,15 +82,15 @@ router.post('/recipients', function (req, res, next) {
 })
 
 router.get('/status', function (req, res, next) {
-    PayService
-        .payStatus({ accessToken: token_details.access_token, location:  process.env.K2_BASE_URL + '/pay_status' })
-        .then(response => {
-            return res.render('paystatus', { message: 'Pay status is: ' + response })
-        })
-        .catch(error => {
-            console.log(error)
-            return res.render('paystatus', { message: 'Error: ' + error })
-        })
+	PayService
+		.payStatus({ accessToken: token_details.access_token, location:  process.env.K2_BASE_URL + '/pay_status' })
+		.then(response => {
+			return res.render('paystatus', { message: 'Pay status is: ' + response })
+		})
+		.catch(error => {
+			console.log(error)
+			return res.render('paystatus', { message: 'Error: ' + error })
+		})
 })
 
 module.exports = router

@@ -59,10 +59,10 @@ router.get('/result', function (req, res, next) {
 			name: resource.event.resource.sender_first_name,
 			status: resource.event.resource.status,
 			system: resource.event.resource.system
-		});
+		})
 	} else {
-		console.log("STK push result not yet posted")
-		res.render('stkresult', { error: "STK push result not yet posted" });
+		console.log('STK push result not yet posted')
+		res.render('stkresult', { error: 'STK push result not yet posted' })
 	}
 })
 

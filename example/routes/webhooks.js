@@ -7,7 +7,7 @@ const options = {
 	baseUrl: process.env.K2_BASE_URL
 }
 
-//Including the kopokopo module
+// Including the kopokopo module
 var K2 = require('kopokopo-node')(options)
 var Webhooks = K2.Webhooks
 var tokens = K2.TokenService
@@ -19,7 +19,7 @@ var token_details
 tokens
 	.getTokens()
 	.then(response => {
-		//Developer can decide to store the token_details and track expiry
+		// Developer can decide to store the token_details and track expiry
 		token_details = response
 	})
 	.catch(error => {
@@ -86,7 +86,7 @@ router.get('/reversalresource', function (req, res, next) {
 			name: resource.event.resource.sender_first_name + resource.event.resource.sender_middle_name + resource.event.resource.sender_last_name ,
 			status: resource.event.resource.status,
 			system: resource.event.resource.system
-		});
+		})
 	} else {
 		console.log('Resource not yet created')
 		res.render('reversalresource', { error: 'Resource not yet created' })
