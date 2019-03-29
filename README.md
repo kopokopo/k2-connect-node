@@ -1,5 +1,6 @@
-# DISCLAIMER: 
-This is still in development. To connect to the current kopokopo's api check out it's documentation on https://app.kopokopo.com/push_api
+# DISCLAIMER:
+
+This is still in development. To connect to the current kopokopo's api check out it's documentation on <https://app.kopokopo.com/push_api>
 
 # Kopokopo Node.js SDK
 
@@ -28,6 +29,7 @@ const options = {
 //Including the kopokopo module
 var K2 = require("k2-connect")(options);
 ```
+
 Note: The `baseUrl` can be custom for testing purposes but we recommend using the sandbox base url during development.
 
 ### After initialization, you can get instances of offered services as follows:
@@ -158,7 +160,7 @@ NB: The access token is required to send subsequent requests
   - `email`: Amount to charge.
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to  `REQUIRED`
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
@@ -185,7 +187,7 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
   - `destination`: The destination `REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
-  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to  `REQUIRED`
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
@@ -220,14 +222,16 @@ For more information, please read <https://api-docs.kopokopo.com/#transfer-to-yo
 
 ### Responses and Results
 
-  - All the post requests are asynchronous apart from `TokenService`. This means that the result will be posted to your custom callback url when the request is complete. The immediate response of the post requests contain the `location` url of the request you have sent which you can use to query the status.
+- All the post requests are asynchronous apart from `TokenService`. This means that the result will be posted to your custom callback url when the request is complete. The immediate response of the post requests contain the `location` url of the request you have sent which you can use to query the status.
 
 Note: The asynchronous results are processed like webhooks.
 
 ## Author
+
 [Nicollet Njora](https://github.com/NicoNjora)
 
 ## Contributions
+
 We welcome those with open arms just make a pull request and we will review.
 
 ### Development
@@ -240,9 +244,11 @@ $ npm test
 ```
 
 ### Issues
+
 If you find a bug, please file an issue on [our issue tracker on GitHub](https://github.com/kopokopo/k2-connect-php/issues).
 
 ## License
+
 k2-connect-node is MIT licensed. See [LICENSE](https://github.com/kopokopo/k2-connect-node/blob/master/LICENSE) for details.
 
 ## Change log
