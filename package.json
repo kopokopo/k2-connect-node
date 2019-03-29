@@ -7,7 +7,9 @@
     "test": "mocha"
   },
   "author": {
-    "name": "Nicollet Njora"
+    "name": "Nicollet Njora",
+    "email": "nicollet.njora05@gmail.com",
+    "url": "http://www.nicolletnjora.com"
   },
   "license": "ISC",
   "dependencies": {
