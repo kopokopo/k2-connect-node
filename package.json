@@ -6,12 +6,8 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": {
-    "name": "Nicollet Njora",
-    "email": "nicollet.njora05@gmail.com",
-    "url": "http://www.nicolletnjora.com"
-  },
-  "license": "ISC",
+  "author": "Nicollet Njora <nicollet.njora05@gmail.com> (http://www.nicolletnjora.com)",
+  "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.11",
     "unirest": "^0.5.1",
@@ -19,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kopokopo/k2-connect-node"
+    "url": "git://github.com/kopokopo/k2-connect-node.git"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -35,5 +31,14 @@
     "hooks": {
       "pre-push": "npm test"
     }
+  },
+  "bugs": {
+    "url": "https://github.com/kopokopo/k2-connect-node/issues"
+  },
+  "homepage": "https://github.com/kopokopo/k2-connect-node#readme",
+  "directories": {
+    "doc": "docs",
+    "example": "example",
+    "test": "test"
   }
 }
