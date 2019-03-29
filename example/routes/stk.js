@@ -51,18 +51,18 @@ router.get('/result', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('stkresult', {
-			originationTime: resource.originationTime,
-			senderMsisdn: resource.senderMsisdn,
-			amount: resource.amount,
-			currency: resource.currency,
-			tillNumber: resource.tillNumber,
-			name: resource.firstName + " " + resource.middleName + " " + resource.lastName,
-			status: resource.status,
-			system: resource.system
-		})
+			origination_time: resource.event.resource.origination_time,
+			sender_msisdn: resource.event.resource.sender_msisdn,
+			amount: resource.event.resource.amount,
+			currency: resource.event.resource.currency,
+			till_number: resource.event.resource.till_number,
+			name: resource.event.resource.sender_first_name,
+			status: resource.event.resource.status,
+			system: resource.event.resource.system
+		});
 	} else {
-		console.log('STK push result not yet posted')
-		res.render('stkresult', { error: 'STK push result not yet posted' })
+		console.log("STK push result not yet posted")
+		res.render('stkresult', { error: "STK push result not yet posted" });
 	}
 })
 

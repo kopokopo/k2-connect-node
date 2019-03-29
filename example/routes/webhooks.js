@@ -3,8 +3,8 @@ const router = express.Router()
 
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
-    clientSecret: process.env.K2_CLIENT_SECRET,
-    baseUrl: process.env.K2_BASE_URL
+	clientSecret: process.env.K2_CLIENT_SECRET,
+	baseUrl: process.env.K2_BASE_URL
 }
 
 //Including the kopokopo module
@@ -64,8 +64,8 @@ router.get('/customerresource', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('customerresource', {
-			sender_msisdn: resource.msisdn,
-			name: resource.firstName
+			sender_msisdn: resource.event.resource.msisdn,
+			name: resource.event.resource.first_name
 		})
 	} else {
 		console.log('Resource not yet created')
@@ -78,15 +78,15 @@ router.get('/reversalresource', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('reversalresource', {
-			origination_time: resource.originationTime,
-			sender_msisdn: resource.senderMsisdn,
-			amount: resource.amount,
-			currency: resource.currency,
-			till_number: resource.tillNumber,
-			name: resource.firstName + " " + resource.middleName + " " + resource.lastName,
-			status: resource.status,
-			system: resource.system
-		})
+			origination_time: resource.event.resource.origination_time,
+			sender_msisdn: resource.event.resource.sender_msisdn,
+			amount: resource.event.resource.amount,
+			currency: resource.event.resource.currency,
+			till_number: resource.event.resource.till_number,
+			name: resource.event.resource.sender_first_name + resource.event.resource.sender_middle_name + resource.event.resource.sender_last_name ,
+			status: resource.event.resource.status,
+			system: resource.event.resource.system
+		});
 	} else {
 		console.log('Resource not yet created')
 		res.render('reversalresource', { error: 'Resource not yet created' })
@@ -98,14 +98,14 @@ router.get('/resource', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('resource', {
-			origination_time: resource.originationTime,
-			sender_msisdn: resource.senderMsisdn,
-			amount: resource.amount,
-			currency: resource.currency,
-			till_number: resource.tillNumber,
-			name: resource.firstName + " " + resource.middleName + " " + resource.lastName,
-			status: resource.status,
-			system: resource.system
+			origination_time: resource.event.resource.origination_time,
+			sender_msisdn: resource.event.resource.sender_msisdn,
+			amount: resource.event.resource.amount,
+			currency: resource.event.resource.currency,
+			till_number: resource.event.resource.till_number,
+			name: resource.event.resource.sender_first_name + resource.event.resource.sender_middle_name + resource.event.resource.sender_last_name ,
+			status: resource.event.resource.status,
+			system: resource.event.resource.system
 		})
 	} else {
 		console.log('Resource not yet created')
@@ -119,17 +119,16 @@ router.get('/subscribe', function (req, res, next) {
 
 
 router.post('/subscribe', function (req, res, next) {
-    const subscribeOptions = {
-        eventType: req.body.event_type,
-        url: req.body.url,
-        webhookSecret: process.env.BUYGOODS_WEBHOOK_SECRET,
-        accessToken: token_details.access_token
-    }
+	const subscribeOptions = {
+		eventType: req.body.event_type,
+		url: req.body.url,
+		webhookSecret: process.env.BUYGOODS_WEBHOOK_SECRET,
+		accessToken: token_details.access_token
+	}
 
 	Webhooks
 		.subscribe(subscribeOptions)
 		.then(response => {
-			console.log(response)
 			return res.render('subscribe', { message: 'Subscribe successful resource id is: ' + response })
 		})
 		.catch(error => {
