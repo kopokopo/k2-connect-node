@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    br
+    br
+    p !{message}
+    p !{statusCode}
+    .container
+        .title.h3 Subscribe to a webhook
+        br
+        form#bulkSmsForm(action="/webhook/subscribe", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label(for="event_type") Event Type
+                .col-sm-7
+                    select(name = "event_type")
+                        option(value="buy_goods_received") Buy Goods Received 
+                        option(value="buy_goods_reversed") Buy Goods Reversed
+                        option(value="settlement_completed") Settlement Completed
+                        option(value="customer_created") Customer Created
+            .form-group.row
+                label.col-sm-2.col-form-label(for="url") URL
+                .col-sm-7
+                    textarea#amount.form-control(name="url", type='text', placeholder='Enter URL' required)
+                    small.form-text.text-muted
+                        | Enter the webhook url
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Subscribe

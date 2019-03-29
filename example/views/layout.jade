@@ -1,0 +1,54 @@
+doctype html
+html
+    head
+        //- title= title
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        
+        script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")       
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')   
+   
+    body
+        
+        header
+            nav.navbar.navbar-expand-lg.navbar-light.bg-light
+                a.navbar-brand(href='/') Example APP
+                button.navbar-toggler(data-toggle="collapse" data-target="#navbarSupportedContent")
+                .collapse.navbar-collapse#navbarSupportedContent
+                    ul.nav.navbar-nav
+                        li.nav-item(role='presentation')
+                            a.nav-link(href='/') Home
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")  Webhooks
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/webhook/subscribe') Webhook Subscription
+                                a.dropdown-item(href='/webhook/resource') Buy Goods Received Resource
+                                a.dropdown-item(href='/webhook/reversalresource') Buy Goods Reversed Resource
+                                a.dropdown-item(href='/webhook/customerresource') Customer Resource
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Mpesa Payments
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/stk') STK Push
+                                a.dropdown-item(href='/stk/result') Process Payment Request Result
+                                a.dropdown-item(href='/stk/status') Query Payment Status
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/pay') Create a Payment
+                                a.dropdown-item(href='/pay/recipients') Adding PAY recipients 
+                                a.dropdown-item(href='/pay/status') Payment status
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/transfer') Initiate a transfer
+                                a.dropdown-item(href='/transfer/createsettlement') Create a settlement Account
+                                a.dropdown-item(href='/transfer/status') Query Transfer status
+                            
+        .d-flex.align-items-xl-center.flex-column
+            block content
+       

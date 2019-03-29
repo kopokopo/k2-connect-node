@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+    br
+    br
+    .container
+        h4 Here is the Customer Created resource:
+        br
+
+        //- h2 !{param1}
+        p !{error}
+        p  Customer msisdn: !{sender_msisdn}
+        p  Customer Name: !{name}
+
+
+    //- button.btn.btn-success Request for resource

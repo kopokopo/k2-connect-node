@@ -1,0 +1,21 @@
+{
+  "name": "butchery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jade": "^1.11.0",
+    "kopokopo-node": "git+https://github.com/kopokopo/k2-connect-node.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/NicoNjora/FreshMeatButchery"
+  }
+}

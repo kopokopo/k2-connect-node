@@ -1,0 +1,40 @@
+extends layout
+
+block content
+
+    br
+
+    p !{message}
+    .container
+        .title.h3 Add Pay Recipient
+        br
+        form(action="/pay/recipients", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label First Name
+                .col-sm-7
+                    input.form-control(name="first_name", type='text', placeholder='Enter  First Name' required)
+                    small.form-text.text-muted
+                        | Enter First Name    
+            .form-group.row
+                label.col-sm-2.col-form-label Last Name
+                .col-sm-7
+                    input.form-control(name="last_name", type='text', placeholder='Enter Last Name' required)
+                    small.form-text.text-muted
+                        | Enter Last Name     
+            .form-group.row
+                label.col-sm-2.col-form-label Email Address
+                .col-sm-7
+                    input.form-control(name="email", type='email', placeholder='Enter Email Address' required)
+                    small.form-text.text-muted
+                        | Enter Email       
+            .form-group.row
+                label.col-sm-2.col-form-label Phone Number
+                .col-sm-7
+                    input.form-control(name="phone", type='phone', placeholder='Enter Phone Number' required)
+                    small.form-text.text-muted
+                        | Enter Phone Number
+            
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Add Pay Recipient

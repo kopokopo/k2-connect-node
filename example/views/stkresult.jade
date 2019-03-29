@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+    br
+    br
+    .container
+        h4 Here is the STK Push Result:
+        br
+
+        //- h2 !{param1}
+        p !{error}
+        p  Origination Time: !{originationTime}
+        p  Sender msisdn: !{senderMsisdn}
+        p  Amount: !{amount}
+        p  Currency: !{currency}
+        p  Till Number: !{tillNumber}
+        p  Name: !{name}
+        p  Status: !{status}
+        p  System: !{system}
+
+    //- button.btn.btn-success Request for resource
