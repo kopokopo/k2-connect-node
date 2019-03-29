@@ -335,10 +335,10 @@ describe('PayService', function () {
 			opts.location = BASE_URL + '/my_pay_request_location'
 
 			return pay.payStatus(opts).then(response => {
-				//expect an object back
+				// expect an object back
 				expect(typeof response).to.equal('object')
 
-				//Test result of status for the response
+				// Test result of status for the response
 				expect(response.status).to.equal('Scheduled')
 
 			})

@@ -124,7 +124,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.eventType).to.equal('Buygoods Transaction')
+						expect(response.event.type).to.equal('Buygoods Transaction')
 
 					})
 				})
@@ -143,7 +143,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.eventType).to.equal('B2b Transaction')
+						expect(response.event.type).to.equal('B2b Transaction')
 
 					})
 				})
@@ -162,7 +162,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.eventType).to.equal('Merchant to Merchant Transaction')
+						expect(response.event.type).to.equal('Merchant to Merchant Transaction')
 
 					})
 				})
@@ -182,7 +182,7 @@ describe('Webhooks', function () {
 
 				return webhooks.webhookHandler(req, res).then(response => {
 
-					expect(response.eventType).to.equal('Buygoods Transaction Reversed')
+					expect(response.event.type).to.equal('Buygoods Transaction Reversed')
 
 				})
 			})
@@ -201,7 +201,7 @@ describe('Webhooks', function () {
 
 				return webhooks.webhookHandler(req, res).then(response => {
 
-					expect(response.eventType).to.equal('Settlement')
+					expect(response.event.type).to.equal('Settlement')
 
 				})
 			})
@@ -220,7 +220,7 @@ describe('Webhooks', function () {
 
 				return webhooks.webhookHandler(req, res).then(response => {
 
-					expect(response.eventType).to.equal('Customer Created')
+					expect(response.event.type).to.equal('Customer Created')
 
 				})
 			})
@@ -240,7 +240,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.eventType).to.equal('Payment Request')
+						expect(response.event.type).to.equal('Payment Request')
 
 					})
 				})
@@ -259,7 +259,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.eventType).to.equal('Payment Request')
+						expect(response.event.type).to.equal('Payment Request')
 
 					})
 				})

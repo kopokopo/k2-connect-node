@@ -22,10 +22,10 @@ describe('TokenService', function () {
 
 	it('#getTokens()', () => {
 		tokens.getTokens().then(response => {
-			//expect an object back
+			// expect an object back
 			expect(typeof response).to.equal('object')
 
-			//Test result of status for the response
+			// Test result of status for the response
 			expect(response.token_type).to.equal('Bearer')
 
 		})
