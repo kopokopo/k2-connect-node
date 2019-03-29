@@ -132,7 +132,7 @@ var stkOptions = {
     });
 ```
 
-For other usage examples check out the [example app](https://github.com/NicoNjora/FreshMeatButchery).
+For other usage examples check out the [example app](https://github.com/kopokopo/k2-connect-node/tree/master/example).
 
 ## Services
 
@@ -224,7 +224,13 @@ For more information, please read <https://api-docs.kopokopo.com/#transfer-to-yo
 
 Note: The asynchronous results are processed like webhooks.
 
-## Development
+## Author
+[Nicollet Njora](https://github.com/NicoNjora)
+
+## Contributions
+We welcome those with open arms just make a pull request and we will review.
+
+### Development
 
 Run all tests:
 
@@ -233,6 +239,10 @@ $ npm install
 $ npm test
 ```
 
-## Issues
+### Issues
+If you find a bug, please file an issue on [our issue tracker on GitHub](https://github.com/kopokopo/k2-connect-php/issues).
 
-If you find a bug, please file an issue on [our issue tracker on GitHub](https://github.com/kopokopo/k2-connect-node/issues).
+## License
+k2-connect-node is MIT licensed. See [LICENSE](https://github.com/kopokopo/k2-connect-node/blob/master/LICENSE) for details.
+
+## Change log
