@@ -13,9 +13,11 @@ block content
                 label.col-sm-2.col-form-label(for="event_type") Event Type
                 .col-sm-7
                     select(name = "event_type")
-                        option(value="buy_goods_received") Buy Goods Received 
-                        option(value="buy_goods_reversed") Buy Goods Reversed
-                        option(value="settlement_completed") Settlement Completed
+                        option(value="buygoods_transaction_received") Buygoods Transaction Received 
+                        option(value="b2b_transaction_received") B2b Transaction Received
+                        option(value="m2m_transaction_received") M2m Transaction Received
+                        option(value="buygoods_transaction_reversed") Buygoods Transaction Reversed
+                        option(value="settlement_transfer_completed") Settlement Completed
                         option(value="customer_created") Customer Created
             .form-group.row
                 label.col-sm-2.col-form-label(for="url") URL

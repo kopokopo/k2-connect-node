@@ -30,7 +30,8 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 	var payOpts = {
-		destination: req.body.destination,
+		destinationReference: req.body.destinationReference,
+		destinationType: req.body.destinationType,
 		amount: req.body.amount,
 		currency: 'KES',
 		metadata: {

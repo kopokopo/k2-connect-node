@@ -10,11 +10,17 @@ block content
         br
         form(action="/pay", method="post")
             .form-group.row
-                label.col-sm-2.col-form-label Destination
+                label.col-sm-2.col-form-label(for="destinationType") Destination Type
                 .col-sm-7
-                    input.form-control(name="destination", type='text', placeholder='Enter Destination' required)
+                    select(name = "destinationType")
+                        option(value="merchant_bank_account") Merchant Bank Account
+                        option(value="merchant_wallet") Merchant Wallet
+            .form-group.row
+                label.col-sm-2.col-form-label Destination Reference
+                .col-sm-7
+                    input.form-control(name="destinationReference", type='text', placeholder='Enter Destination Reference' required)
                     small.form-text.text-muted
-                        | Enter Destination
+                        | Destination Reference
             .form-group.row
                 label.col-sm-2.col-form-label Amount
                 .col-sm-7

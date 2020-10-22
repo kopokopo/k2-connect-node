@@ -37,7 +37,7 @@ router.get('/', function (req, res, next) {
 router.post('/result', function (req, res, next) {
 	// Send message and capture the response or error
 	Webhooks
-		.webhookHandler(req, res)
+		.webhookHandler(req, res, process.env.K2_CLIENT_SECRET)
 		.then(response => {
 			stkResource = response
 		})
@@ -69,10 +69,11 @@ router.get('/result', function (req, res, next) {
 router.post('/receive', function (req, res, next) {
 
 	var stkOptions = {
-		tillNumber: process.env.K2_TILL_NUMBER,
+		paymentChannel: "M-PESA STK Push",
+		shortCode: "514459",
 		firstName: req.body.first_name,
 		lastName: req.body.last_name,
-		phone: req.body.phone,
+		phoneNumber: req.body.phone,
 		email: req.body.email,
 		amount: req.body.amount,
 		currency: 'KES',
@@ -83,7 +84,7 @@ router.post('/receive', function (req, res, next) {
 			notes: 'Payment for invoice 123456'
 		},
 		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'http://localhost:8000/stk/requestresponse',
+		callbackUrl: 'http://localhost:8000/stk/result',
 
 		accessToken: token_details.access_token
 	}
@@ -91,7 +92,7 @@ router.post('/receive', function (req, res, next) {
 
 	// Send message and capture the response or error
 	StkService
-		.paymentRequest(stkOptions)
+		.initiateIncomingPayment(stkOptions)
 		.then(response => {
 			return res.render('stkrequest', { message: 'STK push request sent successfully payment request url is: ' + response })
 		})

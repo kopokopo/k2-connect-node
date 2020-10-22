@@ -118,12 +118,14 @@ router.get('/subscribe', function (req, res, next) {
 })
 
 
-router.post('/subscribe', function (req, res, next) {
+router.post('/subscribe', function (req, res, next) {	
 	const subscribeOptions = {
 		eventType: req.body.event_type,
 		url: req.body.url,
 		webhookSecret: process.env.BUYGOODS_WEBHOOK_SECRET,
-		accessToken: token_details.access_token
+		accessToken: token_details.access_token,
+		scope: 'company',
+		scopeReference: '4'
 	}
 
 	Webhooks

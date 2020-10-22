@@ -4,7 +4,7 @@ const router = express.Router()
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
 	clientSecret: process.env.K2_CLIENT_SECRET,
-	baseUrl: 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io'
+	baseUrl: process.env.K2_BASE_URL
 }
 
 // Including the kopokopo module
@@ -33,7 +33,9 @@ router.post('/', function (req, res, next) {
 	var transferOpts = {
 		amount : req.body.amount,
 		currency: 'KES',
-		destination: req.body.destination,
+		destinationReference: req.body.destinationReference,
+		callbackUrl: 'https://your-call-bak.yourapplication.com/payment_result',
+		destinationType: req.body.destinationType,
 		accessToken: token_details.access_token
 	}
 
@@ -49,10 +51,10 @@ router.post('/', function (req, res, next) {
 		})
 })
 
-router.post('/createsettlement', function (req, res, next) {
+router.post('/createmerchantaccount', function (req, res, next) {
 	var settlementAccountOpts = {
 		accountName: req.body.accountName,
-		bankRef: req.body.bankRef,
+		settlementMethod: 'RTS',
 		bankBranchRef: req.body.bankBranchRef,
 		accountNumber: req.body.accountNumber,
 		accessToken: token_details.access_token
@@ -60,25 +62,48 @@ router.post('/createsettlement', function (req, res, next) {
 
 	// Send message and capture the response or error
 	TransferService
-		.createSettlementAccount(settlementAccountOpts)
+		.createMerchantBankAccount(settlementAccountOpts)
 		.then(response => {
-			return res.render('createsettlement', { message: 'Settlement Account details request sent successfully request url is: ' + response })
+			return res.render('merchantaccount', { message: 'Merchant Bank Account details request sent successfully request url is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('createsettlement', { message: error })
+			return res.render('merchantaccount', { message: error })
 		})
 })
 
-router.get('/createsettlement', function (req, res, next) {
-	res.render('createsettlement', res.locals.commonData)
+router.post('/createmerchantwallet', function (req, res, next) {
+	var settlementAccountOpts = {
+		phoneNumber: req.body.phoneNumber,
+		network: req.body.network,
+		accessToken: token_details.access_token
+	}
+
+	// Send message and capture the response or error
+	TransferService
+		.createMerchantWallet(settlementAccountOpts)
+		.then(response => {
+			return res.render('merchantwallet', { message: 'Merchant wallet details request sent successfully request url is: ' + response })
+		})
+		.catch(error => {
+			console.log(error)
+			return res.render('merchantwallet', { message: error })
+		})
+})
+
+router.get('/createmerchantaccount', function (req, res, next) {
+	res.render('merchantaccount', res.locals.commonData)
+})
+
+router.get('/createmerchantwallet', function (req, res, next) {
+	res.render('merchantwallet', res.locals.commonData)
 })
 
 router.get('/status', function (req, res, next) {
 	TransferService
-		.settlementStatus({ accessToken: token_details.access_token, location:  process.env.K2_BASE_URL + '/transfer_status' })
+		.settlementStatus({ accessToken: token_details.access_token, location:  'http://localhost:3000/api/v1/merchant_bank_accounts/f08f3002-afe6-4f23-8370-533fb3b15a8b' })
 		.then(response =>{
-			return res.render('transferstatus', { message: 'Transfer status is: ' + response })
+			return res.render('transferstatus', { message: 'Transfer status is: ' + JSON.stringify(response) })
 		})
 		.catch(error => {
 			console.log(error)

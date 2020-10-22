@@ -6,21 +6,15 @@ block content
 
     p !{message}
     .container
-        .title.h3 Create Settlement Account
+        .title.h3 Create Merchant Bank Account
         br
-        form(action="/transfer/createsettlement", method="post")
+        form(action="/transfer/createmerchantaccount", method="post")
             .form-group.row
                 label.col-sm-2.col-form-label accountName
                 .col-sm-7
                     input.form-control(name="accountName", type='text', placeholder='Enter Account Name' required)
                     small.form-text.text-muted
                         | accountName    
-            .form-group.row
-                label.col-sm-2.col-form-label Bank Reference
-                .col-sm-7
-                    input.form-control(name="bankRef", type='text', placeholder='Enter Bank Reference' required)
-                    small.form-text.text-muted
-                        | Bank Reference    
             .form-group.row
                 label.col-sm-2.col-form-label Bank Branch Reference
                 .col-sm-7
