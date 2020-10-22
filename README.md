@@ -11,7 +11,7 @@ This is a module to assist developers in consuming Kopokopo's API
 To install run the following command on your project's directory:
 
 ```
-npm install --save k2-connect
+npm install --save k2-connect-node
 ```
 
 ## Initialisation
@@ -27,7 +27,7 @@ const options = {
 };
 
 //Including the kopokopo module
-var K2 = require("k2-connect")(options);
+var K2 = require("k2-connect-node")(options);
 ```
 
 Note: The `baseUrl` can be custom for testing purposes but we recommend using the sandbox base url during development.
@@ -73,7 +73,7 @@ const Webhooks = K2.Webhooks;
 router.post('/customercreated', function(req, res, next){  
     // Send message and capture the response or error
     Webhooks
-        .webhookHandler(req, res)
+        .webhookHandler(req, res, 'my_webhook_secret')
         .then( response => {
             console.log(response)
         })
@@ -87,10 +87,13 @@ router.post('/customercreated', function(req, res, next){
 
 ```node
 const subscribeOptions = { 
-    eventType: 'buy_goods_received', 
+    eventType: 'buygoods_transaction_received', 
     url: 'https://my-valid-url.com/endpoint', 
     webhookSecret: 'my_webhook_secret', 
-    accessToken: 'my_access_token' }
+    accessToken: 'my_access_token',
+    scope: 'till',
+    scopeReference: '123456'
+}
 
 Webhooks 
     .subscribe(subscribeOptions) 
@@ -104,7 +107,7 @@ Webhooks
 const StkService = K2.StkService;
 
 var stkOptions = {
-    tillNumber: 36546,
+    shortCode: 36546,
     firstName: 'Jane'
     lastName: 'Doe',
     phone: '+254712345678',
@@ -125,7 +128,7 @@ var stkOptions = {
   // Send message and capture the response or error
 
   StkService
-    .paymentRequest(stkOptions)
+    .initiateIncomingPayment(stkOptions)
     .then( response => {     
       console.log(response)
     })
@@ -146,14 +149,15 @@ The only supported ISO currency code at the moment is: `KES`
 
 - `TokenService.getToken()` to get an access token.
 
-  - The response will contain: `token type`, `expires_in` and `access_token`
+  - The response will contain: `token type`, `expires_in`, `created_at` and `access_token`
 
 NB: The access token is required to send subsequent requests
 
 ### `StkService`
 
-- `StkService.paymentRequest({ stkOptions })`: `stkOptions`: A hash of objects containing the following keys:
+- `StkService.initiateIncomingPayment({ stkOptions })`: `stkOptions`: A hash of objects containing the following keys:
 
+  - `shortCode`: Your online payments short code from Kopo Kopo's Dashboard `REQUIRED`
   - `firstName`: Customer's first name `REQUIRED`
   - `lastName`: Customer's last name `REQUIRED`
   - `phone`: Phone number to pull money from. `REQUIRED`
@@ -164,7 +168,7 @@ NB: The access token is required to send subsequent requests
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
-- `StkService.paymentRequestStatus({ location })`:
+- `StkService.incomingPaymentRequestStatus({ location })`:
 
   - `location`: The request location you get when you send a request
 
@@ -174,17 +178,29 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
 
 - `PayService.addPayRecipient({ payRecipientOptions })`: `payRecipientOptions`: A hash of objects containing the following keys:
 
-  - `type`: Customer's first name `REQUIRED`
-  - `firstName`: Pay recipient's first name `REQUIRED`
-  - `lastName`: Pay recipient's last name `REQUIRED`
-  - `phone`: Pay recipient's phone number `REQUIRED`
-  - `email`: Pay recipient's email number
-  - `network`: Pay recipient's network `REQUIRED`
+   - `type`: Recipient type `REQUIRED`
+    - Mobile Wallet Recipient(`mobile_wallet`)
+      - `firstName`: Pay recipient's first name `REQUIRED`
+      - `lastName`: Pay recipient's last name `REQUIRED`
+      - `phoneNumber`: Pay recipient's phone number `REQUIRED`
+      - `email`: Pay recipient's email number
+      - `network`: Pay recipient's network `REQUIRED`
+    - Bank Account Recipient(`bank_account`)
+      - `accountName`: Pay recipient's account name `REQUIRED`
+      - `accountNumber`: Pay recipient's account number `REQUIRED`
+      - `bankBranchRef`: Bank branch reference from the kopokopo dashboard `REQUIRED`
+    - External Till Recipient(`till`)
+      - `tillNumber`: Pay recipient's till number `REQUIRED`
+      - `tillName`: Pay recipient's till name `REQUIRED`
+    - Kopo Kopo Merchant(`kopo_kopo_merchant`)
+      - `tillNumber`: Pay recipient's till number `REQUIRED`
+      - `aliasName`: Pay recipient's alias name `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
 - `PayService.sendPay({ payOptions })`: `payOptions`: A hash of objects containing the following keys:
 
-  - `destination`: The destination `REQUIRED`
+  - `destinationType`: The destination type`REQUIRED`
+  - `destinationReference`: The destination reference`REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
@@ -199,19 +215,27 @@ For more information, please read <https://api-docs.kopokopo.com/#send-money-pay
 
 ### `TransferService`
 
-- `TransferService.createSettlementAccount({ accountOpts })`: `accountOpts`: A hash of objects containing the following keys:
+- `TransferService.createMerchantBankAccount({ accountOpts })`: `accountOpts`: A hash of objects containing the following keys:
 
   - `accountName`: Settlement Account Name `REQUIRED`
-  - `bankRef`: Settlement Bank Reference `REQUIRED`
+  - `settlementMethod`: Settlement Method `REQUIRED`
   - `bankBranchRef`: Settlement Bank Branch Reference `REQUIRED`
   - `accountNumber`: Settlement account number `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
+- `TransferService.createMerchantWallet({ accountOpts })`: `accountOpts`: A hash of objects containing the following keys:
+
+  - `phoneNumber`: Phone number to settle to `REQUIRED`
+  - `network`: Network `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
 - `TransferService.settleFunds({ settleOpts })`: `settleOpts`: A hash of objects containing the following keys:
 
-  - `destination`: The destination `REQUIRED FOR A TARGETED TRANSFER`
-  - `currency`: 3-digit ISO format currency code. `REQUIRED`
-  - `amount`: Amount to charge. `REQUIRED`
+  - `destinationType`: The destination type`REQUIRED FOR A TARGETED TRANSFER`
+  - `destinationReference`: The destination reference`REQUIRED FOR A TARGETED TRANSFER`
+  - `currency`: 3-digit ISO format currency code. `REQUIRED FOR A TARGETED TRANSFER`
+  - `amount`: Amount to charge. `REQUIRED FOR A TARGETED TRANSFER`
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
 - `TransferService.settlementStatus({ location })`:
