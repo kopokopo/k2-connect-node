@@ -16,7 +16,7 @@ describe('TokenService', function () {
 		tokens = k2.TokenService
 
 		nock(BASE_URL)
-			.post('/oauth/v4/token')
+			.post('/oauth/token')
 			.reply(200, response)
 	})
 

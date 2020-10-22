@@ -20,7 +20,7 @@ describe('TransferService', function () {
 	describe('settleFunds()', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
-				.post('/transfers')
+				.post('/settlement_transfers')
 				.reply(201, {}, response.location)
 		})
 
@@ -29,8 +29,10 @@ describe('TransferService', function () {
 			it('#settleFunds() has to have a currency', function () {
 				var opts = {}
 				opts.amount = 200
-				opts.destination = 'my_destination'
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
 				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 
 				return transfer.settleFunds(opts)
 					.should.be.rejectedWith(Error, { message: 'Currency can\'t be blank; ' })
@@ -39,8 +41,10 @@ describe('TransferService', function () {
 			it('#settleFunds() has to have an amount', function () {
 				var opts = {}
 				opts.currency = 'KES'
-				opts.destination = 'my_destination'
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
 				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 
 				return transfer.settleFunds(opts)
 					.should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
@@ -50,7 +54,9 @@ describe('TransferService', function () {
 				var opts = {}
 				opts.currency = 'KES'
 				opts.amount = 200
-				opts.destination = 'my_destination'
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 
 				return transfer.settleFunds(opts)
 					.should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
@@ -62,8 +68,10 @@ describe('TransferService', function () {
 			it('#settleFunds() currency has to be a string', function () {
 				opts.currency = 3
 				opts.amount = 200
-				opts.destination = 'my_destination'
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
 				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 
 				return transfer.settleFunds(opts)
 					.should.be.rejectedWith(Error, { message: 'Currency must be a string; ' })
@@ -72,49 +80,82 @@ describe('TransferService', function () {
 			it('#settleFunds() amount has to be an integer', function () {
 				opts.currency = 'KES'
 				opts.amount = 'Two hundred'
-				opts.destination = 'my_destination'
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
 				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 
 				return transfer.settleFunds(opts)
 					.should.be.rejectedWith(Error, { message: 'Amount is not a number; ' })
 			})
 
-			it('#settleFunds() amount has to be more than 50', function () {
-				opts.currency = 'KES'
-				opts.amount = 20
-				opts.destination = 'my_destination'
-				opts.accessToken = 'hardToGuessKey'
-
-				return transfer.settleFunds(opts)
-					.should.be.rejectedWith(Error, { message: 'Amount must be greater than 50; ' })
-			})
-
-			it('#settleFunds() destination has to be a string', function () {
+			it('#settleFunds() destination type has to be a string', function () {
 				opts.currency = 'KES'
 				opts.amount = 200
-				opts.destination = 2
+				opts.destinationType = 2
+				opts.destinationReference = 'my_destination_reference'
 				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 
 				return transfer.settleFunds(opts)
-					.should.be.rejectedWith(Error, { message: 'Destination must be a string; ' })
+					.should.be.rejectedWith(Error, { message: 'Destination type must be a string; ' })
+			})
+
+			it('#settleFunds() destination reference has to be a string', function () {
+				opts.currency = 'KES'
+				opts.amount = 200
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 2
+				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
+
+				return transfer.settleFunds(opts)
+					.should.be.rejectedWith(Error, { message: 'Destination reference must be a string; ' })
+			})
+
+			it('#settleFunds() has to have callbackUrl', function () {
+				var opts = {}
+
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
+				opts.currency = 'KES'
+				opts.amount = 200
+				opts.accessToken = 'hardToGuessKey'
+
+				return transfer.settleFunds(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
+			})
+
+			it('#settleFunds() callbackUrl has to be a valid url', function () {
+				var opts = {}
+
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
+				opts.currency = 'KES'
+				opts.amount = 200
+				opts.callbackUrl = 'an_invalid_url'
+				opts.accessToken= 'hardToGuessKey'
+
+				return transfer.settleFunds(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
 			})
 		})
 		it('#settleFunds() succeeds', () => {
 			var opts = {}
 	
-			opts.destination = 'my_destination'
+			opts.destinationType = 'merchant_wallet'
+			opts.destinationReference = 'my_destination_reference'
 			opts.currency = 'KES'
 			opts.amount = 200
 			opts.accessToken = 'hardToGuessKey'
+			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
 	
 			return transfer.settleFunds(opts).then(response => {
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/transfers/d76265cd-0951-e511-80da-0aa34a9b2388')
+				expect(response).to.equal('https://sandbox.kopokopo.com/settlement_transfers/d76265cd-0951-e511-80da-0aa34a9b2388')
 			})
 				
 		})
 	})
 
-	describe('createSettlementAccount()', function () {
+	describe('createMerchantBankAccount()', function () {
 
 		beforeEach(() => {
 			nock(BASE_URL)
@@ -122,11 +163,9 @@ describe('TransferService', function () {
 				.reply(201, {}, response.accountLocation)
 		})
 
-		describe('createSettlementAccount() validation', function () {
+		describe('createMerchantBankAccount() validation', function () {
 
-			
-
-			it('#createSettlementAccount() has to have a bankRef', function () {
+			it('#createMerchantBankAccount() has to have a settlementMethod', function () {
 				var opts = {}
 
 				opts.accountName = 'my_account_name'
@@ -134,47 +173,114 @@ describe('TransferService', function () {
 				opts.accountNumber = '1234567890'
 				opts.accessToken = 'hardToGuessKey'
 
-				return transfer.createSettlementAccount(opts)
-					.should.be.rejectedWith(Error, { message: 'Bank ref can\'t be blank; ' })
+				return transfer.createMerchantBankAccount(opts)
+					.should.be.rejectedWith(Error, { message: 'Settlement method can\'t be blank; ' })
 			})
 
-			it('#createSettlementAccount() has to have an accountName', function () {
+			it('#createMerchantBankAccount() has to have an accountName', function () {
 				var opts = {}
 
-				opts.bankRef = '89076-9ed38155-7d6f-11e3-83c3-5404a6144203-adiu'
-				opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
 				opts.accountNumber = '1234567890'
+				opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken = 'hardToGuessKey'
 
-				return transfer.createSettlementAccount(opts)
+				return transfer.createMerchantBankAccount(opts)
 					.should.be.rejectedWith(Error, { message: 'Account name can\'t be blank; ' })
 			})
 
-			it('#createSettlementAccount() has to have an accessToken', function () {
+			it('#createMerchantBankAccount() has to have an accountNumber', function () {
+				var opts = {}
+
+				opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
+				opts.accountName = 'my_account_name'
+				opts.settlementMethod = 'RTS'
+				opts.accessToken = 'hardToGuessKey'
+
+				return transfer.createMerchantBankAccount(opts)
+					.should.be.rejectedWith(Error, { message: 'Account number can\'t be blank; ' })
+			})
+
+			it('#createMerchantBankAccount() has to have an accessToken', function () {
 				var opts = {}
 
 				opts.accountName = 'my_account_name'
-				opts.bankRef = '89076-9ed38155-7d6f-11e3-83c3-5404a6144203-adiu'
 				opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
+				opts.settlementMethod = 'RTS'
 				opts.accountNumber = '1234567890'
 
-				return transfer.createSettlementAccount(opts)
+				return transfer.createMerchantBankAccount(opts)
 					.should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 		})
 
-		it('#createSettlementAccount()', () => {
+		it('#createMerchantBankAccount()', () => {
 			var opts = {}
 	
 			opts.accountName = 'my_account_name'
-			opts.bankRef = '89076-9ed38155-7d6f-11e3-83c3-5404a6144203-adiu'
+			opts.settlementMethod = 'RTS'
 			opts.bankBranchRef = '9ed38155-7d6f-11e3-83c3-5404a6144203'
 			opts.accountNumber = '1234567890'
 			opts.accessToken = 'hardToGuessKey'
 	
 	
-			return transfer.createSettlementAccount(opts).then(response => {
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/merchant_bank_accounts/AB443D36-3757-44C1-A1B4-29727FB3111C')
+			return transfer.createMerchantBankAccount(opts).then(response => {
+				expect(response).to.equal('https://sandbox.kopokopo.com/merchant_bank_accounts/AB443D36-3757-44C1-A1B4-29727FB3111C')
+			})
+		})
+	})
+
+	describe('createMerchantWallet()', function () {
+
+		beforeEach(() => {
+			nock(BASE_URL)
+				.post('/merchant_wallets')
+				.reply(201, {}, response.walletLocation)
+		})
+
+		describe('createMerchantWallet() validation', function () {
+
+			it('#createMerchantWallet() has to have a phoneNumber', function () {
+				var opts = {}
+
+				opts.network = '1234567890'
+				opts.accessToken = 'hardToGuessKey'
+
+				return transfer.createMerchantWallet(opts)
+					.should.be.rejectedWith(Error, { message: 'Phone number can\'t be blank; ' })
+			})
+
+			it('#createMerchantWallet() has to have a network', function () {
+				var opts = {}
+
+				opts.phoneNumber = 'my_account_name'
+				opts.accessToken = 'hardToGuessKey'
+
+				return transfer.createMerchantWallet(opts)
+					.should.be.rejectedWith(Error, { message: 'Network can\'t be blank; ' })
+			})
+
+			it('#createMerchantWallet() has to have an accessToken', function () {
+				var opts = {}
+
+				opts.phoneNumber = 'my_account_name'
+				opts.network = '1234567890'
+
+				return transfer.createMerchantWallet(opts)
+					.should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+			})
+		})
+
+		it('#createMerchantWallet()', () => {
+			var opts = {}
+	
+			opts.phoneNumber = 'my_account_name'
+			opts.network = '1234567890'
+			opts.accessToken = 'hardToGuessKey'
+	
+	
+			return transfer.createMerchantWallet(opts).then(response => {
+				expect(response).to.equal('https://sandbox.kopokopo.com/merchant_wallets/AB443D36-3757-44C1-A1B4-29727FB3111C')
 			})
 		})
 	})

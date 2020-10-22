@@ -1,26 +1,26 @@
 module.exports = {
-	id: 'cac95329-9fa5-42f1-a4fc-c08af7b868fb',
-	resourceId: null,
-	topic: 'payment_request',
-	created_at: '2018-06-20T22:45:12.790Z',
-	status: 'Failed',
-	event: {
-		type: 'Payment Request',
-		resource: null,
-		errors: [
-			{
-				code: '501',
-				description: 'Insufficient funds',
+	"data": {
+		"id": "79a45c02-ff61-45c6-b7c9-87811eba23d3",
+		"type": "incoming_payment",
+		"attributes": {
+			"initiation_time": "2020-10-21T11:14:11.524+03:00",
+			"status": "Failed",
+			"event": {
+				"type": "Incoming Payment Request",
+				"resource": null,
+				"errors": {
+					"errors": "The initiator information is invalid."
+				}
 			},
-		],
-	},
-	metadata: {
-		customer_id: '123456789',
-		reference: '123456',
-		notes: 'Payment for invoice 123456',
-	},
-	_links: {
-		self: 'https://api-sandbox.kopokopo.com/payment_request_results/cac95329-9fa5-42f1-a4fc-c08af7b868fb',
-		payment_request: 'https://api-sandbox.kopokopo.com/payment_requests/cac95329-9fa5-42f1-a4fc-c08af7b868fb',
-	},
+			"metadata": {
+				"customer_id": "123456789",
+				"reference": "123456",
+				"notes": "Payment for invoice 12345"
+			},
+			"_links": {
+				"callback_url": "https://webhook.site/675d4ef4-0629-481f-83cd-d101f55e4bc8",
+				"self": "http://localhost:3000/api/v1/incoming_payments/79a45c02-ff61-45c6-b7c9-87811eba23d3"
+			}
+		}
+	}
 }

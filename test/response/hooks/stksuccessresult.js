@@ -1,34 +1,36 @@
 module.exports = {
-	id: 'cac95329-9fa5-42f1-a4fc-c08af7b868fb',
-	resourceId: 'cdb5f11f-62df-e611-80ee-0aa34a9b2388',
-	topic: 'payment_request',
-	created_at: '2018-06-20T22:45:12.790Z',
-	status: 'Success',
-	event: {
-		type: 'Payment Request',
-		resource: {
-			reference: 'KKPPLLMMNN',
-			origination_time: '2017-01-20T22:45:12.790Z',
-			sender_msisdn: '+2549703119050',
-			amount: 20000,
-			currency: 'KES',
-			till_number: '111222',
-			system: 'Lipa Na M-PESA',
-			status: 'Received',
-			sender_first_name: 'Nicollet',
-			sender_middle_name: 'N',
-			sender_last_name: 'Njora',
-		},
-		errors: [],
-	},
-	metadata: {
-		customer_id: '123456789',
-		reference: '123456',
-		notes: 'Payment for invoice 123456',
-	},
-	_links: {
-		self: 'https://api-sandbox.kopokopo.com/payment_request_results/cac95329-9fa5-42f1-a4fc-c08af7b868fb',
-		payment_request: 'https://api-sandbox.kopokopo.com/payment_requests/cac95329-9fa5-42f1-a4fc-c08af7b868fb',
-		resource: 'https://api-sandbox.kopokopo.com/buygoods_transaction/cdb5f11f-62df-e611-80ee-0aa34a9b2388',
-	},
+	"data": {
+		"id": "0dad3e3f-a83e-4ed2-afa6-2e76a3df3a03",
+		"type": "incoming_payment",
+		"attributes": {
+			"initiation_time": "2020-10-21T07:40:00.927+03:00",
+			"status": "Success",
+			"event": {
+				"type": "Incoming Payment Request",
+				"resource": {
+					"reference": "20622427784338f66a2a71d5e37ce4cf",
+					"origination_time": "2020-10-21T07:40:00+03:00",
+					"sender_msisdn": "+254712345678",
+					"amount": "1.0",
+					"currency": "KES",
+					"till_number": "514459",
+					"system": "Lipa Na M-PESA",
+					"status": "Received",
+					"sender_first_name": "Joe",
+					"sender_middle_name": null,
+					"sender_last_name": "Buyer"
+				},
+				"errors": null
+			},
+			"metadata": {
+				"customer_id": "123456789",
+				"reference": "123456",
+				"notes": "Payment for invoice 12345"
+			},
+			"_links": {
+				"callback_url": "https://webhook.site/675d4ef4-0629-481f-83cd-d101f55e4bc8",
+				"self": "http://localhost:3000/api/v1/incoming_payments/0dad3e3f-a83e-4ed2-afa6-2e76a3df3a03"
+			}
+		}
+	}
 }

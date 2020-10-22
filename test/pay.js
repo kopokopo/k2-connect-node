@@ -30,7 +30,7 @@ describe('PayService', function () {
 				opts.type = 'mobile_wallet'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '07012345678'
+				opts.phoneNumber = '07012345678'
 				opts.network = 'Safaricom'
 				opts.accessToken= 'hardToGuessKey'
 
@@ -42,14 +42,14 @@ describe('PayService', function () {
 				opts.type = 'mobile_wallet'
 				opts.firstName = 'Jane'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '07012345678'
+				opts.phoneNumber = '07012345678'
 				opts.network = 'Safaricom'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
 			})
 
-			it('#addPayRecipient() has to have phone', function () {
+			it('#addPayRecipient() has to have phoneNumber', function () {
 				var opts = {}
 				opts.type = 'mobile_wallet'
 				opts.firstName = 'Jane'
@@ -58,7 +58,7 @@ describe('PayService', function () {
 				opts.network = 'Safaricom'
 				opts.accessToken= 'hardToGuessKey'
 
-				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Phone can\'t be blank; ' })
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Phone number can\'t be blank; ' })
 			})
 
 			it('#addPayRecipient() has to have network', function () {
@@ -67,7 +67,7 @@ describe('PayService', function () {
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '07012345678'
+				opts.phoneNumber = '07012345678'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Network can\'t be blank; ' })
@@ -79,7 +79,7 @@ describe('PayService', function () {
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '07012345678'
+				opts.phoneNumber = '07012345678'
 				opts.network = 'Safaricom'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
@@ -87,61 +87,37 @@ describe('PayService', function () {
 		})
 
 		describe('addPayRecipient() account validation', function () {	
-			it('#addPayRecipient() account has to have name', function () {
-				var opts = {}
-	
-				opts.type = 'bank_account'
-				opts.accountName = 'Jane Doe'
-				opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-				opts.accountNumber = '123456789'
-				opts.email = 'janedoe@nomail.net'
-				opts.phone = '+2547012345678'
-				opts.accessToken= 'hardToGuessKey'
-
-				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Name can\'t be blank; ' })
-			})
-
 			it('#addPayRecipient() account has to have accountName', function () {
 				var opts = {}
 	
 				opts.type = 'bank_account'
-				opts.name = 'Jane Doe'
-				opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.email = 'janedoe@nomail.net'
-				opts.phone = '+2547012345678'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Account name can\'t be blank; ' })
 			})
 
-			it('#addPayRecipient() account has to have bankRef', function () {
-				var opts = {}
+			// it('#addPayRecipient() account has to have settlementMethod', function () {
+			// 	var opts = {}
 	
-				opts.type = 'bank_account'
-				opts.name = 'Jane Doe'
-				opts.accountName = 'Jane Doe'
-				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-				opts.accountNumber = '123456789'
-				opts.email = 'janedoe@nomail.net'
-				opts.phone = '+2547012345678'
-				opts.accessToken= 'hardToGuessKey'
+			// 	opts.type = 'bank_account'
+			// 	opts.accountName = 'Jane Doe'
+			// 	opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
+			// 	opts.accountNumber = '123456789'
+			// 	opts.accessToken= 'hardToGuessKey'
 
-				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Bank ref can\'t be blank; ' })
-			})
+			// 	return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Settlement method can\'t be blank; ' })
+			// })
 
 			it('#addPayRecipient() account has to have bankBranchRef', function () {
 				var opts = {}
 	
 				opts.type = 'bank_account'
-				opts.name = 'Jane Doe'
 				opts.accountName = 'Jane Doe'
-				opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.email = 'janedoe@nomail.net'
-				opts.phone = '+2547012345678'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Bank branch ref can\'t be blank; ' })
@@ -151,12 +127,9 @@ describe('PayService', function () {
 				var opts = {}
 	
 				opts.type = 'bank_account'
-				opts.name = 'Jane Doe'
 				opts.accountName = 'Jane Doe'
-				opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-				opts.email = 'janedoe@nomail.net'
-				opts.phone = '+2547012345678'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Account number can\'t be blank; ' })
@@ -166,13 +139,76 @@ describe('PayService', function () {
 				var opts = {}
 	
 				opts.type = 'bank_account'
-				opts.name = 'Jane Doe'
 				opts.accountName = 'Jane Doe'
-				opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.email = 'janedoe@nomail.net'
-				opts.phone = '+2547012345678'
+				opts.settlementMethod = 'RTS'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+			})
+		})
+
+		describe('addPayRecipient() external till validation', function () {	
+			it('#addPayRecipient() external till has to have tillName', function () {
+				var opts = {}
+	
+				opts.type = 'till'
+				opts.tillNumber = '123456'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Till name can\'t be blank; ' })
+			})
+
+			it('#addPayRecipient() external till has to have tillNumber', function () {
+				var opts = {}
+	
+				opts.type = 'till'
+				opts.tillName = 'Jane Doe'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
+			})
+
+			it('#addPayRecipient() external till has to have accessToken', function () {
+				var opts = {}
+	
+				opts.type = 'till'
+				opts.tillName = 'Jane Doe'
+				opts.tillNumber = '123456'
+				opts.settlementMethod = 'RTS'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+			})
+		})
+
+		describe('addPayRecipient() kopo kopo merchant validation', function () {	
+			it('#addPayRecipient() merchant has to have aliasName', function () {
+				var opts = {}
+	
+				opts.type = 'kopo_kopo_merchant'
+				opts.tillNumber = '123456'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Alias name can\'t be blank; ' })
+			})
+
+			it('#addPayRecipient() merchant has to have tillNumber', function () {
+				var opts = {}
+	
+				opts.type = 'kopo_kopo_merchant'
+				opts.aliasName = 'Jane Doe'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
+			})
+
+			it('#addPayRecipient() merchant has to have accessToken', function () {
+				var opts = {}
+	
+				opts.type = 'kopo_kopo_merchant'
+				opts.aliasName = 'Jane Doe'
+				opts.tillNumber = '123456'
+				opts.settlementMethod = 'RTS'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -185,13 +221,13 @@ describe('PayService', function () {
 			opts.firstName = 'Jane'
 			opts.lastName = 'Doe'
 			opts.email = 'janedoe@example.com'
-			opts.phone = '07012345678'
+			opts.phoneNumber = '07012345678'
 			opts.network = 'Safaricom'
 			opts.accessToken= 'hardToGuessKey'
 									
 			return pay.addPayRecipient(opts).then(response => {
 
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747')
+				expect(response).to.equal('https://sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747')
 
 			})
 			
@@ -201,18 +237,45 @@ describe('PayService', function () {
 			var opts = {}
 	
 			opts.type = 'bank_account'
-			opts.name = 'Jane Doe'
 			opts.accountName = 'Jane Doe'
-			opts.bankRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 			opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 			opts.accountNumber = '123456789'
-			opts.email = 'janedoe@nomail.net'
-			opts.phone = '+2547012345678'
+			opts.settlementMethod = 'RTS'
 			opts.accessToken= 'hardToGuessKey'
 											
 			return pay.addPayRecipient(opts).then(response => {
 
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747')
+				expect(response).to.equal('https://sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747')
+
+			})
+		})
+
+		it('#addPayRecipient() external till succeeds', function () {
+			var opts = {}
+	
+			opts.type = 'till'
+			opts.tillName = 'Jane Doe'
+			opts.tillNumber = '123456'
+			opts.accessToken= 'hardToGuessKey'
+											
+			return pay.addPayRecipient(opts).then(response => {
+
+				expect(response).to.equal('https://sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747')
+
+			})
+		})
+
+		it('#addPayRecipient() kopo kopo merchant succeeds', function () {
+			var opts = {}
+	
+			opts.type = 'kopo_kopo_merchant'
+			opts.aliasName = 'Jane Doe'
+			opts.tillNumber = '123456'
+			opts.accessToken= 'hardToGuessKey'
+											
+			return pay.addPayRecipient(opts).then(response => {
+
+				expect(response).to.equal('https://sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747')
 
 			})
 		})
@@ -226,19 +289,32 @@ describe('PayService', function () {
 		})
 
 		describe('sendPay() validation', function () {
-			it('#sendPay() has to have destination', function () {
+			it('#sendPay() has to have destination type', function () {
 				var opts = {}
+				opts.destinationReference = 'my_destination_reference'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
 
-				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Destination can\'t be blank; ' })
+				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Destination type can\'t be blank; ' })
+			})
+
+			it('#sendPay() has to have destination reference', function () {
+				var opts = {}
+				opts.destinationType = 'mobile_wallet'
+				opts.currency = 'KES'
+				opts.amount = 20
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Destination reference can\'t be blank; ' })
 			})
 
 			it('#sendPay() has to have currency', function () {
 				var opts = {}
-				opts.destination = 'my_destination'
+				opts.destinationReference = 'my_destination_reference'
+				opts.destinationType = 'mobile_wallet'
 				opts.amount = 20
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
@@ -248,7 +324,8 @@ describe('PayService', function () {
 
 			it('#sendPay() has to have amount', function () {
 				var opts = {}
-				opts.destination = 'my_destination'
+				opts.destinationReference = 'my_destination_reference'
+				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
@@ -258,7 +335,8 @@ describe('PayService', function () {
 
 			it('#sendPay() has to have callbackUrl', function () {
 				var opts = {}
-				opts.destination = 'my_destination'
+				opts.destinationReference = 'my_destination_reference'
+				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.accessToken= 'hardToGuessKey'
@@ -268,7 +346,8 @@ describe('PayService', function () {
 
 			it('#sendPay() callbackUrl has to be a valid url', function () {
 				var opts = {}
-				opts.destination = 'my_destination'
+				opts.destinationReference = 'my_destination_reference'
+				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'an_invalid_url'
@@ -279,7 +358,8 @@ describe('PayService', function () {
 
 			it('#sendPay() has to have accessToken', function () {
 				var opts = {}
-				opts.destination = 'my_destination'
+				opts.destinationReference = 'my_destination_reference'
+				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
@@ -291,7 +371,8 @@ describe('PayService', function () {
 		it('#sendPay() succeeds', () => {
 			var opts = {}
 	
-			opts.destination = 'my_destination'
+			opts.destinationReference = 'my_destination_reference'
+			opts.destinationType = 'mobile_wallet'
 			opts.currency = 'KES'
 			opts.amount = 20
 			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'  
@@ -299,7 +380,7 @@ describe('PayService', function () {
 	
 			return pay.sendPay(opts).then(response => {
 
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/payments/c7f300c0-f1ef-4151-9bbe-005005aa3747')
+				expect(response).to.equal('https://sandbox.kopokopo.com/payments/c7f300c0-f1ef-4151-9bbe-005005aa3747')
 
 			})
 		})

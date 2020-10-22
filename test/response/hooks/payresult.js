@@ -13,6 +13,6 @@ module.exports = {
 		notes: 'Salary payment for May 2018',
 	},
 	_links: {
-		self: 'https://api-sandbox.kopokopo.com/payments/d76265cd-0951-e511-80da-0aa34a9b2388',
+		self: 'https://sandbox.kopokopo.com/payments/d76265cd-0951-e511-80da-0aa34a9b2388',
 	},
 }

@@ -18,68 +18,68 @@ describe('StkService', function () {
 		stk = k2.StkService
 	})
 
-	describe('paymentRequest() ', function () {
+	describe('initiateIncomingPayment() ', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
-				.post('/payment_requests')
+				.post('/incoming_payments')
 				.reply(201, {}, response.location)
 		})
 
-		describe('paymentRequest() validation ', function () {
+		describe('initiateIncomingPayment() validation ', function () {
 
-			it('#paymentRequest() has to have tillNumber', function () {
+			it('#initiateIncomingPayment() has to have shortCode', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Short code can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() has to have firstName', function () {
+			it('#initiateIncomingPayment() has to have firstName', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'First name can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'First name can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() has to have lastName', function () {
+			it('#initiateIncomingPayment() has to have lastName', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() has to have phone', function () {
+			it('#initiateIncomingPayment() has to have phoneNumber', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -88,100 +88,100 @@ describe('StkService', function () {
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Phone can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Phone number can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() has to have currency', function () {
+			it('#initiateIncomingPayment() has to have currency', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.amount = 20
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Currency can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Currency can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() has to have amount', function () {
+			it('#initiateIncomingPayment() has to have amount', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() has to have callbackUrl', function () {
+			it('#initiateIncomingPayment() has to have callbackUrl', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
 			})
 
-			it('#paymentRequest() callbackUrl has to be a valid url', function () {
+			it('#initiateIncomingPayment() callbackUrl has to be a valid url', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'an_invalid_url'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
 			})
 
-			it('#paymentRequest() has to have accessToken', function () {
+			it('#initiateIncomingPayment() has to have accessToken', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
+				opts.shortCode = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
-				opts.phone = '+254999999999'
+				opts.phoneNumber = '+254999999999'
 				opts.currency = 'KES'
 				opts.amount = 20
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 
-				return stk.paymentRequest(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 		})
 
-		it('#paymentRequest() succeeds', () => {
+		it('#initiateIncomingPayment() succeeds', () => {
 			var opts = {}
 
 			opts.paymentChannel = 'M-PESA'
-			opts.tillNumber = '444555'
+			opts.shortCode = '444555'
 			opts.firstName = 'Jane'
 			opts.lastName = 'Doe'
 			opts.email = 'janedoe@example.com'
-			opts.phone = '+254999999999'
+			opts.phoneNumber = '+254999999999'
 			opts.currency = 'KES'
 			opts.amount = 20
 			opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
@@ -192,55 +192,55 @@ describe('StkService', function () {
 				'notes': 'Payment for invoice 12345'
 			}
 
-			return stk.paymentRequest(opts).then(response => {
+			return stk.initiateIncomingPayment(opts).then(response => {
 
-				expect(response).to.equal('https://api-sandbox.kopokopo.com/payment_requests/247b1bd8-f5a0-4b71-a898-f62f67b8ae1c')
+				expect(response).to.equal('https://sandbox.kopokopo.com/incoming_payments/247b1bd8-f5a0-4b71-a898-f62f67b8ae1c')
 
 			})
 		})
 	})
 
-	describe('paymentRequestStatus() ', function () {
+	describe('incomingPaymentRequestStatus() ', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
 				.get('/my_stk_request_location')
 				.reply(200, response.status)
 		})
 
-		describe('paymentRequestStatus() request validation', function () {
+		describe('incomingPaymentRequestStatus() request validation', function () {
 			var opts = {}
 
-			it('#paymentRequestStatus() cannot be empty', function () {
-				return stk.paymentRequestStatus(opts).should.be.rejected()
+			it('#incomingPaymentRequestStatus() cannot be empty', function () {
+				return stk.incomingPaymentRequestStatus(opts).should.be.rejected()
 			})
 
-			it('#paymentRequestStatus() has to have accessToken', function () {
+			it('#incomingPaymentRequestStatus() has to have accessToken', function () {
 				opts.location = BASE_URL + '/my_stk_request_location'
 				opts.accessToken = null
 
-				return stk.paymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+				return stk.incomingPaymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 
-			it('#paymentRequestStatus() has to have location', function () {
+			it('#incomingPaymentRequestStatus() has to have location', function () {
 				opts.location = null
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.paymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
+				return stk.incomingPaymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
 			})
 		})
 
-		it('#paymentRequestStatus() succeeds', () => {
+		it('#incomingPaymentRequestStatus() succeeds', () => {
 			var opts = {}
 
 			opts.accessToken = 'hardToGuessKey'
 			opts.location = BASE_URL + '/my_stk_request_location'
 
-			return stk.paymentRequestStatus(opts).then(response => {
+			return stk.incomingPaymentRequestStatus(opts).then(response => {
 				// expect an object back
 				expect(typeof response).to.equal('object')
 
 				// Test result of status for the response
-				expect(response.payment_request.status).to.equal('Success')
+				expect(response.data.attributes.status).to.equal('Success')
 
 			})
 		})

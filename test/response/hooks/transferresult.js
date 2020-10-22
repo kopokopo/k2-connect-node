@@ -8,6 +8,6 @@ module.exports = {
 		currency: 'KES',
 	},
 	_links: {
-		self: 'https://api-sandbox.kopokopo.com/transfers/d76265cd-0951-e511-80da-0aa34a9b2388',
+		self: 'https://sandbox.kopokopo.com/transfers/d76265cd-0951-e511-80da-0aa34a9b2388',
 	},
 }
