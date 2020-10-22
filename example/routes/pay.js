@@ -8,7 +8,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('kopokopo-node')(options)
+var K2 = require('k2-connect-node')(options)
 var PayService = K2.PayService
 
 // Put in another file and import when needed

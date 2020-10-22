@@ -8,7 +8,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('kopokopo-node')(options)
+var K2 = require('k2-connect-node')(options)
 var TransferService = K2.TransferService
 
 // Put in another file and import when needed

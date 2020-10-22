@@ -101,14 +101,14 @@ function StkService(options) {
 
 	/**
 	 * Handles requests for querrying a stk payment request status
-	 * @function paymentRequestStatus
+	 * @function incomingPaymentRequestStatus
 	 * @memberof StkService
 	 * @param {object} opts
 	 * @param {string} opts.location - The location url of the request.
 	 * @param {string} opts.accessToken - The access token for authorization.
 	 * @returns {Promise} Promise object having details on the status of the request
 	*/
-	this.paymentRequestStatus = function (opts) {
+	this.incomingPaymentRequestStatus = function (opts) {
 		return new Promise(function (resolve, reject) {
 			let validationError = statusValidate(opts)
 

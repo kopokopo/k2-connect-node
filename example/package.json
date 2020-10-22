@@ -12,7 +12,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jade": "^1.11.0",
-    "kopokopo-node": "git+https://github.com/kopokopo/k2-connect-node.git"
+    "k2-connect-node": "git+https://github.com/kopokopo/k2-connect-node.git"
   },
   "repository": {
     "type": "git",

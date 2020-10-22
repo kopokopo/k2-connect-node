@@ -10,7 +10,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('kopokopo-node')(options)
+var K2 = require('k2-connect-node')(options)
 var StkService = K2.StkService
 var Webhooks = K2.Webhooks
 
@@ -104,7 +104,7 @@ router.post('/receive', function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
 	StkService
-		.paymentRequestStatus({ accessToken: token_details.access_token, location: process.env.K2_BASE_URL + '/payment_status' })
+		.incomingPaymentRequestStatus({ accessToken: token_details.access_token, location: process.env.K2_BASE_URL + '/payment_status' })
 		.then(response => {
 			return res.render('stkstatus', { message: 'STK status is: ' + response })
 		})

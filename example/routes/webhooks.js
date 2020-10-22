@@ -8,7 +8,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('kopokopo-node')(options)
+var K2 = require('k2-connect-node')(options)
 var Webhooks = K2.Webhooks
 var tokens = K2.TokenService
 var buyGoodsResource
@@ -28,7 +28,7 @@ tokens
 
 router.post('/', function (req, res, next) {
 	Webhooks
-		.webhookHandler(req, res)
+		.webhookHandler(req, res, process.env.BUYGOODS_WEBHOOK_SECRET)
 		.then(response => {
 			buyGoodsResource = response
 		})
@@ -39,7 +39,7 @@ router.post('/', function (req, res, next) {
 
 router.post('/customercreated', function (req, res, next) {
 	Webhooks
-		.webhookHandler(req, res)
+		.webhookHandler(req, res, process.env.BUYGOODS_WEBHOOK_SECRET)
 		.then(response => {
 			customerResource = response
 		})
@@ -50,7 +50,7 @@ router.post('/customercreated', function (req, res, next) {
 
 router.post('/transactionreversed', function (req, res, next) {
 	Webhooks
-		.webhookHandler(req, res)
+		.webhookHandler(req, res, process.env.BUYGOODS_WEBHOOK_SECRET)
 		.then(response => {
 			reversalResource = response
 		})
