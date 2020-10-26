@@ -317,50 +317,50 @@ describe('TransferService', function () {
 		})
 	})
 
-	describe('settlementStatus()', function () {
+	describe('getStatus()', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
 				.get('/my_transfer_request_location')
 				.reply(200, response.status)
 		})
 
-		describe('settlementStatus() validation', function () {
+		describe('getStatus() validation', function () {
 			var opts = {}
 
-			it('#settlementStatus() cannot be empty', function () {
-				return transfer.settlementStatus(opts).should.be.rejected()
+			it('#getStatus() cannot be empty', function () {
+				return transfer.getStatus(opts).should.be.rejected()
 			})
 
-			it('#settlementStatus() has to have location', function () {
+			it('#getStatus() has to have location', function () {
 				var opts = {}
 				opts.accessToken = 'hardToGuessKey'
 
-				return transfer.settlementStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
+				return transfer.getStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
 			})
 
-			it('#settlementStatus() location has to be a string', function () {
+			it('#getStatus() location has to be a string', function () {
 				var opts = {}
 				opts.location = 4
 				opts.accessToken = 'hardToGuessKey'
 
-				return transfer.settlementStatus(opts).should.be.rejectedWith(Error, { message: 'Location must be a string; ' })
+				return transfer.getStatus(opts).should.be.rejectedWith(Error, { message: 'Location must be a string; ' })
 			})
 
-			it('#settlementStatus() has to have accessToken', function () {
+			it('#getStatus() has to have accessToken', function () {
 				var opts = {}
 				opts.location = BASE_URL + '/my_transfer_request_location'
 
-				return transfer.settlementStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+				return transfer.getStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 		})
 
-		it('#settlementStatus()', () => {
+		it('#getStatus()', () => {
 			var opts = {}
 
 			opts.accessToken = 'hardToGuessKey'
 			opts.location = BASE_URL + '/my_transfer_request_location'
 
-			return transfer.settlementStatus(opts).then(response => {
+			return transfer.getStatus(opts).then(response => {
 				// expect an object back
 				expect(typeof response).to.equal('object')
 				

@@ -386,36 +386,36 @@ describe('PayService', function () {
 		})
 	})
 
-	describe('payStatus()', function () {
+	describe('getStatus()', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
 				.get('/my_pay_request_location')
 				.reply(200, response.status)
 		})
 
-		describe('payStatus() request validation', function () {
-			it('#payStatus() has to have accessToken', function () {
+		describe('getStatus() request validation', function () {
+			it('#getStatus() has to have accessToken', function () {
 				var opts = {}
 				opts.location = BASE_URL + '/my_pay_request_location'
 
-				return pay.payStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+				return pay.getStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 
-			it('#payStatus() has to have location', function () {
+			it('#getStatus() has to have location', function () {
 				var opts = {}
 				opts.accessToken= 'hardToGuessKey'
 
-				return pay.payStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
+				return pay.getStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
 			})
 		})
 
-		it('#payStatus() succeeds', () => {
+		it('#getStatus() succeeds', () => {
 			var opts = {}
 
 			opts.accessToken= 'hardToGuessKey'
 			opts.location = BASE_URL + '/my_pay_request_location'
 
-			return pay.payStatus(opts).then(response => {
+			return pay.getStatus(opts).then(response => {
 				// expect an object back
 				expect(typeof response).to.equal('object')
 

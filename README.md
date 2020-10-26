@@ -55,7 +55,7 @@ TokenService
     .getTokens()
     .then(response => {
         //Developer can decide to store the token_details and track expiry
-        console.log(response)
+        console.log("Access token is: " + response.access_token)
     })
     .catch( error => {
         console.log(error);
@@ -97,8 +97,30 @@ const subscribeOptions = {
 
 Webhooks 
     .subscribe(subscribeOptions) 
-    .then(response => { console.log(response) }) 
-    .catch(error => { console.log(error) })
+    .then( response => {
+       console.log("The location url is: " + response) 
+	}) 
+    .catch( error => {
+		console.log(error) 
+	})
+```
+
+- To get the status of the webhook subscription 
+
+```node
+const statusOptions = { 
+    location: 'https://sandbox.kopokopo.com/webhook_subscriptions/c7f300c0-f1ef-4151-9bbe-005005aa3747',
+    accessToken: 'my_access_token'
+}
+
+Webhooks 
+    .getStatus(statusOptions) 
+    .then( response => {
+		console.log("The status is: " + response) 
+	}) 
+    .catch( error => {
+		console.log(error) 
+	})
 ```
 
 ### STK PUSH
@@ -110,18 +132,19 @@ var stkOptions = {
     shortCode: 36546,
     firstName: 'Jane'
     lastName: 'Doe',
-    phone: '+254712345678',
+    phoneNumber: '+254712345678',
     email: 'example@example.com',
     currency: 'KES',
     amount: 20,
     callbackUrl: 'https://my-valid-url.com/endpoint',
+	paymentChannel => 'M-PESA STK Push',
     accessToken: 'my_access_token',
 
     //A maximum of 5 key value pairs
     metadata: {
-      customerId: '123456789',
-      reference: '123456',
-      notes: 'Payment for invoice 123456'
+		customerId: '123456789',
+		reference: '123456',
+		notes: 'Payment for invoice 123456'
     }
   };
 
@@ -130,10 +153,10 @@ var stkOptions = {
   StkService
     .initiateIncomingPayment(stkOptions)
     .then( response => {     
-      console.log(response)
+		console.log(response)
     })
     .catch( error => {
-      console.log(error);
+      	console.log(error);
     });
 ```
 
@@ -160,7 +183,7 @@ NB: The access token is required to send subsequent requests
   - `shortCode`: Your online payments short code from Kopo Kopo's Dashboard `REQUIRED`
   - `firstName`: Customer's first name `REQUIRED`
   - `lastName`: Customer's last name `REQUIRED`
-  - `phone`: Phone number to pull money from. `REQUIRED`
+  - `phoneNumber`: Phone number to pull money from. `REQUIRED`
   - `email`: Amount to charge.
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
@@ -169,9 +192,12 @@ NB: The access token is required to send subsequent requests
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
-- `StkService.incomingPaymentRequestStatus({ location })`:
+- `StkService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
 
-  - `location`: The request location you get when you send a request
+  - `location`: The location url you got from the request `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#receive-payments-from-m-pesa-users-via-stk-push>
 
@@ -201,17 +227,21 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
 
 - `PayService.sendPay({ payOptions })`: `payOptions`: A hash of objects containing the following keys:
 
-  - `destinationType`: The destination type`REQUIRED`
-  - `destinationReference`: The destination reference`REQUIRED`
+  - `destinationType`: The destination type `REQUIRED`
+  - `destinationReference`: The destination reference `REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
-- `PayService.payStatus({ location })`:
+- `PayService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
 
-  - `location`: The request location you get when you send a request
+  - `location`: The location url you got from the request` REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+This works the same for all requests that you get a location response.
+
 
 For more information, please read <https://api-docs.kopokopo.com/#send-money-pay>
 
@@ -233,16 +263,20 @@ For more information, please read <https://api-docs.kopokopo.com/#send-money-pay
 
 - `TransferService.settleFunds({ settleOpts })`: `settleOpts`: A hash of objects containing the following keys:
 
-  - `destinationType`: The destination type`REQUIRED FOR A TARGETED TRANSFER`
-  - `destinationReference`: The destination reference`REQUIRED FOR A TARGETED TRANSFER`
+  - `destinationType`: The destination type `REQUIRED FOR A TARGETED TRANSFER`
+  - `destinationReference`: The destination reference `REQUIRED FOR A TARGETED TRANSFER`
   - `currency`: 3-digit ISO format currency code. `REQUIRED FOR A TARGETED TRANSFER`
   - `amount`: Amount to charge. `REQUIRED FOR A TARGETED TRANSFER`
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+  - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
-- `TransferService.settlementStatus({ location })`:
+- `TransferService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
 
-  - `location`: The request location you get when you send a request
+  - `location`: The location url you got from the request `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#transfer-to-your-account-s>
 

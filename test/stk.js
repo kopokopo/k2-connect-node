@@ -200,42 +200,42 @@ describe('StkService', function () {
 		})
 	})
 
-	describe('incomingPaymentRequestStatus() ', function () {
+	describe('getStatus() ', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
 				.get('/my_stk_request_location')
 				.reply(200, response.status)
 		})
 
-		describe('incomingPaymentRequestStatus() request validation', function () {
+		describe('getStatus() request validation', function () {
 			var opts = {}
 
-			it('#incomingPaymentRequestStatus() cannot be empty', function () {
-				return stk.incomingPaymentRequestStatus(opts).should.be.rejected()
+			it('#getStatus() cannot be empty', function () {
+				return stk.getStatus(opts).should.be.rejected()
 			})
 
-			it('#incomingPaymentRequestStatus() has to have accessToken', function () {
+			it('#getStatus() has to have accessToken', function () {
 				opts.location = BASE_URL + '/my_stk_request_location'
 				opts.accessToken = null
 
-				return stk.incomingPaymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
+				return stk.getStatus(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 
-			it('#incomingPaymentRequestStatus() has to have location', function () {
+			it('#getStatus() has to have location', function () {
 				opts.location = null
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.incomingPaymentRequestStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
+				return stk.getStatus(opts).should.be.rejectedWith(Error, { message: 'Location can\'t be blank; ' })
 			})
 		})
 
-		it('#incomingPaymentRequestStatus() succeeds', () => {
+		it('#getStatus() succeeds', () => {
 			var opts = {}
 
 			opts.accessToken = 'hardToGuessKey'
 			opts.location = BASE_URL + '/my_stk_request_location'
 
-			return stk.incomingPaymentRequestStatus(opts).then(response => {
+			return stk.getStatus(opts).then(response => {
 				// expect an object back
 				expect(typeof response).to.equal('object')
 
