@@ -165,6 +165,7 @@ NB: The access token is required to send subsequent requests
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
+  - `paymentChannel`: Payment channel. Default is: `"M-PESA STK Push"`. `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
@@ -189,6 +190,7 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
       - `accountName`: Pay recipient's account name `REQUIRED`
       - `accountNumber`: Pay recipient's account number `REQUIRED`
       - `bankBranchRef`: Bank branch reference from the kopokopo dashboard `REQUIRED`
+      - `settlementMethod`: Settlement Method `REQUIRED`
     - External Till Recipient(`till`)
       - `tillNumber`: Pay recipient's till number `REQUIRED`
       - `tillName`: Pay recipient's till name `REQUIRED`
