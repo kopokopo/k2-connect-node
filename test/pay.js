@@ -5,7 +5,7 @@ const nock = require('nock')
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
 const response = require('./response/pay')
 
-const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io'
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v1'
 
 var k2, pay
 
@@ -93,23 +93,23 @@ describe('PayService', function () {
 				opts.type = 'bank_account'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.settlementMethod = 'RTS'
+				opts.settlementMethod = 'EFT'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Account name can\'t be blank; ' })
 			})
 
-			// it('#addPayRecipient() account has to have settlementMethod', function () {
-			// 	var opts = {}
+			it('#addPayRecipient() account has to have settlementMethod', function () {
+				var opts = {}
 	
-			// 	opts.type = 'bank_account'
-			// 	opts.accountName = 'Jane Doe'
-			// 	opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-			// 	opts.accountNumber = '123456789'
-			// 	opts.accessToken= 'hardToGuessKey'
+				opts.type = 'bank_account'
+				opts.accountName = 'Jane Doe'
+				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
+				opts.accountNumber = '123456789'
+				opts.accessToken= 'hardToGuessKey'
 
-			// 	return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Settlement method can\'t be blank; ' })
-			// })
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Settlement method can\'t be blank; ' })
+			})
 
 			it('#addPayRecipient() account has to have bankBranchRef', function () {
 				var opts = {}
@@ -117,7 +117,7 @@ describe('PayService', function () {
 				opts.type = 'bank_account'
 				opts.accountName = 'Jane Doe'
 				opts.accountNumber = '123456789'
-				opts.settlementMethod = 'RTS'
+				opts.settlementMethod = 'EFT'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Bank branch ref can\'t be blank; ' })
@@ -129,7 +129,7 @@ describe('PayService', function () {
 				opts.type = 'bank_account'
 				opts.accountName = 'Jane Doe'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-				opts.settlementMethod = 'RTS'
+				opts.settlementMethod = 'EFT'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Account number can\'t be blank; ' })
@@ -142,7 +142,7 @@ describe('PayService', function () {
 				opts.accountName = 'Jane Doe'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.settlementMethod = 'RTS'
+				opts.settlementMethod = 'EFT'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -175,7 +175,7 @@ describe('PayService', function () {
 				opts.type = 'till'
 				opts.tillName = 'Jane Doe'
 				opts.tillNumber = '123456'
-				opts.settlementMethod = 'RTS'
+				opts.settlementMethod = 'EFT'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -208,7 +208,7 @@ describe('PayService', function () {
 				opts.type = 'kopo_kopo_merchant'
 				opts.aliasName = 'Jane Doe'
 				opts.tillNumber = '123456'
-				opts.settlementMethod = 'RTS'
+				opts.settlementMethod = 'EFT'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -240,7 +240,7 @@ describe('PayService', function () {
 			opts.accountName = 'Jane Doe'
 			opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 			opts.accountNumber = '123456789'
-			opts.settlementMethod = 'RTS'
+			opts.settlementMethod = 'EFT'
 			opts.accessToken= 'hardToGuessKey'
 											
 			return pay.addPayRecipient(opts).then(response => {

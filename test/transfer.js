@@ -5,7 +5,7 @@ const nock = require('nock')
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
 const response = require('./response/transfer')
 
-const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io'
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v1'
 
 var k2, transfer
 
@@ -240,10 +240,36 @@ describe('TransferService', function () {
 
 		describe('createMerchantWallet() validation', function () {
 
+			it('#createMerchantWallet() has to have an firstName', function () {
+				var opts = {}
+
+				opts.lastName = 'Doe'
+				opts.phoneNumber = 'my_account_name'
+				opts.network = 'Safaricom'
+				opts.accessToken = 'hardToGuessKey'
+
+				return transfer.createMerchantWallet(opts)
+					.should.be.rejectedWith(Error, { message: 'First name can\'t be blank; ' })
+			})
+
+			it('#createMerchantWallet() has to have an lastName', function () {
+				var opts = {}
+
+				opts.firstName = 'Jane'
+				opts.phoneNumber = 'my_account_name'
+				opts.network = 'Safaricom'
+				opts.accessToken = 'hardToGuessKey'
+
+				return transfer.createMerchantWallet(opts)
+					.should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
+			})
+
 			it('#createMerchantWallet() has to have a phoneNumber', function () {
 				var opts = {}
 
-				opts.network = '1234567890'
+				opts.firstName = 'Jane'
+				opts.lastName = 'Doe'
+				opts.network = 'Safaricom'
 				opts.accessToken = 'hardToGuessKey'
 
 				return transfer.createMerchantWallet(opts)
@@ -253,6 +279,8 @@ describe('TransferService', function () {
 			it('#createMerchantWallet() has to have a network', function () {
 				var opts = {}
 
+				opts.firstName = 'Jane'
+				opts.lastName = 'Doe'
 				opts.phoneNumber = 'my_account_name'
 				opts.accessToken = 'hardToGuessKey'
 
@@ -263,8 +291,10 @@ describe('TransferService', function () {
 			it('#createMerchantWallet() has to have an accessToken', function () {
 				var opts = {}
 
+				opts.firstName = 'Jane'
+				opts.lastName = 'Doe'
 				opts.phoneNumber = 'my_account_name'
-				opts.network = '1234567890'
+				opts.network = 'Safaricom'
 
 				return transfer.createMerchantWallet(opts)
 					.should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
@@ -274,8 +304,10 @@ describe('TransferService', function () {
 		it('#createMerchantWallet()', () => {
 			var opts = {}
 	
+			opts.firstName = 'Jane'
+			opts.lastName = 'Doe'
 			opts.phoneNumber = 'my_account_name'
-			opts.network = '1234567890'
+			opts.network = 'Safaricom'
 			opts.accessToken = 'hardToGuessKey'
 	
 	
