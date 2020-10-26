@@ -10,6 +10,9 @@ const options = {
 // Including the kopokopo module
 var K2 = require('k2-connect-node')(options)
 var PayService = K2.PayService
+var Webhooks = K2.Webhooks
+
+var payResource
 
 // Put in another file and import when needed
 var tokens = K2.TokenService
@@ -28,6 +31,30 @@ router.get('/', function (req, res, next) {
 	res.render('pay', res.locals.commonData)
 })
 
+router.post('/result', function (req, res, next) {
+	// Send message and capture the response or error
+	Webhooks
+		.webhookHandler(req, res, process.env.K2_CLIENT_SECRET)
+		.then(response => {
+			payResource = response
+		})
+		.catch(error => {
+			console.log(error)
+		})
+})
+
+router.get('/result', function (req, res, next) {
+	let resource = payResource
+
+	if (resource != null) {
+		resource = resource.data
+		res.render('result', { obj: "Pay", message: "Result resource is: " + JSON.stringify(resource) })
+	} else {
+		console.log('Pay result not yet posted')
+		res.render('result', { obj: "Pay", error: 'Pay result not yet posted' })
+	}
+})
+
 router.post('/', function (req, res, next) {
 	var payOpts = {
 		destinationReference: req.body.destinationReference,
@@ -38,7 +65,7 @@ router.post('/', function (req, res, next) {
 			customer_id: '8675309',
 			notes: 'Salary payment for May 2018'
 		},
-		callbackUrl: 'https://your-call-bak.yourapplication.com/payment_result',
+		callbackUrl: 'http://localhost:8000/pay/result',
 		accessToken: token_details.access_token
 	}
 
@@ -79,18 +106,6 @@ router.post('/recipients', function (req, res, next) {
 		.catch(error => {
 			console.log(error)
 			return res.render('payrecipient', { message: 'Error: ' + error })
-		})
-})
-
-router.get('/status', function (req, res, next) {
-	PayService
-		.payStatus({ accessToken: token_details.access_token, location:  process.env.K2_BASE_URL + '/pay_status' })
-		.then(response => {
-			return res.render('paystatus', { message: 'Pay status is: ' + response })
-		})
-		.catch(error => {
-			console.log(error)
-			return res.render('paystatus', { message: 'Error: ' + error })
 		})
 })
 

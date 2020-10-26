@@ -11,6 +11,10 @@ const options = {
 var K2 = require('k2-connect-node')(options)
 var TransferService = K2.TransferService
 
+var Webhooks = K2.Webhooks
+
+var transferResource
+
 // Put in another file and import when needed
 var tokens = K2.TokenService
 var token_details
@@ -34,7 +38,7 @@ router.post('/', function (req, res, next) {
 		amount : req.body.amount,
 		currency: 'KES',
 		destinationReference: req.body.destinationReference,
-		callbackUrl: 'https://your-call-bak.yourapplication.com/payment_result',
+		callbackUrl: 'http://localhost:8000/transfer/result',
 		destinationType: req.body.destinationType,
 		accessToken: token_details.access_token
 	}
@@ -99,16 +103,28 @@ router.get('/createmerchantwallet', function (req, res, next) {
 	res.render('merchantwallet', res.locals.commonData)
 })
 
-router.get('/status', function (req, res, next) {
-	TransferService
-		.settlementStatus({ accessToken: token_details.access_token, location:  'http://localhost:3000/api/v1/merchant_bank_accounts/f08f3002-afe6-4f23-8370-533fb3b15a8b' })
-		.then(response =>{
-			return res.render('transferstatus', { message: 'Transfer status is: ' + JSON.stringify(response) })
+router.post('/result', function (req, res, next) {
+	// Send message and capture the response or error
+	Webhooks
+		.webhookHandler(req, res, process.env.K2_CLIENT_SECRET)
+		.then(response => {
+			transferResource = response
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('transferstatus', { message: 'Error: ' + error })
 		})
+})
+
+router.get('/result', function (req, res, next) {
+	let resource = transferResource
+
+	if (resource != null) {
+		resource = resource.data
+		res.render('result', { obj: "Settlement Transfer", message: "Result resource is: " + JSON.stringify(resource) })
+	} else {
+		console.log('Settlement Transfer result not yet posted')
+		res.render('result', { obj: "Settlement Transfer", error: 'Settlement Transfer result not yet posted' })
+	}
 })
 
 module.exports = router

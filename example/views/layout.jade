@@ -24,6 +24,7 @@ html
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
                                 a.dropdown-item(href='/webhook/subscribe') Webhook Subscription
+                                a.dropdown-item(href='/status') Query Webhook Subscription Status
                                 a.dropdown-item(href='/webhook/resource') Buy Goods Received Resource
                                 a.dropdown-item(href='/webhook/reversalresource') Buy Goods Reversed Resource
                                 a.dropdown-item(href='/webhook/customerresource') Customer Resource
@@ -33,22 +34,24 @@ html
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
                                 a.dropdown-item(href='/stk') STK Push
                                 a.dropdown-item(href='/stk/result') Process Payment Request Result
-                                a.dropdown-item(href='/stk/status') Query Payment Status
+                                a.dropdown-item(href='/status') Query Status
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
                                 a.dropdown-item(href='/pay') Create a Payment
-                                a.dropdown-item(href='/pay/recipients') Adding PAY recipients 
-                                a.dropdown-item(href='/pay/status') Payment status
+                                a.dropdown-item(href='/pay/recipients') Adding PAY Recipients 
+                                a.dropdown-item(href='/status') Query Status
+                                a.dropdown-item(href='/pay/result') Payment Result
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                a.dropdown-item(href='/transfer') Initiate a transfer
+                                a.dropdown-item(href='/transfer') Initiate a Transfer
                                 a.dropdown-item(href='/transfer/createmerchantaccount') Create a Merchant Bank Account
                                 a.dropdown-item(href='/transfer/createmerchantwallet') Create a Merchant Wallet
-                                a.dropdown-item(href='/transfer/status') Query Transfer status
+                                a.dropdown-item(href='/status') Query Status
+                                a.dropdown-item(href='/transfer/result') Transfer Result
                             
         .d-flex.align-items-xl-center.flex-column
             block content

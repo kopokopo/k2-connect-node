@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+    br
+
+    p !{message}
+    .container
+        .title.h3 Get Status
+        br
+        form(action="/getstatus", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label Location Url
+                .col-sm-7
+                    input.form-control(name="location", type='text', placeholder='Enter Location Url' required)
+                    small.form-text.text-muted
+                        | Location Url    
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Get Status

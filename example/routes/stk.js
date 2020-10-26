@@ -50,15 +50,16 @@ router.get('/result', function (req, res, next) {
 	let resource = stkResource
 
 	if (resource != null) {
+		resource = resource.data
 		res.render('stkresult', {
-			origination_time: resource.event.resource.origination_time,
-			sender_msisdn: resource.event.resource.sender_msisdn,
-			amount: resource.event.resource.amount,
-			currency: resource.event.resource.currency,
-			till_number: resource.event.resource.till_number,
-			name: resource.event.resource.sender_first_name,
-			status: resource.event.resource.status,
-			system: resource.event.resource.system
+			originationTime: resource.attributes.event.resource.origination_time,
+			senderPhoneNumber: resource.attributes.event.resource.sender_phone_number,
+			amount: resource.attributes.event.resource.amount,
+			currency: resource.attributes.event.resource.currency,
+			tillNumber: resource.attributes.event.resource.till_number,
+			name: resource.attributes.event.resource.sender_first_name + " " + resource.attributes.event.resource.sender_last_name,
+			status: resource.attributes.event.resource.status,
+			system: resource.attributes.event.resource.system
 		})
 	} else {
 		console.log('STK push result not yet posted')
@@ -88,7 +89,6 @@ router.post('/receive', function (req, res, next) {
 
 		accessToken: token_details.access_token
 	}
-	console.log(token_details)
 
 	// Send message and capture the response or error
 	StkService
@@ -100,18 +100,6 @@ router.post('/receive', function (req, res, next) {
 			console.log(error)
 			return res.render('stkrequest', { message: 'Error ' + error })
 
-		})
-})
-
-router.get('/status', function (req, res, next) {
-	StkService
-		.incomingPaymentRequestStatus({ accessToken: token_details.access_token, location: process.env.K2_BASE_URL + '/payment_status' })
-		.then(response => {
-			return res.render('stkstatus', { message: 'STK status is: ' + response })
-		})
-		.catch(error => {
-			console.log(error)
-			return res.render('stkstatus', { message: 'Error: ' + error })
 		})
 })
 
