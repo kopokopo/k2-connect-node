@@ -65,7 +65,7 @@ router.post('/recipients', function (req, res, next) {
 		firstName: req.body.first_name,
 		lastName: req.body.last_name,
 		email: req.body.email,
-		phone: req.body.phone,
+		phoneNumber: req.body.phone,
 		network: 'Safaricom',
 		accessToken: token_details.access_token
 	}
