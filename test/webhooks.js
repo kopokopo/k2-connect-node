@@ -49,7 +49,6 @@ describe('Webhooks', function () {
 
 			it('#subscribe() must have eventType', function () {
 				opts.url = 'http://localhost:8000/test'
-				opts.webhookSecret = 'webhook_secret'
 				opts.scope = 'till'
 				opts.scopeReference = 'tillNumber'
 				opts.accessToken = 'hardToGuessKey'
@@ -60,7 +59,6 @@ describe('Webhooks', function () {
 			it('#subscribe() must have url', function () {
 				opts.url = null
 				opts.eventType = 'buygoods_transaction_received'
-				opts.webhookSecret = 'webhook_secret'
 				opts.scope = 'till'
 				opts.scopeReference = 'tillNumber'
 				opts.accessToken = 'hardToGuessKey'
@@ -71,7 +69,6 @@ describe('Webhooks', function () {
 			it('#subscribe() url has to be a valid url', function () {
 				opts.url = 'my_invalid_url'
 				opts.eventType = 'buygoods_transaction_received'
-				opts.webhookSecret = 'webhook_secret'
 				opts.scope = 'till'
 				opts.scopeReference = 'tillNumber'
 				opts.accessToken = 'hardToGuessKey'
@@ -79,21 +76,9 @@ describe('Webhooks', function () {
 				return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Url is not a valid url; ' })
 			})
 
-			it('#subscribe() must have webhookSecret', function () {
-				opts.eventType = 'buygoods_transaction_received'
-				opts.url = 'http://localhost:8000/test'
-				opts.webhookSecret = null
-				opts.scope = 'till'
-				opts.scopeReference = 'tillNumber'
-				opts.accessToken = 'hardToGuessKey'
-
-				return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Webhook secret can\'t be blank; ' })
-			})
-
 			it('#subscribe() must have accessToken', function () {
 				opts.eventType = 'buygoods_transaction_received'
 				opts.url = 'http://localhost:8000/test'
-				opts.webhookSecret = 'webhook_secret'
 				opts.scope = 'till'
 				opts.scopeReference = 'tillNumber'
 				opts.accessToken = null
@@ -104,7 +89,6 @@ describe('Webhooks', function () {
 			it('#subscribe() must have scope', function () {
 				opts.eventType = 'buygoods_transaction_received'
 				opts.url = 'http://localhost:8000/test'
-				opts.webhookSecret = 'webhook_secret'
 				opts.scope = null
 				opts.scopeReference = 'tillNumber'
 				opts.accessToken = 'hardToGuessKey'
@@ -115,7 +99,6 @@ describe('Webhooks', function () {
 			it('#subscribe() must have scopeReference', function () {
 				opts.eventType = 'buygoods_transaction_received'
 				opts.url = 'http://localhost:8000/test'
-				opts.webhookSecret = 'webhook_secret'
 				opts.scope = 'till'
 				opts.scopeReference = null
 				opts.accessToken = 'hardToGuessKey'
@@ -128,7 +111,6 @@ describe('Webhooks', function () {
 			var opts = {}
 			opts.eventType = 'buygoods_transaction_received'
 			opts.url = 'http://localhost:8000/test'
-			opts.webhookSecret = 'webhook_secret'
 			opts.scope = 'till'
 			opts.scopeReference = 'tillNumber'
 			opts.accessToken = 'hardToGuessKey'

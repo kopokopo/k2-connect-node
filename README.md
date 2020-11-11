@@ -89,7 +89,6 @@ router.post('/customercreated', function(req, res, next){
 const subscribeOptions = { 
     eventType: 'buygoods_transaction_received', 
     url: 'https://my-valid-url.com/endpoint', 
-    webhookSecret: 'my_webhook_secret', 
     accessToken: 'my_access_token',
     scope: 'till',
     scopeReference: '123456'
