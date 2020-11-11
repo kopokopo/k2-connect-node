@@ -19,26 +19,27 @@ npm install --save k2-connect-node
 The package should be configured with your client id and client secret which you can get from your account on the kopokopo's app
 
 ```node
-//Having stored your client id and client secret as environment variables
+//Having stored your credentials as environment variables
 const options = {
   clientId: process.env.K2_CLIENT_ID,
   clientSecret: process.env.K2_CLIENT_SECRET,
-  baseUrl: process.env.K2_BASE_URL
-};
+  baseUrl: process.env.K2_BASE_URL,
+  apiKey: process.env.K2_API
+}
 
 //Including the kopokopo module
-var K2 = require("k2-connect-node")(options);
+var K2 = require("k2-connect-node")(options)
 ```
 
 Note: The `baseUrl` can be custom for testing purposes but we recommend using the sandbox base url during development.
 
 ### After initialization, you can get instances of offered services as follows:
 
-- [Tokens](#tokenservice) : `var TokenService = K2.TokenService;`
-- [Webhooks](#webhooks) : `var Webhooks = K2.Webhooks;`
-- [STK PUSH](#stkservice) : `var StkService = K2.StkService;`
-- [Pay](#payservice) : `var PayService = K2.PayService;`
-- [Transfer](#transferservice) : `var TransferService = K2.TransferService;`
+- [Tokens](#tokenservice) : `var TokenService = K2.TokenService`
+- [Webhooks](#webhooks) : `var Webhooks = K2.Webhooks`
+- [STK PUSH](#stkservice) : `var StkService = K2.StkService`
+- [Pay](#payservice) : `var PayService = K2.PayService`
+- [Transfer](#transferservice) : `var TransferService = K2.TransferService`
 
 ## Usage
 
@@ -49,7 +50,7 @@ The package needs to be configured with your kopokopo's clientId and Secret Key,
 To send any requests to Kopokopo's API you'll need an access token
 
 ```node
-const TokenService = K2.TokenService;
+const TokenService = K2.TokenService
 
 TokenService
     .getTokens()
@@ -58,8 +59,8 @@ TokenService
         console.log("Access token is: " + response.access_token)
     })
     .catch( error => {
-        console.log(error);
-    });
+        console.log(error)
+    })
 ```
 
 ### Webhooks
@@ -67,19 +68,19 @@ TokenService
 - Consuming
 
 ```node
-const Webhooks = K2.Webhooks;
+const Webhooks = K2.Webhooks
 
 //Router or whatever server you are using
 router.post('/customercreated', function(req, res, next){  
     // Send message and capture the response or error
     Webhooks
-        .webhookHandler(req, res, 'my_webhook_secret')
+        .webhookHandler(req, res)
         .then( response => {
             console.log(response)
         })
         .catch( error => {
-            console.log(error);
-        });
+            console.log(error)
+        })
 })
 ```
 
@@ -125,7 +126,7 @@ Webhooks
 ### STK PUSH
 
 ```node
-const StkService = K2.StkService;
+const StkService = K2.StkService
 
 var stkOptions = {
     shortCode: 36546,
@@ -145,7 +146,7 @@ var stkOptions = {
 		reference: '123456',
 		notes: 'Payment for invoice 123456'
     }
-  };
+  }
 
   // Send message and capture the response or error
 
@@ -155,8 +156,8 @@ var stkOptions = {
 		console.log(response)
     })
     .catch( error => {
-      	console.log(error);
-    });
+      	console.log(error)
+    })
 ```
 
 For other usage examples check out the [example app](https://github.com/kopokopo/k2-connect-node/tree/master/example).

@@ -132,13 +132,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': 'f5860a2a5a5f5bc5abc01a80c1016c616ddf8930dbc525572e5d889b7dea145f',
+							'X-KopoKopo-Signature': 'cd8477515d43a4496e4ebda1ac8dd41ecd881d0b74bcec4a46954223f0a8489f',
 						},
 						body: buygoodsreceivedhook
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.event.type).to.equal('Buygoods Transaction')
 
@@ -151,13 +151,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '5c0434eec0c961a5ed0d6e82b47d20e8c4e2cee5fe7f50ace785a2cbe188ce89',
+							'X-KopoKopo-Signature': '500781ef480e6ea4c3d21c631831e53e8cf7a18f6341a8c75acc56912e9711b8',
 						},
 						body: b2breceivedhook
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.event.type).to.equal('B2b Transaction')
 
@@ -170,13 +170,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '0b2e03de7259cf5f1864ae56c9998b53b3f3bd55bd93a379d2a55d16c494231f',
+							'X-KopoKopo-Signature': '6a0e6334ca8d8f91506c33df08553436bb0a7b783697438265cef4e7002d238e',
 						},
 						body: m2mreceivedhook
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.event.type).to.equal('Merchant to Merchant Transaction')
 
@@ -190,13 +190,13 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': '7fe1860c6da8e9d14cbc56173acdea539ab1e408524ba88f1df36c7f32ad3428',
+						'X-KopoKopo-Signature': '2a8224d53adeff25670e10d763acaed969e916b0519b07f30f1468164eac87d6',
 					},
 					body: buygoodsreversedhook
 				})
 				var res = mocks.createResponse()
 
-				return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+				return webhooks.webhookHandler(req, res).then(response => {
 
 					expect(response.event.type).to.equal('Buygoods Transaction Reversed')
 
@@ -209,13 +209,13 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': '8ade2dc0671abd2e6f2b6f8d499bb2bb8de357dab16aa5693bf3fa31e69f63c5',
+						'X-KopoKopo-Signature': 'b5e88cc2a72180d1e2efe25b8e3e0b7b7bc1b3f31cfafc6089c9d90dd4dfe829',
 					},
 					body: transfercompletedhook
 				})
 				var res = mocks.createResponse()
 
-				return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+				return webhooks.webhookHandler(req, res).then(response => {
 
 					expect(response.event.type).to.equal('Settlement')
 
@@ -228,13 +228,13 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': 'e19eb491f02cd7fd8dcb3d26b2c385496f3b6b96ac7e4a3159960bde8a3fe11b',
+						'X-KopoKopo-Signature': '87141a29781e8a0f3605142d1684f86a4aa96b173cb6ebcf8b3c12d2697342d9',
 					},
 					body: customercreatedhook
 				})
 				var res = mocks.createResponse()
 
-				return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+				return webhooks.webhookHandler(req, res).then(response => {
 
 					expect(response.event.type).to.equal('Customer Created')
 
@@ -248,13 +248,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '5049b145881f0999b0c6164cbaa8c46b6a6c11f35d05b09364e38b752628617d',
+							'X-KopoKopo-Signature': 'd9e33920a71004bef7eb035bf80540e2b2c73005dc05bdf3aca05dd09a81a708',
 						},
 						body: stksuccessfulresult
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.data.type).to.equal('incoming_payment')
 
@@ -267,13 +267,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '4f00bcabcfc3923ca877d67222a5db2f27f63931b6458a034896b2ea548836c6',
+							'X-KopoKopo-Signature': 'bc9c01264ec85b38100f338183690f255cf2533ba00aa95d004db98e8cfb2f32',
 						},
 						body: stkunsuccessfulresult
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.data.type).to.equal('incoming_payment')
 
@@ -286,13 +286,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '9591b284eec1b794429423da47db65249d7c2b298c1cdfe19d566142e2284edd',
+							'X-KopoKopo-Signature': '9a8adaba28982c2fb55dc29d720ab2ad565b19d04295f7eacb9148c13f4fae19',
 						},
 						body: payresult
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.status).to.equal('Sent')
 
@@ -305,13 +305,13 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '8809f042c831bcdb2d0527e9b9cf914e31b698d7071e4561061243095ed7a29c',
+							'X-KopoKopo-Signature': 'c694a7ec52d9b34cea8417a50993bf8fd0e50831c2394021a31ba36ee4cfc2c6',
 						},
 						body: transferresult
 					})
 					var res = mocks.createResponse()
 
-					return webhooks.webhookHandler(req, res, 'my_webhook_secret').then(response => {
+					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.status).to.equal('Pending')
 

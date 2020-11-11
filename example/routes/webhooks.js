@@ -4,7 +4,8 @@ const router = express.Router()
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
 	clientSecret: process.env.K2_CLIENT_SECRET,
-	baseUrl: process.env.K2_BASE_URL
+	baseUrl: process.env.K2_BASE_URL,
+	apiKey: process.env.K2_API_KEY
 }
 
 // Including the kopokopo module
@@ -28,7 +29,7 @@ tokens
 
 router.post('/', function (req, res, next) {
 	Webhooks
-		.webhookHandler(req, res, process.env.BUYGOODS_WEBHOOK_SECRET)
+		.webhookHandler(req, res)
 		.then(response => {
 			buyGoodsResource = response
 		})
@@ -39,7 +40,7 @@ router.post('/', function (req, res, next) {
 
 router.post('/customercreated', function (req, res, next) {
 	Webhooks
-		.webhookHandler(req, res, process.env.BUYGOODS_WEBHOOK_SECRET)
+		.webhookHandler(req, res)
 		.then(response => {
 			customerResource = response
 		})
@@ -50,7 +51,7 @@ router.post('/customercreated', function (req, res, next) {
 
 router.post('/transactionreversed', function (req, res, next) {
 	Webhooks
-		.webhookHandler(req, res, process.env.BUYGOODS_WEBHOOK_SECRET)
+		.webhookHandler(req, res)
 		.then(response => {
 			reversalResource = response
 		})
