@@ -129,7 +129,7 @@ Webhooks
 const StkService = K2.StkService
 
 var stkOptions = {
-    shortCode: 36546,
+    tillNumber: 36546,
     firstName: 'Jane'
     lastName: 'Doe',
     phoneNumber: '+254712345678',
@@ -180,7 +180,7 @@ NB: The access token is required to send subsequent requests
 
 - `StkService.initiateIncomingPayment({ stkOptions })`: `stkOptions`: A hash of objects containing the following keys:
 
-  - `shortCode`: Your online payments short code from Kopo Kopo's Dashboard `REQUIRED`
+  - `tillNumber`: Your online payments till number from Kopo Kopo's Dashboard `REQUIRED`
   - `firstName`: Customer's first name `REQUIRED`
   - `lastName`: Customer's last name `REQUIRED`
   - `phoneNumber`: Phone number to pull money from. `REQUIRED`

@@ -27,7 +27,7 @@ describe('StkService', function () {
 
 		describe('initiateIncomingPayment() validation ', function () {
 
-			it('#initiateIncomingPayment() has to have shortCode', function () {
+			it('#initiateIncomingPayment() has to have tillNumber', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
@@ -40,14 +40,14 @@ describe('StkService', function () {
 				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
 				opts.accessToken = 'hardToGuessKey'
 
-				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Short code can\'t be blank; ' })
+				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
 			})
 
 			it('#initiateIncomingPayment() has to have firstName', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
 				opts.phoneNumber = '+254999999999'
@@ -63,7 +63,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.email = 'janedoe@example.com'
 				opts.phoneNumber = '+254999999999'
@@ -79,7 +79,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -95,7 +95,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -111,7 +111,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -127,7 +127,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -143,7 +143,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -160,7 +160,7 @@ describe('StkService', function () {
 				var opts = {}
 
 				opts.paymentChannel = 'M-PESA'
-				opts.shortCode = '444555'
+				opts.tillNumber = '444555'
 				opts.firstName = 'Jane'
 				opts.lastName = 'Doe'
 				opts.email = 'janedoe@example.com'
@@ -177,7 +177,7 @@ describe('StkService', function () {
 			var opts = {}
 
 			opts.paymentChannel = 'M-PESA'
-			opts.shortCode = '444555'
+			opts.tillNumber = '444555'
 			opts.firstName = 'Jane'
 			opts.lastName = 'Doe'
 			opts.email = 'janedoe@example.com'

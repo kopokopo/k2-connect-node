@@ -72,7 +72,7 @@ router.post('/receive', function (req, res, next) {
 
 	var stkOptions = {
 		paymentChannel: "M-PESA STK Push",
-		shortCode: "514459",
+		tillNumber: "514459",
 		firstName: req.body.first_name,
 		lastName: req.body.last_name,
 		phoneNumber: req.body.phone,
