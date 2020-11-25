@@ -181,8 +181,8 @@ NB: The access token is required to send subsequent requests
 - `StkService.initiateIncomingPayment({ stkOptions })`: `stkOptions`: A hash of objects containing the following keys:
 
   - `tillNumber`: Your online payments till number from Kopo Kopo's Dashboard `REQUIRED`
-  - `firstName`: Customer's first name `REQUIRED`
-  - `lastName`: Customer's last name `REQUIRED`
+  - `firstName`: Customer's first name
+  - `lastName`: Customer's last name
   - `phoneNumber`: Phone number to pull money from. `REQUIRED`
   - `email`: Amount to charge.
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
