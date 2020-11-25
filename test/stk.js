@@ -43,38 +43,6 @@ describe('StkService', function () {
 				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
 			})
 
-			it('#initiateIncomingPayment() has to have firstName', function () {
-				var opts = {}
-
-				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
-				opts.lastName = 'Doe'
-				opts.email = 'janedoe@example.com'
-				opts.phoneNumber = '+254999999999'
-				opts.currency = 'KES'
-				opts.amount = 20
-				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
-				opts.accessToken = 'hardToGuessKey'
-
-				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'First name can\'t be blank; ' })
-			})
-
-			it('#initiateIncomingPayment() has to have lastName', function () {
-				var opts = {}
-
-				opts.paymentChannel = 'M-PESA'
-				opts.tillNumber = '444555'
-				opts.firstName = 'Jane'
-				opts.email = 'janedoe@example.com'
-				opts.phoneNumber = '+254999999999'
-				opts.currency = 'KES'
-				opts.amount = 20
-				opts.callbackUrl = 'http://localhost:8000/stk/requestresponse'
-				opts.accessToken = 'hardToGuessKey'
-
-				return stk.initiateIncomingPayment(opts).should.be.rejectedWith(Error, { message: 'Last name can\'t be blank; ' })
-			})
-
 			it('#initiateIncomingPayment() has to have phoneNumber', function () {
 				var opts = {}
 
