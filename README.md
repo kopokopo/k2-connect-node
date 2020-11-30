@@ -269,7 +269,6 @@ For more information, please read <https://api-docs.kopokopo.com/#send-money-pay
   - `amount`: Amount to charge. `REQUIRED FOR A TARGETED TRANSFER`
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-  - `metadata`: It is a hash containing a maximum of 5 key value pairs
 
 - `TransferService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
 
