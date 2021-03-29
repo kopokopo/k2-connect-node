@@ -10,21 +10,27 @@ block content
         br
         form(action="/stk/receive", method="post")
             .form-group.row
+                    label.col-sm-2.col-form-label Till Number
+                    .col-sm-7
+                        input.form-control(name="till_number", type='text', placeholder='Enter Till Number' required)
+                        small.form-text.text-muted
+                            | Enter Till Number  
+            .form-group.row
                 label.col-sm-2.col-form-label First Name
                 .col-sm-7
-                    input.form-control(name="first_name", type='text', placeholder='Enter  First Name' required)
+                    input.form-control(name="first_name", type='text', placeholder='Enter  First Name')
                     small.form-text.text-muted
                         | Enter First Name    
             .form-group.row
                 label.col-sm-2.col-form-label Last Name
                 .col-sm-7
-                    input.form-control(name="last_name", type='text', placeholder='Enter Last Name' required)
+                    input.form-control(name="last_name", type='text', placeholder='Enter Last Name')
                     small.form-text.text-muted
                         | Enter Last Name     
             .form-group.row
                 label.col-sm-2.col-form-label Email Address
                 .col-sm-7
-                    input.form-control(name="email", type='email', placeholder='Enter Email Address' required)
+                    input.form-control(name="email", type='email', placeholder='Enter Email Address')
                     small.form-text.text-muted
                         | Enter Email       
             .form-group.row

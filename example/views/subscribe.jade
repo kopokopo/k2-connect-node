@@ -20,6 +20,18 @@ block content
                         option(value="settlement_transfer_completed") Settlement Completed
                         option(value="customer_created") Customer Created
             .form-group.row
+                label.col-sm-2.col-form-label(for="scope") Scope
+                .col-sm-7
+                    select(name = "scope")
+                        option(value="company") Company
+                        option(value="till") Till
+            .form-group.row
+                label.col-sm-2.col-form-label Scope Reference
+                .col-sm-7
+                    input.form-control(name="scope_ref", type='text', placeholder='Enter Scope Reference(Leave empty for company scope)' required)
+                    small.form-text.text-muted
+                        | Enter Scope Reference(Leave empty for company scope)
+            .form-group.row
                 label.col-sm-2.col-form-label(for="url") URL
                 .col-sm-7
                     textarea#amount.form-control(name="url", type='text', placeholder='Enter URL' required)

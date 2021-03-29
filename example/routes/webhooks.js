@@ -124,8 +124,8 @@ router.post('/subscribe', function (req, res, next) {
 		eventType: req.body.event_type,
 		url: req.body.url,
 		accessToken: token_details.access_token,
-		scope: 'company',
-		scopeReference: '4'
+		scope: req.body.scope,
+		scopeReference: req.body.scope_ref
 	}
 
 	Webhooks

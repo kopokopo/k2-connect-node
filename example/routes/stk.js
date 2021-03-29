@@ -38,7 +38,7 @@ router.get('/', function (req, res, next) {
 router.post('/result', function (req, res, next) {
 	// Send message and capture the response or error
 	Webhooks
-		.webhookHandler(req, res, process.env.K2_CLIENT_SECRET)
+		.webhookHandler(req, res)
 		.then(response => {
 			stkResource = response
 		})
@@ -72,7 +72,7 @@ router.post('/receive', function (req, res, next) {
 
 	var stkOptions = {
 		paymentChannel: "M-PESA STK Push",
-		tillNumber: "514459",
+		tillNumber: req.body.till_number,
 		firstName: req.body.first_name,
 		lastName: req.body.last_name,
 		phoneNumber: req.body.phone,

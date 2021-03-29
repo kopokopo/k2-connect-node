@@ -107,7 +107,7 @@ router.get('/createmerchantwallet', function (req, res, next) {
 router.post('/result', function (req, res, next) {
 	// Send message and capture the response or error
 	Webhooks
-		.webhookHandler(req, res, process.env.K2_CLIENT_SECRET)
+		.webhookHandler(req, res)
 		.then(response => {
 			transferResource = response
 		})
