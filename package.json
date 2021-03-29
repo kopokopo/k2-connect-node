@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "Nicollet Njora <nicollet.njora05@gmail.com> (http://www.nicolletnjora.com)",
+  "author": "Nicollet Njora <nicollet.njora05@gmail.com> (https://www.nicolletnjora.com)",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.20",
