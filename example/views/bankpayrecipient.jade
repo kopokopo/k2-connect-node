@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+    br
+
+    p !{message}
+    .container
+        .title.h3 Create Merchant Bank Account
+        br
+        form(action="/pay/bankrecipient", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label Account Name
+                .col-sm-7
+                    input.form-control(name="account_name", type='text', placeholder='Enter Account Name' required)
+                    small.form-text.text-muted
+                        | Account Name    
+            .form-group.row
+                label.col-sm-2.col-form-label Bank Branch Reference
+                .col-sm-7
+                    input.form-control(name="bank_branch_ref", type='text', placeholder='Enter Bank Branch Reference' required)
+                    small.form-text.text-muted
+                        | Bank Branch Reference  
+            .form-group.row
+                label.col-sm-2.col-form-label Account Number
+                .col-sm-7
+                    input.form-control(name="account_number", type='integer', placeholder='Enter Account Number' required)
+                    small.form-text.text-muted
+                        | Account Number
+            
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Create Bank Pay Recipient

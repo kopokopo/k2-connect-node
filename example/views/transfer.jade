@@ -15,16 +15,17 @@ block content
                     select(name = "destinationType")
                         option(value="merchant_bank_account") Merchant Bank Account
                         option(value="merchant_wallet") Merchant Wallet
+                        option(value="") Blind settlement
             .form-group.row
                 label.col-sm-2.col-form-label Destination Reference
                 .col-sm-7
-                    input.form-control(name="destinationReference", type='text', placeholder='Enter Destination Reference' required)
+                    input.form-control(name="destinationReference", type='text', placeholder='Enter Destination Reference')
                     small.form-text.text-muted
                         | Destination Reference
             .form-group.row
                 label.col-sm-2.col-form-label Amount
                 .col-sm-7
-                    input.form-control(name="amount", type='integer', placeholder='Enter Amount' required)
+                    input.form-control(name="text", type='integer', placeholder='Enter Amount')
                     small.form-text.text-muted
                         | Enter Amount
             

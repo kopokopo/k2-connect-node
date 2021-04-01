@@ -1,0 +1,28 @@
+extends layout
+
+block content
+
+    br
+
+    p !{message}
+    .container
+        .title.h3 Add Pay Recipient
+        br
+        form(action="/pay/merchantrecipient", method="post") 
+            .form-group.row
+                label.col-sm-2.col-form-label Alias Name
+                .col-sm-7
+                    input.form-control(name="alias_name", type='text', placeholder='Enter Alias Name' required)
+                    small.form-text.text-muted
+                        | Enter Alias Name       
+            .form-group.row
+                label.col-sm-2.col-form-label Till Number
+                .col-sm-7
+                    input.form-control(name="till_number", type='text', placeholder='Enter Till Number' required)
+                    small.form-text.text-muted
+                        | Enter Till Number
+            
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Add External Till Pay Recipient

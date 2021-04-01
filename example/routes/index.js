@@ -23,7 +23,7 @@ var tokens = K2.TokenService
 var token_details
 
 tokens
-	.getTokens()
+	.getToken()
 	.then(response => {
 		// Developer can decide to store the token_details and track expiry
 		token_details = response

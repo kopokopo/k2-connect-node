@@ -20,7 +20,7 @@ var transferResource
 var tokens = K2.TokenService
 var token_details
 tokens
-	.getTokens()
+	.getToken()
 	.then(response => {
 		// Developer can decide to store the token_details and track expiry
 		token_details = response
@@ -39,7 +39,7 @@ router.post('/', function (req, res, next) {
 		amount : req.body.amount,
 		currency: 'KES',
 		destinationReference: req.body.destinationReference,
-		callbackUrl: 'http://localhost:8000/transfer/result',
+		callbackUrl: 'https://1a7abcb79da0.ngrok.io/transfer/result',
 		destinationType: req.body.destinationType,
 		accessToken: token_details.access_token
 	}
@@ -79,6 +79,8 @@ router.post('/createmerchantaccount', function (req, res, next) {
 
 router.post('/createmerchantwallet', function (req, res, next) {
 	var settlementAccountOpts = {
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
 		phoneNumber: req.body.phoneNumber,
 		network: req.body.network,
 		accessToken: token_details.access_token

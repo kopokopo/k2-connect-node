@@ -18,7 +18,7 @@ var reversalResource
 var token_details
 
 tokens
-	.getTokens()
+	.getToken()
 	.then(response => {
 		// Developer can decide to store the token_details and track expiry
 		token_details = response
@@ -80,7 +80,7 @@ router.get('/reversalresource', function (req, res, next) {
 	if (resource != null) {
 		res.render('reversalresource', {
 			origination_time: resource.event.resource.origination_time,
-			sender_msisdn: resource.event.resource.sender_msisdn,
+			sender_msisdn: resource.event.resource.sender_phone_number,
 			amount: resource.event.resource.amount,
 			currency: resource.event.resource.currency,
 			till_number: resource.event.resource.till_number,
@@ -100,7 +100,7 @@ router.get('/resource', function (req, res, next) {
 	if (resource != null) {
 		res.render('resource', {
 			origination_time: resource.event.resource.origination_time,
-			sender_msisdn: resource.event.resource.sender_msisdn,
+			sender_msisdn: resource.event.resource.sender_phone_number,
 			amount: resource.event.resource.amount,
 			currency: resource.event.resource.currency,
 			till_number: resource.event.resource.till_number,

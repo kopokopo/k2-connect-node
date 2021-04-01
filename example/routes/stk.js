@@ -20,7 +20,7 @@ var tokens = K2.TokenService
 var token_details
 
 tokens
-	.getTokens()
+	.getToken()
 	.then(response => {
 		// Developer can decide to store the token_details and track expiry
 		token_details = response
@@ -86,7 +86,7 @@ router.post('/receive', function (req, res, next) {
 			notes: 'Payment for invoice 123456'
 		},
 		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'http://localhost:8000/stk/result',
+		callbackUrl: 'https://1a7abcb79da0.ngrok.io/stk/result',
 
 		accessToken: token_details.access_token
 	}

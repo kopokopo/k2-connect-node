@@ -19,7 +19,7 @@ var payResource
 var tokens = K2.TokenService
 var token_details
 tokens
-	.getTokens()
+	.getToken()
 	.then(response => {
 		// Developer can decide to store the token_details and track expiry
 		token_details = response
@@ -66,7 +66,7 @@ router.post('/', function (req, res, next) {
 			customer_id: '8675309',
 			notes: 'Salary payment for May 2018'
 		},
-		callbackUrl: 'http://localhost:8000/pay/result',
+		callbackUrl: 'https://1a7abcb79da0.ngrok.io/pay/result',
 		accessToken: token_details.access_token
 	}
 
@@ -83,11 +83,11 @@ router.post('/', function (req, res, next) {
 
 })
 
-router.get('/recipients', function (req, res, next) {
-	res.render('payrecipient', res.locals.commonData)
+router.get('/mobilerecipient', function (req, res, next) {
+	res.render('mobilepayrecipient', res.locals.commonData)
 })
 
-router.post('/recipients', function (req, res, next) {
+router.post('/mobilerecipient', function (req, res, next) {
 	var recipientOpts = {
 		type: 'mobile_wallet',
 		firstName: req.body.first_name,
@@ -102,12 +102,87 @@ router.post('/recipients', function (req, res, next) {
 	PayService
 		.addPayRecipient(recipientOpts)
 		.then(response => {
-			return res.render('payrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
+			return res.render('mobilepayrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('payrecipient', { message: 'Error: ' + error })
+			return res.render('mobilepayrecipient', { message: 'Error: ' + error })
 		})
 })
 
+
+router.get('/bankrecipient', function (req, res, next) {
+	res.render('bankpayrecipient', res.locals.commonData)
+})
+
+router.post('/bankrecipient', function (req, res, next) {
+	var recipientOpts = {
+		type: 'bank_account',
+		accountName: req.body.account_name,
+		accountNumber: req.body.account_number,
+		bankBranchRef: req.body.bank_branch_ref,
+		settlementMethod: 'EFT',
+		accessToken: token_details.access_token
+	}
+
+	// Send message and capture the response or error
+	PayService
+		.addPayRecipient(recipientOpts)
+		.then(response => {
+			return res.render('bankpayrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
+		})
+		.catch(error => {
+			console.log(error)
+			return res.render('bankpayrecipient', { message: 'Error: ' + error })
+		})
+})
+
+
+router.get('/tillrecipient', function (req, res, next) {
+	res.render('tillpayrecipient', res.locals.commonData)
+})
+
+router.post('/tillrecipient', function (req, res, next) {
+	var recipientOpts = {
+		type: 'till',
+		tillName: req.body.till_name,
+		tillNumber: req.body.till_number,
+		accessToken: token_details.access_token
+	}
+
+	// Send message and capture the response or error
+	PayService
+		.addPayRecipient(recipientOpts)
+		.then(response => {
+			return res.render('tillpayrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
+		})
+		.catch(error => {
+			console.log(error)
+			return res.render('tillpayrecipient', { message: 'Error: ' + error })
+		})
+})
+
+router.get('/merchantrecipient', function (req, res, next) {
+	res.render('merchantpayrecipient', res.locals.commonData)
+})
+
+router.post('/merchantrecipient', function (req, res, next) {
+	var recipientOpts = {
+		type: 'kopo_kopo_merchant',
+		aliasName: req.body.alias_name,
+		tillNumber: req.body.till_number,
+		accessToken: token_details.access_token
+	}
+
+	// Send message and capture the response or error
+	PayService
+		.addPayRecipient(recipientOpts)
+		.then(response => {
+			return res.render('merchantpayrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
+		})
+		.catch(error => {
+			console.log(error)
+			return res.render('merchantpayrecipient', { message: 'Error: ' + error })
+		})
+})
 module.exports = router

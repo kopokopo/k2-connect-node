@@ -10,6 +10,18 @@ block content
         br
         form(action="/transfer/createmerchantwallet", method="post")
             .form-group.row
+                label.col-sm-2.col-form-label First Name
+                .col-sm-7
+                    input.form-control(name="firstName", type='text', placeholder='Enter First Name' required)
+                    small.form-text.text-muted
+                        | First Name  
+            .form-group.row
+                label.col-sm-2.col-form-label Last Name
+                .col-sm-7
+                    input.form-control(name="lastName", type='text', placeholder='Enter Last Name' required)
+                    small.form-text.text-muted
+                        | Last Name    
+            .form-group.row
                 label.col-sm-2.col-form-label(for="network") Network
                 .col-sm-7
                     select(name = "network")
@@ -19,7 +31,7 @@ block content
                 .col-sm-7
                     input.form-control(name="phoneNumber", type='text', placeholder='Enter Phone Number' required)
                     small.form-text.text-muted
-                        | phoneNumber    
+                        | Phone Number    
             br
             .form-group.row
                 .col-sm-7
