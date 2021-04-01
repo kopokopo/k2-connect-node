@@ -53,7 +53,7 @@ To send any requests to Kopokopo's API you'll need an access token
 const TokenService = K2.TokenService
 
 TokenService
-    .getTokens()
+    .getToken()
     .then(response => {
         //Developer can decide to store the token_details and track expiry
         console.log("Access token is: " + response.access_token)
@@ -172,9 +172,25 @@ The only supported ISO currency code at the moment is: `KES`
 
 - `TokenService.getToken()` to get an access token.
 
-  - The response will contain: `token type`, `expires_in`, `created_at` and `access_token`
+  - The response will contain: `token_type`, `expires_in`, `created_at` and `access_token`
 
 NB: The access token is required to send subsequent requests
+
+- `TokenService.revokeToken()` to revoke an access token.
+
+  - The response will be an empty body
+
+NB: A revoked access token cannot be used on subsequent requests
+
+- `TokenService.introspectToken()` to get introspect a token.
+
+  - The response will contain: `token_type`, `client_id`, `scope`, `active`, `exp`(Expiry time) and `iat`(created at time)
+
+
+- `TokenService.infoToken()` to get information on an access token.
+
+  - The response will contain: `scope`, `expires_in`, `application.uid`, `created_at`
+
 
 ### `StkService`
 
