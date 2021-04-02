@@ -1,5 +1,7 @@
 # Kopokopo Node.js SDK
 
+[![NPM](https://nodei.co/npm/k2-connect-node.png)](https://npmjs.com/package/k2-connect-node)
+
 This is a module to assist developers in consuming Kopokopo's API
 
 ## Installation
