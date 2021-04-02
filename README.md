@@ -174,18 +174,18 @@ The only supported ISO currency code at the moment is: `KES`
 
 NB: The access token is required to send subsequent requests
 
-- `TokenService.revokeToken()` to revoke an access token.
+- `TokenService.revokeToken({accessToken: 'my_access_token'})` to revoke an access token.
 
   - The response will be an empty body
 
 NB: A revoked access token cannot be used on subsequent requests
 
-- `TokenService.introspectToken()` to get introspect a token.
+- `TokenService.introspectToken({accessToken: 'my_access_token'})` to get introspect a token.
 
   - The response will contain: `token_type`, `client_id`, `scope`, `active`, `exp`(Expiry time) and `iat`(created at time)
 
 
-- `TokenService.infoToken()` to get information on an access token.
+- `TokenService.infoToken({accessToken: 'my_access_token'})` to get information on an access token.
 
   - The response will contain: `scope`, `expires_in`, `application.uid`, `created_at`
 
