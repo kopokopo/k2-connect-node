@@ -26,30 +26,6 @@ describe('TransferService', function () {
 
 		describe('settleFunds() absence of required values validation', function () {
 
-			it('#settleFunds() has to have a currency', function () {
-				var opts = {}
-				opts.amount = 200
-				opts.destinationType = 'merchant_wallet'
-				opts.destinationReference = 'my_destination_reference'
-				opts.accessToken = 'hardToGuessKey'
-				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
-
-				return transfer.settleFunds(opts)
-					.should.be.rejectedWith(Error, { message: 'Currency can\'t be blank; ' })
-			})
-
-			it('#settleFunds() has to have an amount', function () {
-				var opts = {}
-				opts.currency = 'KES'
-				opts.destinationType = 'merchant_wallet'
-				opts.destinationReference = 'my_destination_reference'
-				opts.accessToken = 'hardToGuessKey'
-				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
-
-				return transfer.settleFunds(opts)
-					.should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
-			})
-
 			it('#settleFunds() has to have an accessToken', function () {
 				var opts = {}
 				opts.currency = 'KES'
@@ -138,7 +114,50 @@ describe('TransferService', function () {
 				return transfer.settleFunds(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
 			})
 		})
-		it('#settleFunds() succeeds', () => {
+
+		describe('settleFunds() blind settlement', function () {
+			var opts = {}
+
+			it('#settleFunds() without currency succeeds', function () {
+				var opts = {}
+				opts.amount = 200
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
+				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
+
+				return transfer.settleFunds(opts).then(response => {
+					expect(response).to.equal('https://sandbox.kopokopo.com/settlement_transfers/d76265cd-0951-e511-80da-0aa34a9b2388')
+				})
+			})
+
+			it('#settleFunds() without amount succeeds', function () {
+				var opts = {}
+				opts.currency = 'KES'
+				opts.destinationType = 'merchant_wallet'
+				opts.destinationReference = 'my_destination_reference'
+				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
+
+				return transfer.settleFunds(opts).then(response => {
+					expect(response).to.equal('https://sandbox.kopokopo.com/settlement_transfers/d76265cd-0951-e511-80da-0aa34a9b2388')
+				})
+			})
+
+			it('#settleFunds() without destination succeeds', function () {
+				var opts = {}
+				opts.currency = 'KES'
+				opts.amount = 349
+				opts.accessToken = 'hardToGuessKey'
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
+
+				return transfer.settleFunds(opts).then(response => {
+					expect(response).to.equal('https://sandbox.kopokopo.com/settlement_transfers/d76265cd-0951-e511-80da-0aa34a9b2388')
+				})
+			})
+		})
+
+		it('#settleFunds() with all values succeeds', () => {
 			var opts = {}
 	
 			opts.destinationType = 'merchant_wallet'

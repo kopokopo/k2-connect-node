@@ -50,7 +50,7 @@ describe('TokenService', function () {
 
 			tokens.revokeToken(opts).then(response => {	
 				// Test result of status for the response
-				expect(response).to.equal({})
+				expect(response).to.be.empty
 	
 			})
 		})
@@ -97,7 +97,7 @@ describe('TokenService', function () {
 	describe('#infoToken()', function () {
 		before(function () {
 			nock(BASE_URL)
-				.post('/oauth/token/info')
+				.get('/oauth/token/info')
 				.reply(200, infoResponse)
 		})
 	
