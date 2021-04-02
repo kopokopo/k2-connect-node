@@ -22,7 +22,7 @@ const options = {
   clientId: process.env.K2_CLIENT_ID,
   clientSecret: process.env.K2_CLIENT_SECRET,
   baseUrl: process.env.K2_BASE_URL,
-  apiKey: process.env.K2_API
+  apiKey: process.env.K2_API_KEY
 }
 
 //Including the kopokopo module
