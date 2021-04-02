@@ -6,10 +6,10 @@ module.exports = {
 	event: {
 		type: 'Customer Created',
 		resource: {
-			first_name: 'Nicollet',
-			middle_name: 'N',
-			last_name: 'Njora',
-			msisdn: '+25472589598',
+			first_name: 'Jane',
+			middle_name: 'M',
+			last_name: 'Doe',
+			msisdn: '+254999999999',
 		},
 	},
 	_links: {

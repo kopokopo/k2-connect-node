@@ -190,7 +190,7 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': '2a8224d53adeff25670e10d763acaed969e916b0519b07f30f1468164eac87d6',
+						'X-KopoKopo-Signature': '94f005c6849912fdfae62e14bfad7189d98c9fbfb42400198ab6bdfb240320c3',
 					},
 					body: buygoodsreversedhook
 				})
@@ -228,7 +228,7 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': '87141a29781e8a0f3605142d1684f86a4aa96b173cb6ebcf8b3c12d2697342d9',
+						'X-KopoKopo-Signature': 'c0970dfe2409467a932499bf556da23d2fa23cd0f00c293decb832ffe0a3c7e1',
 					},
 					body: customercreatedhook
 				})
