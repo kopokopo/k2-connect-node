@@ -127,15 +127,15 @@ Webhooks
 const StkService = K2.StkService
 
 var stkOptions = {
-    tillNumber: 36546,
-    firstName: 'Jane'
+    tillNumber: K000000,
+    firstName: 'Jane',
     lastName: 'Doe',
     phoneNumber: '+254712345678',
     email: 'example@example.com',
     currency: 'KES',
     amount: 20,
     callbackUrl: 'https://my-valid-url.com/endpoint',
-	paymentChannel => 'M-PESA STK Push',
+	  paymentChannel => 'M-PESA STK Push',
     accessToken: 'my_access_token',
 
     //A maximum of 5 key value pairs
@@ -198,7 +198,7 @@ NB: A revoked access token cannot be used on subsequent requests
   - `firstName`: Customer's first name
   - `lastName`: Customer's last name
   - `phoneNumber`: Phone number to pull money from. `REQUIRED`
-  - `email`: Amount to charge.
+  - `email`: Subscriber's email address
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
@@ -224,7 +224,7 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
       - `firstName`: Pay recipient's first name `REQUIRED`
       - `lastName`: Pay recipient's last name `REQUIRED`
       - `phoneNumber`: Pay recipient's phone number `REQUIRED`
-      - `email`: Pay recipient's email number
+      - `email`: Pay recipient's email address
       - `network`: Pay recipient's network `REQUIRED`
     - Bank Account Recipient(`bank_account`)
       - `accountName`: Pay recipient's account name `REQUIRED`
