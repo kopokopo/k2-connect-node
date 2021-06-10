@@ -96,14 +96,18 @@ describe('Webhooks', function () {
 				return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Scope can\'t be blank; ' })
 			})
 
-			it('#subscribe() must have scopeReference', function () {
+			it('#subscribe() succeeds without scopeReference', function () {
 				opts.eventType = 'buygoods_transaction_received'
 				opts.url = 'http://localhost:8000/test'
-				opts.scope = 'till'
+				opts.scope = 'company'
 				opts.scopeReference = null
 				opts.accessToken = 'hardToGuessKey'
 
-				return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Scope reference can\'t be blank; ' })
+				return webhooks.subscribe(opts).then(response => {
+
+					expect(response).to.equal('https://sandbox.kopokopo.com/webhook_subscriptions/5af4c10a-f6de-4ac8-840d-42cb65454216')
+	
+				})
 			})
 		})
 
