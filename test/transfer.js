@@ -53,18 +53,6 @@ describe('TransferService', function () {
 					.should.be.rejectedWith(Error, { message: 'Currency must be a string; ' })
 			})
 
-			it('#settleFunds() amount has to be an integer', function () {
-				opts.currency = 'KES'
-				opts.amount = 'Two hundred'
-				opts.destinationType = 'merchant_wallet'
-				opts.destinationReference = 'my_destination_reference'
-				opts.accessToken = 'hardToGuessKey'
-				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/transfer_result'
-
-				return transfer.settleFunds(opts)
-					.should.be.rejectedWith(Error, { message: 'Amount is not a number; ' })
-			})
-
 			it('#settleFunds() destination type has to be a string', function () {
 				opts.currency = 'KES'
 				opts.amount = 200
