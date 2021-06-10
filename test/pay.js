@@ -420,7 +420,7 @@ describe('PayService', function () {
 				expect(typeof response).to.equal('object')
 
 				// Test result of status for the response
-				expect(response.status).to.equal('Scheduled')
+				expect(response.data.attributes.status).to.equal('Processed')
 
 			})
 		})
