@@ -1,25 +1,26 @@
 module.exports = {
 	"topic": "buygoods_transaction_received",
-	"id": "e1b46afa-cbdf-4ab1-8d90-1c4037c3626e",
-	"created_at": "2020-10-21T11:56:00+03:00",
+	"id": "2133dbfb-24b9-40fc-ae57-2d7559785760",
+	"created_at": "2020-10-22T10:43:20+03:00",
 	"event": {
 		"type": "Buygoods Transaction",
 		"resource": {
+			"id": "458712f-gr76y-24b9-40fc-ae57-2d35785760",
 			"amount": "100.0",
 			"status": "Received",
 			"system": "Lipa Na M-PESA",
 			"currency": "KES",
-			"reference": "OJL9P1G67D",
+			"reference": "OJM6Q1W84K",
 			"till_number": "514459",
-			"sender_msisdn": "+254712345678",
-			"origination_time": "2020-10-21T11:55:58+03:00",
-			"sender_last_name": "Buyer",
-			"sender_first_name": "Joe",
+			"sender_phone_number": "+254999999999",
+			"origination_time": "2020-10-22T10:43:19+03:00",
+			"sender_last_name": "Doe",
+			"sender_first_name": "Jane",
 			"sender_middle_name": null
 		}
 	},
 	"_links": {
-		"self": "https://kopokopo.com/webhook_events/e1b46afa-cbdf-4ab1-8d90-1c4037c3626e",
-		"resource": "https://kopokopo.com/financial_transaction/234"
+		"self": "https://sandbox.kopokopo.com/webhook_events/2133dbfb-24b9-40fc-ae57-2d7559785760",
+		"resource": "https://sandbox.kopokopo.com/financial_transaction/458712f-gr76y-24b9-40fc-ae57-2d35785760"
 	}
 }

@@ -372,7 +372,7 @@ describe('TransferService', function () {
 				expect(typeof response).to.equal('object')
 				
 				// Test result of status for the response
-				expect(response.status).to.equal('Pending')
+				expect(response.data.attributes.status).to.equal('Processed')
 
 			})
 		})
