@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    br
+    br
+    p !{message}
+    p !{statusCode}
+    .container
+        .title.h3 Poll Buygoods Transactions
+        br
+        form#bulkSmsForm(action="/polling", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label From Time
+                .col-sm-7
+                    input.form-control(name="from_time", type='datetime-local', placeholder='Enter From Time' required)
+                    small.form-text.text-muted
+                        | Enter From Time
+            .form-group.row
+                label.col-sm-2.col-form-label To Time
+                .col-sm-7
+                    input.form-control(name="to_time", type='datetime-local', placeholder='Enter To Time' required)
+                    small.form-text.text-muted
+                        | Enter To Time
+            .form-group.row
+                label.col-sm-2.col-form-label(for="scope") Scope
+                .col-sm-7
+                    select(name = "scope" required)
+                        option(value="company") Company
+                        option(value="till") Till
+            .form-group.row
+                label.col-sm-2.col-form-label Scope Reference
+                .col-sm-7
+                    input.form-control(name="scope_ref", type='text', placeholder='Enter Scope Reference(Leave empty for company scope)')
+                    small.form-text.text-muted
+                        | Enter Scope Reference(Leave empty for company scope)
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Poll

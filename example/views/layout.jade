@@ -55,6 +55,20 @@ html
                                 a.dropdown-item(href='/transfer/createmerchantwallet') Create a Merchant Wallet
                                 a.dropdown-item(href='/status') Query Status
                                 a.dropdown-item(href='/transfer/result') Transfer Result
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Polling
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/polling') Poll Buygood Transactions
+                                a.dropdown-item(href='/status') Query Status
+                                a.dropdown-item(href='/polling/result') Polling Result
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Transaction Sms Notification
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/smsnotification') Send Sms Notification
+                                a.dropdown-item(href='/status') Query Status
+                                a.dropdown-item(href='/smsnotification/result') Notification Result
                             
         .d-flex.align-items-xl-center.flex-column
             block content

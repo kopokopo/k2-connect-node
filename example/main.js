@@ -13,6 +13,8 @@ const webhooksRoutes = require('./routes/webhooks')
 const stkRoutes = require('./routes/stk')
 const payRoutes = require('./routes/pay')
 const transferRoutes = require('./routes/transfer')
+const pollingRoutes = require('./routes/polling')
+const smsNotificationRoutes = require('./routes/smsnotification')
 
 app.use(bodyParser.json())
 app.use(
@@ -29,6 +31,8 @@ app.use('/webhook', webhooksRoutes)
 app.use('/stk', stkRoutes)
 app.use('/pay', payRoutes)
 app.use('/transfer', transferRoutes)
+app.use('/polling', pollingRoutes)
+app.use('/smsnotification', smsNotificationRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
