@@ -96,14 +96,18 @@ describe('Webhooks', function () {
 				return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Scope can\'t be blank; ' })
 			})
 
-			it('#subscribe() must have scopeReference', function () {
+			it('#subscribe() succeeds without scopeReference', function () {
 				opts.eventType = 'buygoods_transaction_received'
 				opts.url = 'http://localhost:8000/test'
-				opts.scope = 'till'
+				opts.scope = 'company'
 				opts.scopeReference = null
 				opts.accessToken = 'hardToGuessKey'
 
-				return webhooks.subscribe(opts).should.be.rejectedWith(Error, { message: 'Scope reference can\'t be blank; ' })
+				return webhooks.subscribe(opts).then(response => {
+
+					expect(response).to.equal('https://sandbox.kopokopo.com/webhook_subscriptions/5af4c10a-f6de-4ac8-840d-42cb65454216')
+	
+				})
 			})
 		})
 
@@ -132,7 +136,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': 'cd8477515d43a4496e4ebda1ac8dd41ecd881d0b74bcec4a46954223f0a8489f',
+							'X-KopoKopo-Signature': '2003545dc9b861a76613aeaee238a6acf57ef61d9ff06c6dcab16f43bea0198b',
 						},
 						body: buygoodsreceivedhook
 					})
@@ -151,7 +155,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '500781ef480e6ea4c3d21c631831e53e8cf7a18f6341a8c75acc56912e9711b8',
+							'X-KopoKopo-Signature': 'b6a29eb7407d0d5bd3221950e333017389ebb2c25f1ae95b5a5f802691b03378',
 						},
 						body: b2breceivedhook
 					})
@@ -159,7 +163,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.event.type).to.equal('B2b Transaction')
+						expect(response.event.type).to.equal('External Till to Till Transaction')
 
 					})
 				})
@@ -170,7 +174,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '6a0e6334ca8d8f91506c33df08553436bb0a7b783697438265cef4e7002d238e',
+							'X-KopoKopo-Signature': '6cec8b268163aba8921886e2b36318034d7722d1437a739c2c9ae733638db14e',
 						},
 						body: m2mreceivedhook
 					})
@@ -190,7 +194,7 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': '94f005c6849912fdfae62e14bfad7189d98c9fbfb42400198ab6bdfb240320c3',
+						'X-KopoKopo-Signature': '037996afb710ae4013fca55d3b6fbcdd709061b889682a21ecfc7f7202955c75',
 					},
 					body: buygoodsreversedhook
 				})
@@ -198,7 +202,7 @@ describe('Webhooks', function () {
 
 				return webhooks.webhookHandler(req, res).then(response => {
 
-					expect(response.event.type).to.equal('Buygoods Transaction Reversed')
+					expect(response.event.type).to.equal('Buygoods Transaction')
 
 				})
 			})
@@ -209,7 +213,7 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': 'b5e88cc2a72180d1e2efe25b8e3e0b7b7bc1b3f31cfafc6089c9d90dd4dfe829',
+						'X-KopoKopo-Signature': '80e0ede7a59f8be54f1dec966428decdb78e1e5a7a565e719a428d48f992404e',
 					},
 					body: transfercompletedhook
 				})
@@ -217,7 +221,7 @@ describe('Webhooks', function () {
 
 				return webhooks.webhookHandler(req, res).then(response => {
 
-					expect(response.event.type).to.equal('Settlement')
+					expect(response.event.type).to.equal('Settlement Transfer')
 
 				})
 			})
@@ -228,7 +232,7 @@ describe('Webhooks', function () {
 					url: '/webhook',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-KopoKopo-Signature': 'c0970dfe2409467a932499bf556da23d2fa23cd0f00c293decb832ffe0a3c7e1',
+						'X-KopoKopo-Signature': 'e519084b3af1086a9d08cfe4665a5f72a3cb67784bb6b3b92435b9b32e7d9e02',
 					},
 					body: customercreatedhook
 				})
@@ -248,7 +252,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': 'd9e33920a71004bef7eb035bf80540e2b2c73005dc05bdf3aca05dd09a81a708',
+							'X-KopoKopo-Signature': 'c8170d057ee80180874293c89642cfbc6eebec6a433ca750e0d66b21384ddc21',
 						},
 						body: stksuccessfulresult
 					})
@@ -267,7 +271,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': 'bc9c01264ec85b38100f338183690f255cf2533ba00aa95d004db98e8cfb2f32',
+							'X-KopoKopo-Signature': '6da68de7312c14f04497febefddb84eed8baac380e43d79103c52cbb76f59d5b',
 						},
 						body: stkunsuccessfulresult
 					})
@@ -286,7 +290,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': '9a8adaba28982c2fb55dc29d720ab2ad565b19d04295f7eacb9148c13f4fae19',
+							'X-KopoKopo-Signature': '031588aacd0fa175049a28c08cc3e6a55e2f251cc3d69a40b3b34b14e23ed1c1',
 						},
 						body: payresult
 					})
@@ -294,7 +298,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.status).to.equal('Sent')
+						expect(response.data.attributes.status).to.equal('Processed')
 
 					})
 				})
@@ -305,7 +309,7 @@ describe('Webhooks', function () {
 						url: '/webhook',
 						headers: {
 							'Content-Type': 'application/json',
-							'X-KopoKopo-Signature': 'c694a7ec52d9b34cea8417a50993bf8fd0e50831c2394021a31ba36ee4cfc2c6',
+							'X-KopoKopo-Signature': 'a74c11c8783a159961d39a6ec5331ac1ffe4530c32544c5fe64ed1ceb8746cee',
 						},
 						body: transferresult
 					})
@@ -313,7 +317,7 @@ describe('Webhooks', function () {
 
 					return webhooks.webhookHandler(req, res).then(response => {
 
-						expect(response.status).to.equal('Pending')
+						expect(response.data.attributes.status).to.equal('Processed')
 
 					})
 				})

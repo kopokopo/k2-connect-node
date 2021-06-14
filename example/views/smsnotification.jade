@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    br
+    br
+    p !{message}
+    p !{statusCode}
+    .container
+        .title.h3 Send Transaction SMS Notification
+        br
+        form#bulkSmsForm(action="/smsnotification", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label Webhook Event Reference
+                .col-sm-7
+                    input.form-control(name="webhookEventReference", type='text', placeholder='Enter Webhook Event Reference' required)
+                    small.form-text.text-muted
+                        | Enter Webhook Event Reference
+            .form-group.row
+                label.col-sm-2.col-form-label Message
+                .col-sm-7
+                    input.form-control(name="message", type='text', placeholder='Enter Message' required)
+                    small.form-text.text-muted
+                        | Enter Message
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Send Transaction SMS Notification

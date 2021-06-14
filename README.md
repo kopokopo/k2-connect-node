@@ -38,6 +38,8 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [STK PUSH](#stkservice) : `var StkService = K2.StkService`
 - [Pay](#payservice) : `var PayService = K2.PayService`
 - [Transfer](#transferservice) : `var TransferService = K2.TransferService`
+- [Polling](#pollingservice) : `var PollingService = K2.PollingService`
+- [Transaction Sms Notification](#smsnotificationservice) : `var SmsNotificationService = K2.SmsNotificationService`
 
 ## Usage
 
@@ -292,6 +294,44 @@ For more information, please read <https://api-docs.kopokopo.com/#send-money-pay
 This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#transfer-to-your-account-s>
+
+### `PollingService`
+
+- `PollingService.pollTransactions({ pollingOpts })`: `pollingOpts`: A hash of objects containing the following keys:
+
+  - `fromTime`: The starting time of the polling request
+  - `toTime`: The end time of the polling request
+  - `scope`: The scope of the polling request
+  - `scopeReference`: The scope reference `REQUIRED for the 'Till' scope`  
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`  
+
+- `PollingService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
+
+  - `location`: The location url you got from the request `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+This works the same for all requests that you get a location response.
+
+For more information, please read <https://api-docs.kopokopo.com/#polling>
+
+### `SmsNotificationService`
+
+- `SmsNotificationService.sendTransactionSmsNotification({ transactionNotificationOpts })`: `transactionNotificationOpts`: A hash of objects containing the following keys:
+
+  - `webhookEventReference`: The webhook event reference for a buygoods_transaction_received webhook.
+  - `message`: The message to be sent
+  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`  
+
+- `SmsNotificationService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
+
+  - `location`: The location url you got from the request `REQUIRED`
+  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+
+This works the same for all requests that you get a location response.
+
+For more information, please read <https://api-docs.kopokopo.com/#transaction-sms-notifications>
 
 ### Responses and Results
 
