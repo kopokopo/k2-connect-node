@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Webhooks</title>
+    <title>JSDoc: Class: PollingService</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Webhooks</h1>
+    <h1 class="page-title">Class: PollingService</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Webhooks<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>PollingService<span class="signature">(options)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="Webhooks"><span class="type-signature"></span>new Webhooks<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="PollingService"><span class="type-signature"></span>new PollingService<span class="signature">(options)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Handles webhook perations
+    Handles the polling request
 </div>
 
 
@@ -127,29 +127,6 @@
 
         <tr>
             
-                <td class="name"><code>clientSecret</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>baseUrl</code></td>
             
 
@@ -214,7 +191,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webhooks.js.html">webhooks.js</a>, <a href="webhooks.js.html#line8">line 8</a>
+        <a href="polling.js.html">polling.js</a>, <a href="polling.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -278,7 +255,7 @@
 
 
 <div class="description">
-    Handles requests for querrying a stk payment request status
+    Handles requests for querrying a polling request status
 </div>
 
 
@@ -443,7 +420,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webhooks.js.html">webhooks.js</a>, <a href="webhooks.js.html#line79">line 79</a>
+        <a href="polling.js.html">polling.js</a>, <a href="polling.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -501,7 +478,7 @@
     
 
     
-    <h4 class="name" id=".subscribe"><span class="type-signature">(static) </span>subscribe<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".pollTransactions"><span class="type-signature">(static) </span>pollTransactions<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -509,7 +486,7 @@
 
 
 <div class="description">
-    Handles the webhook subscribe operations
+    Handles polling requests
 </div>
 
 
@@ -587,52 +564,6 @@
 
         <tr>
             
-                <td class="name"><code>eventType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The event type of the webhook that is being subscribed to.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The url that the webhook will be posted to.</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>scope</code></td>
             
 
@@ -649,7 +580,7 @@
 
             
 
-            <td class="description last">The scope of the subscription.</td>
+            <td class="description last">The scope of the polling request.</td>
         </tr>
 
     
@@ -672,14 +603,14 @@
 
             
 
-            <td class="description last">The identifier of the scope of the subscription.</td>
+            <td class="description last">The scope reference of the polling request.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>accessToken</code></td>
+                <td class="name"><code>fromTime</code></td>
             
 
             <td class="type">
@@ -695,7 +626,53 @@
 
             
 
-            <td class="description last">The access token for authorization.</td>
+            <td class="description last">The starting time of the poll.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>toTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ending time of the poll.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The url that the result will be posted to asynchronously.</td>
         </tr>
 
     
@@ -743,7 +720,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webhooks.js.html">webhooks.js</a>, <a href="webhooks.js.html#line42">line 42</a>
+        <a href="polling.js.html">polling.js</a>, <a href="polling.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -772,7 +749,7 @@
 
         
 <div class="param-desc">
-    Promise object having the location url of the resource
+    Promise object having the location url of the request
 </div>
 
 
@@ -790,166 +767,6 @@
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".webhookHandler"><span class="type-signature">(static) </span>webhookHandler<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Handles incoming webhooks and asynchronous requests responses
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Request</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Response</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="webhooks.js.html">webhooks.js</a>, <a href="webhooks.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

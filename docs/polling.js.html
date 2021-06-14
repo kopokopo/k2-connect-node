@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: webhooks.js</title>
+    <title>JSDoc: Source: polling.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: webhooks.js</h1>
+    <h1 class="page-title">Source: polling.js</h1>
 
     
 
@@ -27,74 +27,52 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict'
-// light-weight server
-const auth = require('./helpers/auth').auth
-const webhooksValidate = require('./validate/webhooks')
 const dispatch = require('./helpers/dispatch')
 const status = require('./helpers/status')
+const pollingValidate = require('./validate/polling')
 
 /**
- * Handles webhook perations
- * @module Webhooks
+ * Handles the polling request
+ * @module PollingService
  * @constructor
  * @param {object} options
- * @param {string} options.clientSecret
  * @param {string} options.baseUrl
 */
-function Webhooks(options) {
+function PollingService(options) {
 	this.options = options
-	var clientSecret = this.options.clientSecret
 	const baseUrl = this.options.baseUrl
-	var apiKey = this.options.apiKey
 
 	/**
-	 * Handles incoming webhooks and asynchronous requests responses
-	 * @function webhookHandler
-	 * @memberof Webhooks
-	 * @param {Request} req
-	 * @param {Response} res
-	*/
-	this.webhookHandler = function (req, res) {
-		return new Promise(function (resolve, reject) {
-			let statusCode = auth(apiKey, JSON.stringify(req.body), req.get('X-kopokopo-signature'))
-			res.status(statusCode).json()
-
-			if (statusCode === 200) {
-				resolve(req.body)
-			} else {
-				reject(statusCode + ': Webhook not authenticated')
-			}
-		})
-	}
-
-	/**
-	 * Handles the webhook subscribe operations
-	 * @function subscribe
-	 * @memberof Webhooks
+	 * Handles polling requests
+	 * @function pollTransactions
+	 * @memberof PollingService
 	 * @param {object} opts
-	 * @param {string} opts.eventType - The event type of the webhook that is being subscribed to.
-	 * @param {string} opts.url - The url that the webhook will be posted to.
-	 * @param {string} opts.scope - The scope of the subscription.
-	 * @param {string} opts.scopeReference - The identifier of the scope of the subscription.
-	 * @param {string} opts.accessToken - The access token for authorization.
-	 * @returns {Promise} Promise object having the location url of the resource
+	 * @param {string} opts.scope - The scope of the polling request.
+	 * @param {string} opts.scopeReference - The scope reference of the polling request.
+	 * @param {string} opts.fromTime - The starting time of the poll.
+     * @param {string} opts.toTime - The ending time of the poll.
+	 * @param {string} opts.callbackUrl - The url that the result will be posted to asynchronously.
+	 * @returns {Promise} Promise object having the location url of the request
 	*/
-	this.subscribe = function (opts) {
+	this.pollTransactions = function (opts) {
 		return new Promise(function (resolve, reject) {
-			let validationError = webhooksValidate.webhookSubscribeValidate(opts)
+			let validationError = pollingValidate.pollingRequestValidate(opts)
 
 			if (validationError) {
 				reject(validationError)
 			}
 
 			var reqBody = {
-				'event_type': opts.eventType,
-				'url': opts.url,
 				'scope': opts.scope,
-				'scope_reference': opts.scopeReference
+                'scope_reference': opts.scopeReference,
+				'from_time': opts.fromTime,
+				'to_time': opts.toTime,
+				'_links': {
+					'callback_url': opts.callbackUrl
+				}
 			}
 
-			dispatch.sendRequest(reqBody, baseUrl + '/webhook_subscriptions', opts.accessToken)
+			dispatch.sendRequest(reqBody, baseUrl + '/polling', opts.accessToken)
 				.then((response) => {
 					resolve(response.headers['location'])
 				})
@@ -102,12 +80,13 @@ function Webhooks(options) {
 					reject(error)
 				})
 		})
+
 	}
 
 	/**
-	 * Handles requests for querrying a stk payment request status
+	 * Handles requests for querrying a polling request status
 	 * @function getStatus
-	 * @memberof Webhooks
+	 * @memberof PollingService
 	 * @param {object} opts
 	 * @param {string} opts.location - The location url of the request.
 	 * @param {string} opts.accessToken - The access token for authorization.
@@ -118,8 +97,10 @@ function Webhooks(options) {
 	}
 }
 
+
+
 module.exports = {
-	Webhooks
+	PollingService
 }
 </code></pre>
         </article>
