@@ -40,7 +40,7 @@ router.post('/result', function (req, res, next) {
 	Webhooks
 		.webhookHandler(req, res)
 		.then(response => {
-			payResource = response
+			pollingResource = response
 		})
 		.catch(error => {
 			console.log(error)
@@ -67,7 +67,7 @@ router.post('/', function (req, res, next) {
 		scope: req.body.scope,
 		scopeReference: req.body.scope_ref,
 		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'https://1a7abcb79da0.ngrok.io/polling/result',
+		callbackUrl: 'https://8650bfeddc80.ngrok.io/polling/result',
 
 		accessToken: token_details.access_token
 	}

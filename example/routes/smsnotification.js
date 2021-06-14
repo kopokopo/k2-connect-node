@@ -39,7 +39,7 @@ router.post('/result', function (req, res, next) {
 	Webhooks
 		.webhookHandler(req, res)
 		.then(response => {
-			payResource = response
+			notificationResource = response
 		})
 		.catch(error => {
 			console.log(error)
@@ -64,7 +64,7 @@ router.post('/', function (req, res, next) {
 		message: req.body.message,
 		webhookEventReference: req.body.webhookEventReference,
 		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'https://1a7abcb79da0.ngrok.io/smsnotification/result',
+		callbackUrl: 'https://8650bfeddc80.ngrok.io/smsnotification/result',
 
 		accessToken: token_details.access_token
 	}
