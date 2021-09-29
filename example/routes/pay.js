@@ -62,6 +62,9 @@ router.post('/', function (req, res, next) {
 		destinationType: req.body.destinationType,
 		amount: req.body.amount,
 		currency: 'KES',
+		description: req.body.description,
+		category: null,
+		tags: null,
 		metadata: {
 			customer_id: '8675309',
 			notes: 'Salary payment for May 2018'
@@ -74,7 +77,7 @@ router.post('/', function (req, res, next) {
 	PayService
 		.sendPay(payOpts)
 		.then(response => {
-			return res.render('pay', { message: 'Pay recipients request sent successfully request url is: ' + response })
+			return res.render('pay', { message: 'Payment request sent successfully request url is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)
@@ -162,15 +165,16 @@ router.post('/tillrecipient', function (req, res, next) {
 		})
 })
 
-router.get('/merchantrecipient', function (req, res, next) {
-	res.render('merchantpayrecipient', res.locals.commonData)
+router.get('/paybillrecipient', function (req, res, next) {
+	res.render('paybillpayrecipient', res.locals.commonData)
 })
 
-router.post('/merchantrecipient', function (req, res, next) {
+router.post('/paybillrecipient', function (req, res, next) {
 	var recipientOpts = {
-		type: 'kopo_kopo_merchant',
-		aliasName: req.body.alias_name,
-		tillNumber: req.body.till_number,
+		type: 'paybill',
+		paybillName: req.body.paybill_name,
+		paybillNumber: req.body.paybill_number,
+		paybillAccountNumber: req.body.paybill_account_number,
 		accessToken: token_details.access_token
 	}
 
@@ -178,11 +182,11 @@ router.post('/merchantrecipient', function (req, res, next) {
 	PayService
 		.addPayRecipient(recipientOpts)
 		.then(response => {
-			return res.render('merchantpayrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
+			return res.render('paybillpayrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('merchantpayrecipient', { message: 'Error: ' + error })
+			return res.render('paybillpayrecipient', { message: 'Error: ' + error })
 		})
 })
 module.exports = router

@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+    br
+
+    p !{message}
+    .container
+        .title.h3 Add Pay Recipient
+        br
+        form(action="/pay/paybillrecipient", method="post") 
+            .form-group.row
+                label.col-sm-2.col-form-label Paybill Name
+                .col-sm-7
+                    input.form-control(name="paybill_name", type='text', placeholder='Enter Paybill Name' required)
+                    small.form-text.text-muted
+                        | Enter Paybill Name       
+            .form-group.row
+                label.col-sm-2.col-form-label Paybill Number
+                .col-sm-7
+                    input.form-control(name="paybill_number", type='text', placeholder='Enter Paybill Number' required)
+                    small.form-text.text-muted
+                        | Enter Paybill Number
+            .form-group.row
+                label.col-sm-2.col-form-label Paybill Account Number
+                .col-sm-7
+                    input.form-control(name="paybill_account_number", type='text', placeholder='Enter Paybill Account Number' required)
+                    small.form-text.text-muted
+                        | Enter Paybill Account Number
+            
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Add Paybill Pay Recipient

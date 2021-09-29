@@ -236,9 +236,10 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
     - External Till Recipient(`till`)
       - `tillNumber`: Pay recipient's till number `REQUIRED`
       - `tillName`: Pay recipient's till name `REQUIRED`
-    - Kopo Kopo Merchant(`kopo_kopo_merchant`)
-      - `tillNumber`: Pay recipient's till number `REQUIRED`
-      - `aliasName`: Pay recipient's alias name `REQUIRED`
+    - Paybill Recipient(`paybill`)
+      - `paybillName`: Paybill name `REQUIRED`
+      - `paybillNumber`: Paybill number `REQUIRED`
+      - `paybillAccountNumber`: Paybill account number `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
 - `PayService.sendPay({ payOptions })`: `payOptions`: A hash of objects containing the following keys:
@@ -247,6 +248,9 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
   - `destinationReference`: The destination reference `REQUIRED`
   - `currency`: 3-digit ISO format currency code. `REQUIRED`
   - `amount`: Amount to charge. `REQUIRED`
+  - `description`: Payment description. `REQUIRED`
+  - `category`: Payment category.
+  - `tags`: Tags relevant to the payment. The tags should be comma separated.
   - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
   - `metadata`: It is a hash containing a maximum of 5 key value pairs
@@ -354,6 +358,12 @@ Run all tests:
 ```bash
 $ npm install
 $ npm test
+```
+
+Generate Docs:
+
+```bash
+$ ./node_modules/.bin/jsdoc lib -d docs
 ```
 
 ### Issues
