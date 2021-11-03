@@ -1,6 +1,6 @@
 {
   "name": "k2-connect-node",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "This is a Kopokopo module that allows you to consume our APIs",
   "main": "index.js",
   "scripts": {
