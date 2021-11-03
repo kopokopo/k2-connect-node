@@ -16,7 +16,7 @@ block content
                         option(value="bank_account") Bank Account
                         option(value="mobile_wallet") Mobile Wallet
                         option(value="till") External Till
-                        option(value="kopo_kopo_merchant") Kopo Kopo Merchant
+                        option(value="paybill") Paybill
             .form-group.row
                 label.col-sm-2.col-form-label Destination Reference
                 .col-sm-7
@@ -29,6 +29,12 @@ block content
                     input.form-control(name="amount", type='integer', placeholder='Enter Amount' required)
                     small.form-text.text-muted
                         | Enter Amount
+            .form-group.row
+                label.col-sm-2.col-form-label Description
+                .col-sm-7
+                    input.form-control(name="description", type='text', placeholder='Enter Description' required)
+                    small.form-text.text-muted
+                        | Description
             
             br
             .form-group.row

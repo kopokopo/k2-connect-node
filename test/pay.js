@@ -93,7 +93,7 @@ describe('PayService', function () {
 				opts.type = 'bank_account'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.settlementMethod = 'EFT'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Account name can\'t be blank; ' })
@@ -117,7 +117,7 @@ describe('PayService', function () {
 				opts.type = 'bank_account'
 				opts.accountName = 'Jane Doe'
 				opts.accountNumber = '123456789'
-				opts.settlementMethod = 'EFT'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Bank branch ref can\'t be blank; ' })
@@ -129,7 +129,7 @@ describe('PayService', function () {
 				opts.type = 'bank_account'
 				opts.accountName = 'Jane Doe'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
-				opts.settlementMethod = 'EFT'
+				opts.settlementMethod = 'RTS'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Account number can\'t be blank; ' })
@@ -142,7 +142,7 @@ describe('PayService', function () {
 				opts.accountName = 'Jane Doe'
 				opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 				opts.accountNumber = '123456789'
-				opts.settlementMethod = 'EFT'
+				opts.settlementMethod = 'RTS'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -175,40 +175,53 @@ describe('PayService', function () {
 				opts.type = 'till'
 				opts.tillName = 'Jane Doe'
 				opts.tillNumber = '123456'
-				opts.settlementMethod = 'EFT'
+				opts.settlementMethod = 'RTS'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 		})
 
-		describe('addPayRecipient() kopo kopo merchant validation', function () {	
-			it('#addPayRecipient() merchant has to have aliasName', function () {
+		describe('addPayRecipient() paybill validation', function () {	
+			it('#addPayRecipient() paybill has to have aliasName', function () {
 				var opts = {}
 	
-				opts.type = 'kopo_kopo_merchant'
-				opts.tillNumber = '123456'
+				opts.type = 'paybill'
+				opts.paybillNumber = '123456'
+				opts.paybillAccountNumber = '67890'
 				opts.accessToken= 'hardToGuessKey'
 
-				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Alias name can\'t be blank; ' })
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Paybill name can\'t be blank; ' })
 			})
 
-			it('#addPayRecipient() merchant has to have tillNumber', function () {
+			it('#addPayRecipient() paybill has to have paybillNumber', function () {
 				var opts = {}
 	
-				opts.type = 'kopo_kopo_merchant'
-				opts.aliasName = 'Jane Doe'
+				opts.type = 'paybill'
+				opts.paybillName = 'Jane Doe'
+				opts.paybillAccountNumber = '67890'
 				opts.accessToken= 'hardToGuessKey'
 
-				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Till number can\'t be blank; ' })
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Paybill number can\'t be blank; ' })
 			})
 
-			it('#addPayRecipient() merchant has to have accessToken', function () {
+			it('#addPayRecipient() paybill has to have paybillAccountNumber', function () {
 				var opts = {}
 	
-				opts.type = 'kopo_kopo_merchant'
-				opts.aliasName = 'Jane Doe'
-				opts.tillNumber = '123456'
-				opts.settlementMethod = 'EFT'
+				opts.type = 'paybill'
+				opts.paybillName = 'Jane Doe'
+				opts.paybillNumber = '123456'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Paybill account number can\'t be blank; ' })
+			})
+
+			it('#addPayRecipient() paybill has to have accessToken', function () {
+				var opts = {}
+	
+				opts.type = 'paybill'
+				opts.paybillName = 'Jane Doe'
+				opts.paybillNumber = '123456'
+				opts.paybillAccountNumber = '67890'
 
 				return pay.addPayRecipient(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
@@ -240,7 +253,7 @@ describe('PayService', function () {
 			opts.accountName = 'Jane Doe'
 			opts.bankBranchRef = 'c7f300c0-f1ef-4151-9bbe-005005aa3747'
 			opts.accountNumber = '123456789'
-			opts.settlementMethod = 'EFT'
+			opts.settlementMethod = 'RTS'
 			opts.accessToken= 'hardToGuessKey'
 											
 			return pay.addPayRecipient(opts).then(response => {
@@ -265,12 +278,13 @@ describe('PayService', function () {
 			})
 		})
 
-		it('#addPayRecipient() kopo kopo merchant succeeds', function () {
+		it('#addPayRecipient() paybill succeeds', function () {
 			var opts = {}
 	
-			opts.type = 'kopo_kopo_merchant'
-			opts.aliasName = 'Jane Doe'
-			opts.tillNumber = '123456'
+			opts.type = 'paybill'
+			opts.paybillName = 'Jane Doe'
+			opts.paybillNumber = '123456'
+			opts.paybillAccountNumber = '67890'
 			opts.accessToken= 'hardToGuessKey'
 											
 			return pay.addPayRecipient(opts).then(response => {
@@ -294,6 +308,7 @@ describe('PayService', function () {
 				opts.destinationReference = 'my_destination_reference'
 				opts.currency = 'KES'
 				opts.amount = 20
+				opts.description = 'Salary payment for May 2021'
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
 
@@ -305,6 +320,7 @@ describe('PayService', function () {
 				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
+				opts.description = 'Salary payment for May 2021'
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
 
@@ -316,6 +332,7 @@ describe('PayService', function () {
 				opts.destinationReference = 'my_destination_reference'
 				opts.destinationType = 'mobile_wallet'
 				opts.amount = 20
+				opts.description = 'Salary payment for May 2021'
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
 
@@ -327,10 +344,23 @@ describe('PayService', function () {
 				opts.destinationReference = 'my_destination_reference'
 				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
+				opts.description = 'Salary payment for May 2021'
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Amount can\'t be blank; ' })
+			})
+
+			it('#sendPay() has to have description', function () {
+				var opts = {}
+				opts.destinationReference = 'my_destination_reference'
+				opts.destinationType = 'mobile_wallet'
+				opts.currency = 'KES'
+				opts.amount = 20
+				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
+				opts.accessToken= 'hardToGuessKey'
+
+				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Description can\'t be blank; ' })
 			})
 
 			it('#sendPay() has to have callbackUrl', function () {
@@ -339,6 +369,7 @@ describe('PayService', function () {
 				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
+				opts.description = 'Salary payment for May 2021'
 				opts.accessToken= 'hardToGuessKey'
 
 				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
@@ -350,6 +381,7 @@ describe('PayService', function () {
 				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
+				opts.description = 'Salary payment for May 2021'
 				opts.callbackUrl = 'an_invalid_url'
 				opts.accessToken= 'hardToGuessKey'
 
@@ -362,6 +394,7 @@ describe('PayService', function () {
 				opts.destinationType = 'mobile_wallet'
 				opts.currency = 'KES'
 				opts.amount = 20
+				opts.description = 'Salary payment for May 2021'
 				opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'
 
 				return pay.sendPay(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
@@ -375,6 +408,9 @@ describe('PayService', function () {
 			opts.destinationType = 'mobile_wallet'
 			opts.currency = 'KES'
 			opts.amount = 20
+			opts.description = 'Salary payment for May 2021'
+			opts.category = 'Salary Payment'
+			opts.tags = 'Salary,May'
 			opts.callbackUrl = 'https://your-call-bak.yourapplication.com/payment_result'  
 			opts.accessToken= 'hardToGuessKey'
 	
