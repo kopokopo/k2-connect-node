@@ -4,14 +4,16 @@
   "description": "This is a Kopokopo module that allows you to consume our APIs",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "tsc"
   },
   "author": "Nicollet Njora <nicollet.njora05@gmail.com> (https://www.nicolletnjora.com)",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.20",
     "unirest": "^0.6.0",
-    "validate.js": "^0.12.0"
+    "validate.js": "^0.12.0",
+    "zod": "^3.22.4"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,8 @@
     "mocha": "^5.2.0",
     "nock": "^10.0.6",
     "node-mocks-http": "^1.7.3",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "typescript": "^5.3.3"
   },
   "husky": {
     "hooks": {
