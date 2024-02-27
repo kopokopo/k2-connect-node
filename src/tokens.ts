@@ -1,4 +1,5 @@
-import { K2Options } from "index";
+import { K2Application, K2Options } from "./config";
+import { sendRequest } from "./helpers/dispatch";
 
 export interface K2AuthToken {
   token: string;
@@ -8,6 +9,13 @@ export interface K2TokenDescription {
   tokenType: string;
   expiresIn: string;
   accessToken: string;
+}
+
+export interface K2TokenInfo {
+  scope: string;
+  expires_in: string;
+  application: K2Application;
+  created_at: string;
 }
 
 /**
@@ -23,45 +31,36 @@ export interface K2TokenDescription {
  */
 export interface K2TokenService {
   /**
-   * @returns `K2TokenDescription` - which contains the access token, token type and expiry details
+   * @returns `K2TokenDescription` which contains the access token, token type and expiry details
    */
   getToken(): Promise<K2TokenDescription | undefined>;
 
   /**
    * Handles requests for revoking an access token
-   * @function revokeToken
-   * @memberof TokenService
-   * @param {object} opts
-   * @param {string} opts.accessToken - The access token to be revoked.
+   * @param {string} token - The access token to be revoked.
    * @returns {Promise} Promise object returning empty body
    */
-  revokeToken(): K2AuthToken;
+  revokeToken(token: string): Promise<K2AuthToken>;
 
   /**
    * Handles requests for introspecting an access token
-   * @function introspectToken
-   * @memberof TokenService
-   * @param {object} opts
-   * @param {string} opts.accessToken - The access token to be revoked.
+   * @param {string} token - The access token to be revoked.
    * @returns {Promise} Promise object having the token_type, client_id, scope, active, exp(expiry time), iat(created time)
    */
-  introspectToken(): K2AuthToken;
+  introspectToken(token: string): Promise<K2AuthToken>;
 
   /**
    * Handles requests for getting information on the token
-   * @function infoToken
-   * @memberof TokenService
-   * @param {object} opts
-   * @param {string} opts.accessToken - The access token to be revoked.
-   * @returns {Promise} Promise object having the scope, expires_in, application.uid, created_at
+   * @param {string} token - The access token to be revoked.
+   * @returns {Promise} `K2TokenInfo` Promise object having the scope, expires_in, application.uid, created_at
    */
-  tokenInfo(): K2AuthToken;
+  tokenInfo(token: string): Promise<K2TokenInfo>;
 }
 
 export class K2Token implements K2TokenService {
   constructor(private options: K2Options) {}
 
-  async getToken(): Promise<K2TokenDescription | undefined> {
+  async getToken(): Promise<K2TokenDescription> {
     var requestBody = {
       client_id: this.options.clientId,
       client_secret: this.options.clientSecret,
@@ -69,34 +68,74 @@ export class K2Token implements K2TokenService {
     };
 
     try {
-      const res = await fetch(this.options.baseUrl + "/oauth/token", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded",
+      const response = await sendRequest<K2TokenDescription>(
+        this.options.baseUrl + "/oauth/token",
+        {
+          body: JSON.stringify(requestBody),
         },
-        body: JSON.stringify(requestBody),
-      });
+      );
 
-      if (res.status === 200) {
-        return await res.json();
-      } else {
-        console.log("Something not right is happening.");
-        throw new Error(res.statusText);
-      }
+      return response;
     } catch (e: any) {
-      console.log("An error occured", e.message);
-      return;
+      throw e;
     }
   }
 
-  revokeToken(): K2AuthToken {
-    throw new Error("Method not implemented.");
+  async revokeToken(token: string): Promise<K2AuthToken> {
+    var requestBody = {
+      client_id: this.options.clientId,
+      client_secret: this.options.clientSecret,
+      token,
+    };
+
+    // dispatch the request to revoke the given access token
+    try {
+      const response = await sendRequest<K2AuthToken>(
+        this.options.baseUrl + "/oauth/revoke",
+        {
+          body: JSON.stringify(requestBody),
+        },
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
   }
-  introspectToken(): K2AuthToken {
-    throw new Error("Method not implemented.");
+
+  async introspectToken(token: string): Promise<K2AuthToken> {
+    var requestBody = {
+      client_id: this.options.clientId,
+      client_secret: this.options.clientSecret,
+      token,
+    };
+    try {
+      const response = await sendRequest<K2AuthToken>(
+        this.options.baseUrl + "/oauth/introspect",
+        {
+          body: JSON.stringify(requestBody),
+        },
+      );
+
+      return response;
+    } catch (e) {
+      throw e;
+    }
   }
-  tokenInfo(): K2AuthToken {
-    throw new Error("Method not implemented.");
+
+  async tokenInfo(token: string): Promise<K2TokenInfo> {
+    try {
+      const tokenInfo = await sendRequest<K2TokenInfo>(
+        this.options.baseUrl + "/oauth/token/info",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        },
+      );
+      return tokenInfo;
+    } catch (e) {
+      throw e;
+    }
   }
 }
