@@ -24,7 +24,7 @@ app.use(
 )
 app.use('/favicon.ico', express.static('/favicon.ico'))
 
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 
 app.use('/', indexRoutes)
 app.use('/webhook', webhooksRoutes)
