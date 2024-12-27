@@ -1,3 +1,4 @@
+const getToken = require('./token.js')
 const express = require('express')
 const router = express.Router()
 
@@ -16,25 +17,14 @@ var Webhooks = K2.Webhooks
 
 var transferResource
 
-// Put in another file and import when needed
-var tokens = K2.TokenService
-var token_details
-tokens
-	.getToken()
-	.then(response => {
-		// Developer can decide to store the token_details and track expiry
-		token_details = response
-	})
-	.catch(error => {
-		console.log(error)
-	})
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 	res.render('transfer', res.locals.commonData)
 })
 
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
+	token_details = await getToken()
 	var transferOpts = {
 		amount : req.body.amount,
 		currency: 'KES',
@@ -56,7 +46,8 @@ router.post('/', function (req, res, next) {
 		})
 })
 
-router.post('/createmerchantaccount', function (req, res, next) {
+router.post('/createmerchantaccount', async function (req, res, next) {
+	token_details = await getToken()
 	var settlementAccountOpts = {
 		accountName: req.body.accountName,
 		settlementMethod: 'RTS',
@@ -77,7 +68,8 @@ router.post('/createmerchantaccount', function (req, res, next) {
 		})
 })
 
-router.post('/createmerchantwallet', function (req, res, next) {
+router.post('/createmerchantwallet', async function (req, res, next) {
+	token_details = await getToken()
 	var settlementAccountOpts = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,

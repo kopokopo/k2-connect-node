@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 const app = express()
 const port = 8000
 
-require('dotenv').load()
+require('dotenv').config()
 
 // routes
 const indexRoutes = require('./routes/index')

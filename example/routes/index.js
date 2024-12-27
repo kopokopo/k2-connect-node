@@ -1,3 +1,4 @@
+const getToken = require('./token.js')
 const express = require('express')
 const router = express.Router()
 
@@ -17,27 +18,12 @@ router.get('/', function (req, res, next) {
 	res.render('index', res.locals.commonData)
 })
 
-
-// Put in another file and import when needed
-var tokens = K2.TokenService
-var token_details
-
-tokens
-	.getToken()
-	.then(response => {
-		// Developer can decide to store the token_details and track expiry
-		token_details = response
-	})
-	.catch(error => {
-		console.log(error)
-	})
-
-
 router.get('/status', function (req, res, next) {
 	res.render('status', res.locals.commonData)
 })
 
-router.post('/getstatus', function (req, res, next) {
+router.post('/getstatus', async function (req, res, next) {
+	token_details = await getToken()
 	StkService
 		.getStatus({ accessToken: token_details.access_token, location: req.body.location })
 		.then(response => {
