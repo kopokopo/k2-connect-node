@@ -6,10 +6,10 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('k2-connect-node')(options)
+let K2 = require('k2-connect-node')(options)
 
-var tokens = K2.TokenService
-var token_details
+let tokens = K2.TokenService
+let token_details
 
 module.exports = function token() {
     return tokens

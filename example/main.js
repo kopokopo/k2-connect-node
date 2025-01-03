@@ -15,6 +15,7 @@ const payRoutes = require('./routes/pay')
 const transferRoutes = require('./routes/transfer')
 const pollingRoutes = require('./routes/polling')
 const smsNotificationRoutes = require('./routes/smsnotification')
+const tokenRoutes  = require('./routes/tokenmanagement')
 
 app.use(bodyParser.json())
 app.use(
@@ -32,6 +33,7 @@ app.use('/stk', stkRoutes)
 app.use('/pay', payRoutes)
 app.use('/transfer', transferRoutes)
 app.use('/polling', pollingRoutes)
+app.use('/token', tokenRoutes)
 app.use('/smsnotification', smsNotificationRoutes)
 
 // catch 404 and forward to error handler
