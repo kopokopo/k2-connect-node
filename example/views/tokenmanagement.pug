@@ -1,0 +1,99 @@
+extends layout
+
+block content
+    br
+
+    p !{message}
+
+    .container
+        .title.h3 Token Management
+
+        // Buttons to trigger actions
+        form(action="/token/generate", method="post")
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type="submit") Generate Token
+
+        form(action="/token/info", method="post")
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type="submit") Get Token Info
+
+        form(action="/token/introspect", method="post")
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type="submit") Introspect Token
+
+        form(action="/token/revoke", method="post")
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-danger(type="submit") Revoke Token
+
+        // Add a space between buttons and results
+        br
+        br
+
+        // Display Token Info
+        if tokenInfo
+            .title.h3.mt-4 Token Details
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Resource Owner:
+                        | #{tokenInfo.resource_owner_id}
+                .col-sm-6
+                    p
+                        strong Scope:
+                        | #{tokenInfo.scope}
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Client ID:
+                        | #{tokenInfo.application.uid}
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Expires In:
+                        | #{tokenInfo.expires_in}
+                .col-sm-6
+                    p
+                        strong Created At:
+                        | #{tokenInfo.created_at}
+        else if introspectData
+            .title.h3.mt-4 Introspect Token Details
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Active:
+                        | #{introspectData.active}
+                .col-sm-6
+                    p
+                        strong Scope:
+                        | #{introspectData.scope}
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Client ID:
+                        | #{introspectData.client_id}
+                .col-sm-6
+                    p
+                        strong Token Type:
+                        | #{introspectData.token_type}
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Expiry:
+                        | #{introspectData.exp}
+                .col-sm-6
+                    p
+                        strong Issued At:
+                        | #{introspectData.iat}
+        else if token
+            .title.h3.mt-4 Oauth Token
+            .row.mb-3
+                .col-sm-6
+                    p
+                        strong Token:
+                        | #{token}
+        else
+            p.text-danger No data available.
