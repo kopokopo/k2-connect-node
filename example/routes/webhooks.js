@@ -1,3 +1,4 @@
+const getToken = require('./token.js')
 const express = require('express')
 const router = express.Router()
 
@@ -11,21 +12,9 @@ const options = {
 // Including the kopokopo module
 var K2 = require('k2-connect-node')(options)
 var Webhooks = K2.Webhooks
-var tokens = K2.TokenService
 var buyGoodsResource
 var customerResource
 var reversalResource
-var token_details
-
-tokens
-	.getToken()
-	.then(response => {
-		// Developer can decide to store the token_details and track expiry
-		token_details = response
-	})
-	.catch(error => {
-		console.log(error)
-	})
 
 router.post('/', function (req, res, next) {
 	Webhooks
@@ -119,7 +108,8 @@ router.get('/subscribe', function (req, res, next) {
 })
 
 
-router.post('/subscribe', function (req, res, next) {	
+router.post('/subscribe', async function (req, res, next) {	
+	token_details = await getToken()
 	const subscribeOptions = {
 		eventType: req.body.event_type,
 		url: req.body.url,
@@ -135,7 +125,7 @@ router.post('/subscribe', function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('subscribe', { message: error.error.message })
+			return res.render('subscribe', { message: error.message })
 		})
 })
 

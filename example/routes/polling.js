@@ -1,3 +1,4 @@
+const getToken = require('./token.js')
 const express = require('express')
 const router = express.Router()
 
@@ -14,21 +15,6 @@ const options = {
 var K2 = require('k2-connect-node')(options)
 var PollingService = K2.PollingService
 var Webhooks = K2.Webhooks
-
-// Put in another file and import when needed
-var tokens = K2.TokenService
-var token_details
-
-tokens
-	.getToken()
-	.then(response => {
-		// Developer can decide to store the token_details and track expiry
-		token_details = response
-	})
-	.catch(error => {
-		console.log(error)
-	})
-
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -59,8 +45,8 @@ router.get('/result', function (req, res, next) {
 	}
 })
 
-router.post('/', function (req, res, next) {
-
+router.post('/', async function (req, res, next) {
+	token_details = await getToken()
 	var pollingOptions = {
 		fromTime: req.body.from_time,
 		toTime: req.body.to_time,
@@ -80,7 +66,7 @@ router.post('/', function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('polling', { message: 'Error ' + error })
+			return res.render('polling', { message: 'Error ' + error.error_message })
 
 		})
 })

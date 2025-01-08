@@ -1,3 +1,4 @@
+const getToken = require('./token.js')
 const express = require('express')
 const router = express.Router()
 
@@ -14,21 +15,6 @@ const options = {
 var K2 = require('k2-connect-node')(options)
 var StkService = K2.StkService
 var Webhooks = K2.Webhooks
-
-// Put in another file and import when needed
-var tokens = K2.TokenService
-var token_details
-
-tokens
-	.getToken()
-	.then(response => {
-		// Developer can decide to store the token_details and track expiry
-		token_details = response
-	})
-	.catch(error => {
-		console.log(error)
-	})
-
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -68,8 +54,8 @@ router.get('/result', function (req, res, next) {
 	}
 })
 
-router.post('/receive', function (req, res, next) {
-
+router.post('/receive', async function (req, res, next) {
+	token_details = await getToken()
 	var stkOptions = {
 		paymentChannel: "M-PESA STK Push",
 		tillNumber: req.body.till_number,

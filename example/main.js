@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 const app = express()
 const port = 8000
 
-require('dotenv').load()
+require('dotenv').config()
 
 // routes
 const indexRoutes = require('./routes/index')
@@ -15,6 +15,7 @@ const payRoutes = require('./routes/pay')
 const transferRoutes = require('./routes/transfer')
 const pollingRoutes = require('./routes/polling')
 const smsNotificationRoutes = require('./routes/smsnotification')
+const tokenRoutes  = require('./routes/tokenmanagement')
 
 app.use(bodyParser.json())
 app.use(
@@ -24,7 +25,7 @@ app.use(
 )
 app.use('/favicon.ico', express.static('/favicon.ico'))
 
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 
 app.use('/', indexRoutes)
 app.use('/webhook', webhooksRoutes)
@@ -32,6 +33,7 @@ app.use('/stk', stkRoutes)
 app.use('/pay', payRoutes)
 app.use('/transfer', transferRoutes)
 app.use('/polling', pollingRoutes)
+app.use('/token', tokenRoutes)
 app.use('/smsnotification', smsNotificationRoutes)
 
 // catch 404 and forward to error handler

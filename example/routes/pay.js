@@ -1,3 +1,4 @@
+const getToken = require('./token.js')
 const express = require('express')
 const router = express.Router()
 
@@ -14,19 +15,6 @@ var PayService = K2.PayService
 var Webhooks = K2.Webhooks
 
 var payResource
-
-// Put in another file and import when needed
-var tokens = K2.TokenService
-var token_details
-tokens
-	.getToken()
-	.then(response => {
-		// Developer can decide to store the token_details and track expiry
-		token_details = response
-	})
-	.catch(error => {
-		console.log(error)
-	})
 
 router.get('/', function (req, res, next) {
 	res.render('pay', res.locals.commonData)
@@ -56,7 +44,8 @@ router.get('/result', function (req, res, next) {
 	}
 })
 
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
+	token_details = await getToken()
 	var payOpts = {
 		destinationReference: req.body.destinationReference,
 		destinationType: req.body.destinationType,
@@ -90,7 +79,8 @@ router.get('/mobilerecipient', function (req, res, next) {
 	res.render('mobilepayrecipient', res.locals.commonData)
 })
 
-router.post('/mobilerecipient', function (req, res, next) {
+router.post('/mobilerecipient', async function (req, res, next) {
+	token_details = await getToken()
 	var recipientOpts = {
 		type: 'mobile_wallet',
 		firstName: req.body.first_name,
@@ -118,7 +108,8 @@ router.get('/bankrecipient', function (req, res, next) {
 	res.render('bankpayrecipient', res.locals.commonData)
 })
 
-router.post('/bankrecipient', function (req, res, next) {
+router.post('/bankrecipient', async function (req, res, next) {
+	token_details = await getToken()
 	var recipientOpts = {
 		type: 'bank_account',
 		accountName: req.body.account_name,
@@ -145,7 +136,8 @@ router.get('/tillrecipient', function (req, res, next) {
 	res.render('tillpayrecipient', res.locals.commonData)
 })
 
-router.post('/tillrecipient', function (req, res, next) {
+router.post('/tillrecipient', async function (req, res, next) {
+	token_details = await getToken()
 	var recipientOpts = {
 		type: 'till',
 		tillName: req.body.till_name,
@@ -169,7 +161,8 @@ router.get('/paybillrecipient', function (req, res, next) {
 	res.render('paybillpayrecipient', res.locals.commonData)
 })
 
-router.post('/paybillrecipient', function (req, res, next) {
+router.post('/paybillrecipient', async function (req, res, next) {
+	token_details = await getToken()
 	var recipientOpts = {
 		type: 'paybill',
 		paybillName: req.body.paybill_name,
@@ -186,7 +179,7 @@ router.post('/paybillrecipient', function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('paybillpayrecipient', { message: 'Error: ' + error })
+			return res.render('paybillpayrecipient', { message: 'Error: ' + error.error_message })
 		})
 })
 module.exports = router
