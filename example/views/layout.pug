@@ -49,6 +49,12 @@ html
                                 a.dropdown-item(href='/status') Query Status
                                 a.dropdown-item(href='/pay/result') Payment Result
                         li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Send Money
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/sendmoney') Create a send money request
+                                a.dropdown-item(href='/status') Query Status
+                        li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")

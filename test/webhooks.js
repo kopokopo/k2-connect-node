@@ -4,7 +4,7 @@ const nock = require('nock')
 var mocks = require('node-mocks-http')
 
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
-const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v1'
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v2'
 
 // Subscribe
 const response = require('./response/webhooks')

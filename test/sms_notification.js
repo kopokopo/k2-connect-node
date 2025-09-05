@@ -3,7 +3,7 @@ const expect = require('chai').expect
 const nock = require('nock')
 
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
-const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v1'
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v2'
 
 const response = require('./response/sms_notification')
 
@@ -33,54 +33,54 @@ describe('SmsNotificationService', function () {
 
 			it('#sendTransactionSmsNotification() has to have message', function () {
 				opts.message = null
-                opts.webhookEventReference = '123456'
-                opts.callbackUrl = 'http://localhost:8000/test'
-                opts.accessToken = 'hardToGuessKey'
+				opts.webhookEventReference = '123456'
+				opts.callbackUrl = 'http://localhost:8000/test'
+				opts.accessToken = 'hardToGuessKey'
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Message can\'t be blank; ' })
 			})
 
-            it('#sendTransactionSmsNotification() message has to be a string', function () {
+			it('#sendTransactionSmsNotification() message has to be a string', function () {
 				opts.message = 123
-                opts.webhookEventReference = '123456'
-                opts.callbackUrl = 'http://localhost:8000/test'
-                opts.accessToken = 'hardToGuessKey'
+				opts.webhookEventReference = '123456'
+				opts.callbackUrl = 'http://localhost:8000/test'
+				opts.accessToken = 'hardToGuessKey'
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Message must be a string; ' })
 			})
 
 			it('#sendTransactionSmsNotification() has to have callbackUrl', function () {
 				opts.message = 'Your message here'
-                opts.webhookEventReference = '123456'
-                opts.callbackUrl = null
-                opts.accessToken = 'hardToGuessKey'
+				opts.webhookEventReference = '123456'
+				opts.callbackUrl = null
+				opts.accessToken = 'hardToGuessKey'
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Callback url can\'t be blank; ' })
 			})
 
-            it('#sendTransactionSmsNotification() callbackUrl has to be a valid url', function () {
+			it('#sendTransactionSmsNotification() callbackUrl has to be a valid url', function () {
 				opts.message = 'Your message here'
-                opts.webhookEventReference = '123456'
-                opts.callbackUrl = 'an_invallid_url'
-                opts.accessToken = 'hardToGuessKey'
+				opts.webhookEventReference = '123456'
+				opts.callbackUrl = 'an_invallid_url'
+				opts.accessToken = 'hardToGuessKey'
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Callback url is not a valid url; ' })
 			})
 
 			it('#sendTransactionSmsNotification() has to have accessToken', function () {
 				opts.message = 'Your message here'
-                opts.webhookEventReference = '123456'
-                opts.callbackUrl = 'http://localhost:8000/test'
-                opts.accessToken = null
+				opts.webhookEventReference = '123456'
+				opts.callbackUrl = 'http://localhost:8000/test'
+				opts.accessToken = null
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Access token can\'t be blank; ' })
 			})
 
-            it('#sendTransactionSmsNotification() accessToken has to be a string', function () {
+			it('#sendTransactionSmsNotification() accessToken has to be a string', function () {
 				opts.message = 'Your message here'
-                opts.webhookEventReference = '123456'
-                opts.callbackUrl = 'http://localhost:8000/test'
-                opts.accessToken = 1254
+				opts.webhookEventReference = '123456'
+				opts.callbackUrl = 'http://localhost:8000/test'
+				opts.accessToken = 1254
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Access token must be a string; ' })
 			})
@@ -88,18 +88,18 @@ describe('SmsNotificationService', function () {
 
 			it('#sendTransactionSmsNotification() has to have webhookEventReference', function () {
 				opts.message = 'Your message here'
-                opts.webhookEventReference = null
-                opts.callbackUrl = 'http://localhost:8000/test'
-                opts.accessToken = 'hardToGuessKey'
+				opts.webhookEventReference = null
+				opts.callbackUrl = 'http://localhost:8000/test'
+				opts.accessToken = 'hardToGuessKey'
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Webhook event reference can\'t be blank; ' })
 			})
 
 			it('#sendTransactionSmsNotification() webhookEventReference has to be a string', function () {
-                opts.message = 'Your message here'
-                opts.webhookEventReference = 123456
-                opts.callbackUrl = 'http://localhost:8000/test'
-                opts.accessToken = 'hardToGuessKey'
+				opts.message = 'Your message here'
+				opts.webhookEventReference = 123456
+				opts.callbackUrl = 'http://localhost:8000/test'
+				opts.accessToken = 'hardToGuessKey'
 
 				return sms_notification.sendTransactionSmsNotification(opts).should.be.rejectedWith(Error, { message: 'Webhook event reference must be a string; ' })
 			})
@@ -109,7 +109,7 @@ describe('SmsNotificationService', function () {
 			var opts = {}
 			opts.message = 'Your message here'
 			opts.webhookEventReference = '123456'
-            opts.callbackUrl = 'http://localhost:8000/test'
+			opts.callbackUrl = 'http://localhost:8000/test'
 			opts.accessToken = 'hardToGuessKey'
 
 			return sms_notification.sendTransactionSmsNotification(opts).then(response => {
@@ -120,7 +120,7 @@ describe('SmsNotificationService', function () {
 		})
 	})
 
-    describe('getStatus()', function () {
+	describe('getStatus()', function () {
 		beforeEach(() => {
 			nock(BASE_URL)
 				.get('/my_sms_notification_request_location')
@@ -166,7 +166,7 @@ describe('SmsNotificationService', function () {
 			return sms_notification.getStatus(opts).then(response => {
 				// expect an object back
 				expect(typeof response).to.equal('object')
-				
+
 				// Test result of status for the response
 				expect(response.data.attributes.status).to.equal('Success')
 
