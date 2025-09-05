@@ -1,0 +1,63 @@
+extends layout
+
+block content
+
+    br
+
+    p !{message}
+    .container
+        .title.h3 Initialise a Send Money request
+        br
+        form(action="/sendmoney", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label(for="type") Source Type
+                .col-sm-7
+                    select.form-control(name="type")
+                        option(value="my_wallet") My Wallet
+                        option(value="my_account") My Account
+                        option(value="float") Float
+
+            .form-group.row
+                label.col-sm-2.col-form-label(for="source_identifier") Source Identifier
+                .col-sm-7
+                    input.form-control(name="source_identifier", type="text", placeholder="Enter Source Identifier" required)
+                    small.form-text.text-muted
+                        | E.g. wallet ID, account reference
+
+            .form-group.row
+                label.col-sm-2.col-form-label(for="destination_type") Destination Type
+                .col-sm-7
+                    select.form-control(name="destination_type")
+                        option(value="mobile_wallet") Mobile Wallet
+                        option(value="bank_account") Bank Account
+                        option(value="till") Till
+                        option(value="paybill") Paybill
+
+            .form-group.row
+                label.col-sm-2.col-form-label(for="phone_number") Phone Number
+                .col-sm-7
+                    input.form-control(name="phone_number", type="text", placeholder="Enter Phone Number")
+                    small.form-text.text-muted
+                        | Only required for Mobile Wallet
+
+            .form-group.row
+                label.col-sm-2.col-form-label(for="network") Network
+                .col-sm-7
+                    select.form-control(name="network")
+                        option(value="Safaricom") Safaricom
+                        
+
+            .form-group.row
+                label.col-sm-2.col-form-label(for="amount") Amount
+                .col-sm-7
+                    input.form-control(name="amount", type="number", placeholder="Enter Amount" required)
+
+            .form-group.row
+                label.col-sm-2.col-form-label(for="description") Description
+                .col-sm-7
+                    input.form-control(name="description", type="text", placeholder="Enter Description" required)
+
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-primary(type="submit") Send Money
