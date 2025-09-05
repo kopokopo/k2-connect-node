@@ -15,13 +15,14 @@ const payRoutes = require('./routes/pay')
 const transferRoutes = require('./routes/transfer')
 const pollingRoutes = require('./routes/polling')
 const smsNotificationRoutes = require('./routes/smsnotification')
-const tokenRoutes  = require('./routes/tokenmanagement')
+const tokenRoutes = require('./routes/tokenmanagement')
+const sendMoneyRoutes = require('./routes/send_money')
 
 app.use(bodyParser.json())
 app.use(
 	bodyParser.urlencoded({
-		extended: true
-	})
+		extended: true,
+	}),
 )
 app.use('/favicon.ico', express.static('/favicon.ico'))
 
@@ -35,6 +36,7 @@ app.use('/transfer', transferRoutes)
 app.use('/polling', pollingRoutes)
 app.use('/token', tokenRoutes)
 app.use('/smsnotification', smsNotificationRoutes)
+app.use('/sendmoney', sendMoneyRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -55,5 +57,5 @@ app.use(function (err, req, res, next) {
 })
 
 app.listen(port, () => {
-	console.log(`App running on port ${ port }.`)
+	console.log(`App running on port ${port}.`)
 })
