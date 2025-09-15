@@ -37,10 +37,10 @@ module.exports.status = {
 	}
 }
 module.exports.recipientsLocation = {
-	location: 'https://sandbox.kopokopo.com/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747',
+	location: 'https://sandbox.kopokopo.com/api/v2/pay_recipients/c7f300c0-f1ef-4151-9bbe-005005aa3747',
 	'Content-Type': 'application/json',
 }
 module.exports.location = {
 	'Content-Type': 'application/json',
-	location: 'https://sandbox.kopokopo.com/payments/c7f300c0-f1ef-4151-9bbe-005005aa3747',
+	location: 'https://sandbox.kopokopo.com/api/v2/payments/c7f300c0-f1ef-4151-9bbe-005005aa3747',
 }

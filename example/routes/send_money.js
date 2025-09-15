@@ -32,7 +32,6 @@ router.post("/result", function (req, res, next) {
     });
 });
 
-// Show async result
 router.get("/result", function (req, res, next) {
   let resource = sendMoneyResource;
   if (resource != null) {
@@ -50,22 +49,63 @@ router.get("/result", function (req, res, next) {
   }
 });
 
-// Submit send money request
 router.post("/", async function (req, res, next) {
   let token_details = await getToken();
+
+  let destinations = [];
+
+  const destType = req.body.destination_type;
+
+  if (destType === "mobile_wallet") {
+    const mobileWallets = req.body.mobile_wallet;
+    destinations = mobileWallets.map((item) => ({
+      type: "mobile_wallet",
+      phone_number: item.phone_number,
+      network: item.network,
+      nickname: item.nickname,
+      amount: item.amount,
+      description: String(item.description),
+      favourite: item.favourite,
+    }));
+  } else if (destType === "bank_account") {
+    const bankAccounts = req.body.bank_account;
+    destinations = bankAccounts.map((item) => ({
+      type: "bank_account",
+      bank_branch_ref: item.bank_branch_ref,
+      account_name: item.account_name,
+      account_number: item.account_number,
+      nickname: item.nickname,
+      amount: item.amount,
+      description: String(item.description),
+      favourite: item.favourite,
+    }));
+  } else {
+    let destination = {
+      type: destType,
+      amount: req.body.amount,
+      description: String(req.body.description),
+    };
+
+    switch (destType) {
+      case "till":
+        destination.till_number = req.body.till_number;
+        break;
+      case "paybill":
+        destination.paybill_number = req.body.paybill_number;
+        destination.paybill_account_number = req.body.paybill_account_number;
+        break;
+      case "merchant_wallet":
+      case "merchant_bank_account":
+        destination.reference = req.body.reference;
+        break;
+    }
+    destinations.push(destination);
+  }
 
   var sendMoneyOpts = {
     sourceIdentifier: req.body.source_identifier,
     currency: "KES",
-    destinations: [
-      {
-        type: req.body.destination_type, // "mobile_wallet", "bank_account", etc.
-        phone_number: req.body.phone_number,
-        network: req.body.network,
-        amount: req.body.amount,
-        description: req.body.description,
-      },
-    ],
+    destinations: destinations,
     metadata: {
       notes: "Sample Send Money transaction",
     },

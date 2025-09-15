@@ -27,39 +27,75 @@ block content
             option(value="till") Till
             option(value="paybill") Paybill
 
-      //- Mobile Wallet Fields
+      //- Mobile Wallet Fields (container for multiple entries)
       .destination-fields#mobile_walletFields(style="display:none")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="phone_number") Phone Number
-          .col-sm-7
-            input.form-control(name="phone_number", type="text", placeholder="Enter Phone Number")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="network") Network
-          .col-sm-7
-            select.form-control(name="network")
-              option(value="Safaricom") Safaricom
+        #mobileWalletContainer
+          .mobile-wallet-entry
+            .form-group.row
+              label.col-sm-2.col-form-label(for="phone_number") Phone Number
+              .col-sm-7
+                input.form-control(name="mobile_wallet[0][phone_number]", type="text", placeholder="Enter Phone Number")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="network") Network
+              .col-sm-7
+                select.form-control(name="mobile_wallet[0][network]")
+                  option(value="Safaricom") Safaricom
+            .form-group.row
+              label.col-sm-2.col-form-label(for="nickname") Nickname
+              .col-sm-7
+                input.form-control(name="mobile_wallet[0][nickname]", type="text", placeholder="Enter Nickname")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="amount") Amount
+              .col-sm-7
+                input.form-control(name="mobile_wallet[0][amount]", type="number", placeholder="Enter Amount")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="description") Description
+              .col-sm-7
+                input.form-control(name="mobile_wallet[0][description]", type="text", placeholder="Enter Description")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="favourite") Favourite
+              .col-sm-7
+                input.form-check-input(type="checkbox", name="mobile_wallet[0][favourite]", value="true")
+        button.btn.btn-secondary#addMobileWalletBtn(type="button", style="margin-top:10px;") Add Another
 
-      //- Merchant Wallet & Merchant Bank Account Fields
       .destination-fields#merchantFields(style="display:none")
         .form-group.row
           label.col-sm-2.col-form-label(for="reference") Reference
           .col-sm-7
             input.form-control(name="reference", type="text", placeholder="Enter Reference")
 
-      //- Bank Account Fields
       .destination-fields#bank_accountFields(style="display:none")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="bank_branch_ref") Bank Branch Reference
-          .col-sm-7
-            input.form-control(name="bank_branch_ref", type="text", placeholder="Enter Bank Branch Reference")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="account_name") Account Name
-          .col-sm-7
-            input.form-control(name="account_name", type="text", placeholder="Enter Account Name")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="account_number") Account Number
-          .col-sm-7
-            input.form-control(name="account_number", type="text", placeholder="Enter Account Number")
+        #bankAccountContainer
+          .bank-account-entry
+            .form-group.row
+              label.col-sm-2.col-form-label(for="bank_branch_ref") Bank Branch Reference
+              .col-sm-7
+                input.form-control(name="bank_account[0][bank_branch_ref]", type="text", placeholder="Enter Bank Branch Reference")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="account_name") Account Name
+              .col-sm-7
+                input.form-control(name="bank_account[0][account_name]", type="text", placeholder="Enter Account Name")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="account_number") Account Number
+              .col-sm-7
+                input.form-control(name="bank_account[0][account_number]", type="text", placeholder="Enter Account Number")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="nickname") Nickname
+              .col-sm-7
+                input.form-control(name="bank_account[0][nickname]", type="text", placeholder="Enter Nickname")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="amount") Amount
+              .col-sm-7
+                input.form-control(name="bank_account[0][amount]", type="number", placeholder="Enter Amount")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="description") Description
+              .col-sm-7
+                input.form-control(name="bank_account[0][description]", type="text", placeholder="Enter Description")
+            .form-group.row
+              label.col-sm-2.col-form-label(for="favourite") Favourite
+              .col-sm-7
+                input.form-check-input(type="checkbox", name="bank_account[0][favourite]", value="true")
+        button.btn.btn-secondary#addBankAccountBtn(type="button", style="margin-top:10px;") Add Another
 
       //- Till Fields
       .destination-fields#tillFields(style="display:none")
@@ -84,11 +120,11 @@ block content
         .form-group.row
           label.col-sm-2.col-form-label(for="amount") Amount
           .col-sm-7
-            input.form-control(name="amount", type="number", placeholder="Enter Amount" required)
+            input.form-control(name="amount", type="number", placeholder="Enter Amount")
         .form-group.row
           label.col-sm-2.col-form-label(for="description") Description
           .col-sm-7
-            input.form-control(name="description", type="text", placeholder="Enter Description" required)
+            input.form-control(name="description", type="text", placeholder="Enter Description")
 
       br
       .form-group.row
@@ -108,7 +144,36 @@ block content
       };
       const commonFields = document.getElementById("commonFields");
       const sourceIdentifierField = document.getElementById("sourceIdentifierField");
-      const sourceIdentifierInput = sourceIdentifierField.querySelector('input[name="source_identifier"]');
+
+      const addMobileWalletBtn = document.getElementById("addMobileWalletBtn");
+      const mobileWalletContainer = document.getElementById("mobileWalletContainer");
+
+      const addBankAccountBtn = document.getElementById("addBankAccountBtn");
+      const bankAccountContainer = document.getElementById("bankAccountContainer");
+
+      function updateMobileWalletNames() {
+        const entries = mobileWalletContainer.querySelectorAll(".mobile-wallet-entry");
+        entries.forEach((entry, index) => {
+          const inputs = entry.querySelectorAll("input, select");
+          inputs.forEach(input => {
+            const name = input.name;
+            const baseName = name.replace(/mobile_wallet\[\d+\]/, "mobile_wallet[" + index + "]");
+            input.name = baseName;
+          });
+        });
+      }
+
+      function updateBankAccountNames() {
+        const entries = bankAccountContainer.querySelectorAll(".bank-account-entry");
+        entries.forEach((entry, index) => {
+          const inputs = entry.querySelectorAll("input");
+          inputs.forEach(input => {
+            const name = input.name;
+            const baseName = name.replace(/bank_account\[\d+\]/, "bank_account[" + index + "]");
+            input.name = baseName;
+          });
+        });
+      }
 
       function toggleFields() {
         const value = select.value;
@@ -121,11 +186,88 @@ block content
         if (value === "my_accounts") {
           commonFields.style.display = "none";
           sourceIdentifierField.style.display = "none";
+        } else if (value === "mobile_wallet" || value === "bank_account") {
+          commonFields.style.display = "none";
+          sourceIdentifierField.style.display = "block";
         } else {
           commonFields.style.display = "block";
           sourceIdentifierField.style.display = "block";
         }
+
+        if (value === "mobile_wallet") {
+          addMobileWalletBtn.style.display = "inline-block";
+        } else {
+          addMobileWalletBtn.style.display = "none";
+          while (mobileWalletContainer.children.length > 1) {
+            mobileWalletContainer.removeChild(mobileWalletContainer.lastChild);
+          }
+          const inputs = mobileWalletContainer.querySelectorAll("input, select");
+          inputs.forEach(input => {
+            if (input.tagName.toLowerCase() === "select") {
+              input.selectedIndex = 0;
+            } else if(input.type === "checkbox") {
+              input.checked = false;
+            } else {
+              input.value = "";
+            }
+          });
+        }
+
+        if (value === "bank_account") {
+          addBankAccountBtn.style.display = "inline-block";
+        } else {
+          addBankAccountBtn.style.display = "none";
+          // Remove extra entries except first
+          while (bankAccountContainer.children.length > 1) {
+            bankAccountContainer.removeChild(bankAccountContainer.lastChild);
+          }
+          // Clear input values in the first entry
+          const inputs = bankAccountContainer.querySelectorAll("input");
+          inputs.forEach(input => {
+            if(input.type === "checkbox") {
+              input.checked = false;
+            } else {
+              input.value = "";
+            }
+          });
+        }
+        updateMobileWalletNames();
+        updateBankAccountNames();
       }
+
+      addMobileWalletBtn.addEventListener("click", function () {
+        const firstEntry = mobileWalletContainer.querySelector(".mobile-wallet-entry");
+        const newEntry = firstEntry.cloneNode(true);
+        // Clear inputs in the cloned node
+        const inputs = newEntry.querySelectorAll("input, select");
+        inputs.forEach(input => {
+          if (input.tagName.toLowerCase() === "select") {
+            input.selectedIndex = 0;
+          } else if(input.type === "checkbox") {
+            input.checked = false;
+          } else {
+            input.value = "";
+          }
+        });
+        mobileWalletContainer.appendChild(newEntry);
+        updateMobileWalletNames();
+      });
+
+      addBankAccountBtn.addEventListener("click", function () {
+        const firstEntry = bankAccountContainer.querySelector(".bank-account-entry");
+        const newEntry = firstEntry.cloneNode(true);
+        // Clear inputs in the cloned node
+        const inputs = newEntry.querySelectorAll("input");
+        inputs.forEach(input => {
+          if(input.type === "checkbox") {
+            input.checked = false;
+          } else {
+            input.value = "";
+          }
+        });
+        bankAccountContainer.appendChild(newEntry);
+        updateBankAccountNames();
+      });
 
       select.addEventListener("change", toggleFields);
       toggleFields();
