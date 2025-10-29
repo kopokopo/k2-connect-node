@@ -37,6 +37,7 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [Webhooks](#webhooks) : `var Webhooks = K2.Webhooks`
 - [STK PUSH](#stkservice) : `var StkService = K2.StkService`
 - [Pay](#payservice) : `var PayService = K2.PayService`
+- [SendMoney](#sendMoneyservice) : `var SendMoneyService = K2.SendMoneyService`
 - [Transfer](#transferservice) : `var TransferService = K2.TransferService`
 - [Polling](#pollingservice) : `var PollingService = K2.PollingService`
 - [Transaction Sms Notification](#smsnotificationservice) : `var SmsNotificationService = K2.SmsNotificationService`
@@ -242,28 +243,65 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
       - `paybillAccountNumber`: Paybill account number `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
-- `PayService.sendPay({ payOptions })`: `payOptions`: A hash of objects containing the following keys:
 
-  - `destinationType`: The destination type `REQUIRED`
-  - `destinationReference`: The destination reference `REQUIRED`
-  - `currency`: 3-digit ISO format currency code. `REQUIRED`
-  - `amount`: Amount to charge. `REQUIRED`
-  - `description`: Payment description. `REQUIRED`
-  - `category`: Payment category.
-  - `tags`: Tags relevant to the payment. The tags should be comma separated.
-  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
-  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-  - `metadata`: It is a hash containing a maximum of 5 key value pairs
+For more information, please read <https://api-docs.kopokopo.com/#send-money-pay>
 
-- `PayService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
+### `SendMoneyService`
 
-  - `location`: The location url you got from the request` REQUIRED`
-  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
+- `SendMoneyService.sendMoney({ sendMoneyOptions })`: `sendMoneyOptions`: A hash of objects containing the following keys:
+  - `sourceIdentifier`: The source identifier. `REQUIRED`
+  - `currency`: 3-digit ISO format currency code. Default is `KES`
+  - `destinations`: An array of destination objects representing one or more recipients.  
+    Each destination **must include a `type`** property indicating its category.  
+    The structure of each destination object depends on the `type`:
+    - Mobile Wallet Destination (`mobile_wallet`)
+      - `phone_number`: Recipient’s phone number `REQUIRED`
+      - `network`: Recipient’s mobile network `REQUIRED`
+      - `nickname`: Nickname for the destination
+      - `amount`: Amount to send `REQUIRED`
+      - `description`: Transaction description
+      - `favourite`: Whether to mark this destination as favourite
+    - Bank Account Destination (`bank_account`)
+      - `bank_branch_ref`: Bank branch reference `REQUIRED`
+      - `account_name`: Account name `REQUIRED`
+      - `account_number`: Account number `REQUIRED`
+      - `nickname`: Nickname for the destination
+      - `amount`: Amount to send `REQUIRED`
+      - `description`: Transaction description
+      - `favourite`: Whether to mark this destination as favourite
+    - Till Destination (`till`)
+      - `till_number`: Till number `REQUIRED`
+      - `amount`: Amount to send `REQUIRED`
+      - `description`: Transaction description
+      - `nickname`: Nickname for the destination
+      - `favourite`: Whether to mark this destination as favourite
+    - Paybill Destination (`paybill`)
+      - `paybill_number`: Paybill number `REQUIRED`
+      - `paybill_account_number`: Paybill account number `REQUIRED`
+      - `amount`: Amount to send `REQUIRED`
+      - `description`: Transaction description
+      - `nickname`: Nickname for the destination
+      - `favourite`: Whether to mark this destination as favourite
+    - Merchant Wallet Destination (`merchant_wallet`)
+      - `reference`: Merchant reference `REQUIRED`
+      - `amount`: Amount to send `REQUIRED`
+      - `description`: Transaction description
+    - Merchant Bank Account Destination (`merchant_bank_account`)
+      - `reference`: Merchant reference `REQUIRED`
+      - `amount`: Amount to send `REQUIRED`
+      - `description`: Transaction description
+  - `callbackUrl`: URL that the [result](#responsesandresults) will be posted to. `REQUIRED`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
+  - `metadata`: A hash containing up to 5 key–value pairs for additional information.
+
+- `SendMoneyService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
+  - `location`: The location URL you got from the request. `REQUIRED`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
 
 This works the same for all requests that you get a location response.
 
+For more information, please read <https://api-docs.kopokopo.com/#send-money>
 
-For more information, please read <https://api-docs.kopokopo.com/#send-money-pay>
 
 ### `TransferService`
 
@@ -280,22 +318,6 @@ For more information, please read <https://api-docs.kopokopo.com/#send-money-pay
   - `phoneNumber`: Phone number to settle to `REQUIRED`
   - `network`: Network `REQUIRED`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-
-- `TransferService.settleFunds({ settleOpts })`: `settleOpts`: A hash of objects containing the following keys:
-
-  - `destinationType`: The destination type `REQUIRED FOR A TARGETED TRANSFER`
-  - `destinationReference`: The destination reference `REQUIRED FOR A TARGETED TRANSFER`
-  - `currency`: 3-digit ISO format currency code. `REQUIRED FOR A TARGETED TRANSFER`
-  - `amount`: Amount to charge. `REQUIRED FOR A TARGETED TRANSFER`
-  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
-  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-
-- `TransferService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
-
-  - `location`: The location url you got from the request `REQUIRED`
-  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-
-This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#transfer-to-your-account-s>
 
