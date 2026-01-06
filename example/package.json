@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "constantinople": "^4.0.1",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
     "jstransformer": "^1.0.0",
     "k2-connect-node": "git://github.com/kopokopo/k2-connect-node.git#development",
     "pug": "^3.0.3"
