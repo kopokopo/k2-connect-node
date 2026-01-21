@@ -17,6 +17,7 @@ const pollingRoutes = require('./routes/polling')
 const smsNotificationRoutes = require('./routes/smsnotification')
 const tokenRoutes = require('./routes/tokenmanagement')
 const sendMoneyRoutes = require('./routes/send_money')
+const paymentLinkRoutes = require('./routes/payment_links')
 
 app.use(bodyParser.json())
 app.use(
@@ -37,6 +38,7 @@ app.use('/polling', pollingRoutes)
 app.use('/token', tokenRoutes)
 app.use('/smsnotification', smsNotificationRoutes)
 app.use('/sendmoney', sendMoneyRoutes)
+app.use('/paymentlink', paymentLinkRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
