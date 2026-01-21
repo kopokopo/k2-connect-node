@@ -41,6 +41,7 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [Transfer](#transferservice) : `var TransferService = K2.TransferService`
 - [Polling](#pollingservice) : `var PollingService = K2.PollingService`
 - [Transaction Sms Notification](#smsnotificationservice) : `var SmsNotificationService = K2.SmsNotificationService`
+- [Payment Links](#paymentlinkservice) : `var PaymentLinkService = K2.PaymentLinkService`
 
 ## Usage
 
@@ -358,6 +359,34 @@ For more information, please read <https://api-docs.kopokopo.com/#polling>
 This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#transaction-sms-notifications>
+
+### `PaymentLinkService`
+
+- `PaymentLinkService.createPaymentLink({ paymentLinkOptions })`: `paymentLinkOptions`: A hash of objects containing the following keys:
+  - `amount`: The amount for the payment link. `REQUIRED`
+  - `currency`: 3-digit ISO format currency code (e.g., 'KES', 'USD'). `REQUIRED`
+  - `till_number`: The till number to receive the payment. `REQUIRED`
+  - `payment_reference`: The payment reference. `OPTIONAL`
+  - `note`: A note for the payment link. `OPTIONAL`
+  - `callback_url`: The URL that the [result](#responsesandresults) will be posted to asynchronously. `REQUIRED`
+  - `metadata`: A hash containing up to 5 key–value pairs for additional information. `OPTIONAL`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
+
+  Returns a Promise that resolves to the location URL of the created payment link.
+
+- `PaymentLinkService.getStatus({ paymentLinkStatusOptions })`: `paymentLinkStatusOptions`: A hash of objects containing the following keys:
+  - `location`: The payment link request location URL. `REQUIRED`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
+
+  Returns a Promise that resolves to the payment link details object.
+
+- `PaymentLinkService.cancelPaymentLink({ paymentLinkCancelOptions })`: `paymentLinkCancelOptions`: A hash of objects containing the following keys:
+  - `location`: The payment link request location URL. `REQUIRED`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
+
+  Returns a Promise that resolves to the cancellation response object.
+
+For more information, please read <https://api-docs.kopokopo.com/#payment-links>
 
 ### Responses and Results
 
