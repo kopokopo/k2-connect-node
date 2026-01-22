@@ -18,6 +18,7 @@ const smsNotificationRoutes = require('./routes/smsnotification')
 const tokenRoutes = require('./routes/tokenmanagement')
 const sendMoneyRoutes = require('./routes/send_money')
 const paymentLinkRoutes = require('./routes/payment_links')
+const reversalsRoutes = require('./routes/reversals')
 
 app.use(bodyParser.json())
 app.use(
@@ -39,7 +40,7 @@ app.use('/token', tokenRoutes)
 app.use('/smsnotification', smsNotificationRoutes)
 app.use('/sendmoney', sendMoneyRoutes)
 app.use('/paymentlink', paymentLinkRoutes)
-
+app.use('/reversals', reversalsRoutes)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	const err = new Error('Not Found')

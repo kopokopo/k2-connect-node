@@ -42,6 +42,7 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [Polling](#pollingservice) : `var PollingService = K2.PollingService`
 - [Transaction Sms Notification](#smsnotificationservice) : `var SmsNotificationService = K2.SmsNotificationService`
 - [Payment Links](#paymentlinkservice) : `var PaymentLinkService = K2.PaymentLinkService`
+- [Reversals](#reversalsservice): `var ReversalsService = K2.ReversalsService`
 
 ## Usage
 
@@ -387,6 +388,27 @@ For more information, please read <https://api-docs.kopokopo.com/#transaction-sm
   Returns a Promise that resolves to the cancellation response object.
 
 For more information, please read <https://api-docs.kopokopo.com/#payment-links>
+
+### `ReversalsService`
+
+- `ReversalsService.initiateReversal({ reversalOptions })`: `reversalOptions`: A hash of objects containing the following keys:
+  - `transactionReference`: The reference of the transaction to be reversed. `REQUIRED`
+  - `reason`: The reason for the reversal. `REQUIRED`
+  - `metadata`: A hash containing up to 5 key–value pairs for additional information. `OPTIONAL`
+  - `callbackUrl`: The URL that the [result](#responsesandresults) will be posted to asynchronously. `REQUIRED`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
+
+  Returns a Promise that resolves to the location URL of the reversal request.
+
+- `ReversalsService.getStatus({ statusOptions })`: `statusOptions`: A hash of objects containing the following keys:
+  - `location`: The location URL you got from the reversal request. `REQUIRED`
+  - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
+
+  Returns a Promise that resolves to the reversal status details object.
+
+This works the same for all requests that you get a location response.
+
+For more information, please read <https://api-docs.kopokopo.com/#reversals>
 
 ### Responses and Results
 

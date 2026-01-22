@@ -85,6 +85,13 @@ html
                                 a.dropdown-item(href='/status') Query Status
                                 a.dropdown-item(href='/paymentlink/cancel') Cancel Payment Link
                                 a.dropdown-item(href='/paymentlink/result') Payment Link Result
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Reversals
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/reversals') Initiate a Reversal
+                                a.dropdown-item(href='/status') Query Status
+                                a.dropdown-item(href='/reversals/result') Reversal Result
                             
         .d-flex.align-items-xl-center.flex-column
             block content
