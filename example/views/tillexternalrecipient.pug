@@ -6,9 +6,9 @@ block content
 
     p !{message}
     .container
-        .title.h3 Add Pay Recipient
+        .title.h3 Add Till External Recipient
         br
-        form(action="/pay/tillrecipient", method="post") 
+        form(action="/externalrecipient/till", method="post") 
             .form-group.row
                 label.col-sm-2.col-form-label Till Name
                 .col-sm-7
@@ -25,4 +25,4 @@ block content
             br
             .form-group.row
                 .col-sm-7
-                    button.btn.btn-success(type='submit') Add External Till Pay Recipient
+                    button.btn.btn-success(type='submit') Add External Recipient

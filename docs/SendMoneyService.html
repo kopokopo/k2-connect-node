@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: PayService</title>
+    <title>JSDoc: Class: SendMoneyService</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: PayService</h1>
+    <h1 class="page-title">Class: SendMoneyService</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>PayService<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>SendMoneyService<span class="signature">(options)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="PayService"><span class="type-signature"></span>new PayService<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SendMoneyService"><span class="type-signature"></span>new SendMoneyService<span class="signature">(options)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Handles the pay operations
+    Handles the send money operations
 </div>
 
 
@@ -191,7 +191,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pay.js.html">pay.js</a>, <a href="pay.js.html#line6">line 6</a>
+        <a href="send_money.js.html">send_money.js</a>, <a href="send_money.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -247,7 +247,7 @@
     
 
     
-    <h4 class="name" id=".addPayRecipient"><span class="type-signature">(static) </span>addPayRecipient<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="._buildDestinations"><span class="type-signature">(static) </span>_buildDestinations<span class="signature">(destinations)</span><span class="type-signature"> &rarr; {Array.&lt;object>}</span></h4>
     
 
     
@@ -255,7 +255,7 @@
 
 
 <div class="description">
-    Handles requests for adding a pay recipient
+    Builds the destinations array to be included in the send money request body.
 </div>
 
 
@@ -291,13 +291,13 @@
 
         <tr>
             
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>destinations</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Array.&lt;object></span>
 
 
             
@@ -307,7 +307,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Array of destination objects provided by the user.</td>
         </tr>
 
     
@@ -348,7 +348,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pay.js.html">pay.js</a>, <a href="pay.js.html#line17">line 17</a>
+        <a href="send_money.js.html">send_money.js</a>, <a href="send_money.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -371,13 +371,25 @@
 
 
 
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        Will throw an error if a destination type is undefined or fails validation.
+    
+    </div>
+
+
+    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    Promise object having the location url of the request
+    Returns an array of validated and structured destination objects
 </div>
 
 
@@ -388,7 +400,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Array.&lt;object></span>
 
 
     </dd>
@@ -406,7 +418,7 @@
     
 
     
-    <h4 class="name" id=".sendPay"><span class="type-signature">(static) </span>sendPay<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".getStatus"><span class="type-signature">(static) </span>getStatus<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
     
 
     
@@ -414,7 +426,7 @@
 
 
 <div class="description">
-    Handles requests for sending pay
+    Handles requests for querying a send money request status
 </div>
 
 
@@ -492,7 +504,7 @@
 
         <tr>
             
-                <td class="name"><code>amount</code></td>
+                <td class="name"><code>location</code></td>
             
 
             <td class="type">
@@ -508,191 +520,7 @@
 
             
 
-            <td class="description last">The amount to settle.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>currency</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The currency to settle to.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>destinationType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The destination type of the payment i.e bank, mobile wallet or till.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>destinationReference</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identifier of the destination.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The payment description.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>category</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The payment category</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tags</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The relevant tags. These are comma separated.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callbackUrl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The url that the result will be posted to asynchronously.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>metadata</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The extra information a merchant wants to include. A max of 5 key value pairs</td>
+            <td class="description last">The location url of the request.</td>
         </tr>
 
     
@@ -763,7 +591,330 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pay.js.html">pay.js</a>, <a href="pay.js.html#line90">line 90</a>
+        <a href="send_money.js.html">send_money.js</a>, <a href="send_money.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Promise object having details on the status of the request
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".sendMoney"><span class="type-signature">(static) </span>sendMoney<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handles requests for sending money
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sourceIdentifier</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The source identifier.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>currency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The currency to send.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>destinations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of destination objects.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The url that the result will be posted to asynchronously.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Extra information to include.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The access token for authorization.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="send_money.js.html">send_money.js</a>, <a href="send_money.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -803,7 +954,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;string></span>
 
 
     </dd>
@@ -831,13 +982,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="K2.html">K2</a></li><li><a href="PayService.html">PayService</a></li><li><a href="PollingService.html">PollingService</a></li><li><a href="SmsNotificationService.html">SmsNotificationService</a></li><li><a href="StkService.html">StkService</a></li><li><a href="TokenService.html">TokenService</a></li><li><a href="TransferService.html">TransferService</a></li><li><a href="Webhooks.html">Webhooks</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ExternalRecipientService.html">ExternalRecipientService</a></li><li><a href="K2.html">K2</a></li><li><a href="PaymentLinkService.html">PaymentLinkService</a></li><li><a href="PollingService.html">PollingService</a></li><li><a href="ReversalsService.html">ReversalsService</a></li><li><a href="SendMoneyService.html">SendMoneyService</a></li><li><a href="SmsNotificationService.html">SmsNotificationService</a></li><li><a href="StkService.html">StkService</a></li><li><a href="TokenService.html">TokenService</a></li><li><a href="TransferService.html">TransferService</a></li><li><a href="Webhooks.html">Webhooks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getStatus">getStatus</a></li><li><a href="global.html#initiateReversal">initiateReversal</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 13:55:40 GMT+0300 (East Africa Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Feb 19 2026 13:00:33 GMT+0300 (East Africa Time)
 </footer>
 
 <script> prettyPrint(); </script>

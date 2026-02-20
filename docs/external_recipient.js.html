@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: webhooks.js</title>
+    <title>JSDoc: Source: external_recipient.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: webhooks.js</h1>
+    <h1 class="page-title">Source: external_recipient.js</h1>
 
     
 
@@ -27,74 +27,85 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict'
-// light-weight server
-const auth = require('./helpers/auth').auth
-const webhooksValidate = require('./validate/webhooks')
 const dispatch = require('./helpers/dispatch')
+const payValidate = require('./validate/external_recipient')
 const status = require('./helpers/status')
 
 /**
- * Handles webhook perations
- * @module Webhooks
+ * Handles the pay operations
+ * @module ExternalRecipientService
  * @constructor
  * @param {object} options
- * @param {string} options.clientSecret
  * @param {string} options.baseUrl
 */
-function Webhooks(options) {
+function ExternalRecipientService(options) {
 	this.options = options
-	var clientSecret = this.options.clientSecret
 	const baseUrl = this.options.baseUrl
-	var apiKey = this.options.apiKey
 
 	/**
-	 * Handles incoming webhooks and asynchronous requests responses
-	 * @function webhookHandler
-	 * @memberof Webhooks
-	 * @param {Request} req
-	 * @param {Response} res
-	*/
-	this.webhookHandler = function (req, res) {
-		return new Promise(function (resolve, reject) {
-			let statusCode = auth(apiKey, JSON.stringify(req.body), req.get('X-kopokopo-signature'))
-			res.status(statusCode).json()
-
-			if (statusCode === 200) {
-				resolve(req.body)
-			} else {
-				reject(statusCode + ': Webhook not authenticated')
-			}
-		})
-	}
-
-	/**
-	 * Handles the webhook subscribe operations
-	 * @function subscribe
-	 * @memberof Webhooks
+	 * Handles requests for adding a pay recipient
+	 * @function addExternalRecipient
+	 * @memberof ExternalRecipientService
 	 * @param {object} opts
-	 * @param {string} opts.eventType - The event type of the webhook that is being subscribed to.
-	 * @param {string} opts.url - The url that the webhook will be posted to.
-	 * @param {string} opts.scope - The scope of the subscription.
-	 * @param {string} opts.scopeReference - The identifier of the scope of the subscription.
-	 * @param {string} opts.accessToken - The access token for authorization.
-	 * @returns {Promise} Promise object having the location url of the resource
+	 * @returns {Promise} Promise object having the location url of the request
 	*/
-	this.subscribe = function (opts) {
+	this.addExternalRecipient = function (opts) {
 		return new Promise(function (resolve, reject) {
-			let validationError = webhooksValidate.webhookSubscribeValidate(opts)
+			let validationError
+			if (opts.type === 'mobile_wallet') {
+				validationError = payValidate.externalMobileValidate(opts)
+			} else if (opts.type === 'till'){
+				validationError = payValidate.externalTillValidate(opts)
+			} else if (opts.type === 'paybill'){
+				validationError = payValidate.externalPaybillValidate(opts)
+			} else if (opts.type === 'bank_account'){
+				validationError = payValidate.externalRecipientAccountValidate(opts)
+			}
 
 			if (validationError) {
 				reject(validationError)
 			}
 
-			var reqBody = {
-				'event_type': opts.eventType,
-				'url': opts.url,
-				'scope': opts.scope,
-				'scope_reference': opts.scopeReference
+			if (opts.type === 'bank_account') {
+				var reqBody = {
+					'type': opts.type,
+					'pay_recipient': {
+						'account_name': opts.accountName,
+						'bank_branch_ref': opts.bankBranchRef,
+						'account_number': opts.accountNumber,
+						'settlement_method': opts.settlementMethod,
+					}
+				}
+			} else if (opts.type === 'till') {
+				var reqBody = {
+					'type': opts.type,
+					'pay_recipient': {
+						'till_name': opts.tillName,
+						'till_number': opts.tillNumber,
+					}
+				}
+			} else if (opts.type === 'paybill') {
+				var reqBody = {
+					'type': opts.type,
+					'pay_recipient': {
+						'paybill_name': opts.paybillName,
+						'paybill_number': opts.paybillNumber,
+						'paybill_account_number': opts.paybillAccountNumber,
+					}
+				}
+			} else if (opts.type === 'mobile_wallet') {
+				reqBody = {
+					'type': opts.type,
+					'pay_recipient': {
+						'first_name': opts.firstName,
+						'last_name': opts.lastName,
+						'email': opts.email,
+						'phone_number': opts.phoneNumber,
+						'network': opts.network
+					}
+				}
 			}
-
-			dispatch.sendRequest(reqBody, baseUrl + '/webhook_subscriptions', opts.accessToken)
+			dispatch.sendRequest(reqBody, baseUrl + '/external_recipients', opts.accessToken)
 				.then((response) => {
 					resolve(response.headers['location'])
 				})
@@ -103,23 +114,10 @@ function Webhooks(options) {
 				})
 		})
 	}
-
-	/**
-	 * Handles requests for querrying a stk payment request status
-	 * @function getStatus
-	 * @memberof Webhooks
-	 * @param {object} opts
-	 * @param {string} opts.location - The location url of the request.
-	 * @param {string} opts.accessToken - The access token for authorization.
-	 * @returns {Promise} Promise object having details on the status of the request
-	*/
-	this.getStatus = function (opts) {
-		return status.getStatus(opts)
-	}
 }
 
 module.exports = {
-	Webhooks
+	ExternalRecipientService: ExternalRecipientService
 }
 </code></pre>
         </article>

@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express')
+const path = require('path')
 var bodyParser = require('body-parser')
 const app = express()
 const port = 8000
@@ -11,7 +12,7 @@ require('dotenv').config()
 const indexRoutes = require('./routes/index')
 const webhooksRoutes = require('./routes/webhooks')
 const stkRoutes = require('./routes/stk')
-const payRoutes = require('./routes/pay')
+const externalRecipientRoutes = require('./routes/externalrecipient')
 const transferRoutes = require('./routes/transfer')
 const pollingRoutes = require('./routes/polling')
 const smsNotificationRoutes = require('./routes/smsnotification')
@@ -29,11 +30,12 @@ app.use(
 app.use('/favicon.ico', express.static('/favicon.ico'))
 
 app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views'))
 
 app.use('/', indexRoutes)
 app.use('/webhook', webhooksRoutes)
 app.use('/stk', stkRoutes)
-app.use('/pay', payRoutes)
+app.use('/externalrecipient', externalRecipientRoutes)
 app.use('/transfer', transferRoutes)
 app.use('/polling', pollingRoutes)
 app.use('/token', tokenRoutes)

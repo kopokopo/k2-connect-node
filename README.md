@@ -36,7 +36,7 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [Tokens](#tokenservice) : `var TokenService = K2.TokenService`
 - [Webhooks](#webhooks) : `var Webhooks = K2.Webhooks`
 - [STK PUSH](#stkservice) : `var StkService = K2.StkService`
-- [Pay](#payservice) : `var PayService = K2.PayService`
+- [External Recipient](#externalrecipientservice) : `var ExternalRecipientService = K2.ExternalRecipientService`
 - [SendMoney](#sendMoneyservice) : `var SendMoneyService = K2.SendMoneyService`
 - [Transfer](#transferservice) : `var TransferService = K2.TransferService`
 - [Polling](#pollingservice) : `var PollingService = K2.PollingService`
@@ -220,9 +220,9 @@ This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#receive-payments-from-m-pesa-users-via-stk-push>
 
-### `PayService`
+### `ExternalRecipientService`
 
-- `PayService.addPayRecipient({ payRecipientOptions })`: `payRecipientOptions`: A hash of objects containing the following keys:
+- `ExternalRecipientService.addExternalRecipient({ externalRecipientOptions })`: `externalRecipientOptions`: A hash of objects containing the following keys:
 
    - `type`: Recipient type `REQUIRED`
     - Mobile Wallet Recipient(`mobile_wallet`)

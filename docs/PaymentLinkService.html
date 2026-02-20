@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: PollingService</title>
+    <title>JSDoc: Class: PaymentLinkService</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: PollingService</h1>
+    <h1 class="page-title">Class: PaymentLinkService</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>PollingService<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>PaymentLinkService<span class="signature">(options)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="PollingService"><span class="type-signature"></span>new PollingService<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="PaymentLinkService"><span class="type-signature"></span>new PaymentLinkService<span class="signature">(options)</span><span class="type-signature"></span></h4>
     
 
     
@@ -49,7 +49,7 @@
 
 
 <div class="description">
-    Handles the polling request
+    Handles the payment link operations
 </div>
 
 
@@ -191,7 +191,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="polling.js.html">polling.js</a>, <a href="polling.js.html#line6">line 6</a>
+        <a href="payment_links.js.html">payment_links.js</a>, <a href="payment_links.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -247,7 +247,7 @@
     
 
     
-    <h4 class="name" id=".getStatus"><span class="type-signature">(static) </span>getStatus<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".cancelPaymentLink"><span class="type-signature">(static) </span>cancelPaymentLink<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
     
 
     
@@ -255,7 +255,7 @@
 
 
 <div class="description">
-    Handles requests for querrying a polling request status
+    Handles requests for cancelling payment links
 </div>
 
 
@@ -420,7 +420,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="polling.js.html">polling.js</a>, <a href="polling.js.html#line58">line 58</a>
+        <a href="payment_links.js.html">payment_links.js</a>, <a href="payment_links.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -449,7 +449,7 @@
 
         
 <div class="param-desc">
-    Promise object having details on the status of the request
+    Promise object having the cancellation response
 </div>
 
 
@@ -460,7 +460,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;object></span>
 
 
     </dd>
@@ -478,7 +478,7 @@
     
 
     
-    <h4 class="name" id=".pollTransactions"><span class="type-signature">(static) </span>pollTransactions<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".createPaymentLink"><span class="type-signature">(static) </span>createPaymentLink<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
     
 
     
@@ -486,7 +486,7 @@
 
 
 <div class="description">
-    Handles polling requests
+    Handles requests for creating payment links
 </div>
 
 
@@ -564,13 +564,13 @@
 
         <tr>
             
-                <td class="name"><code>scope</code></td>
+                <td class="name"><code>amount</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -580,14 +580,14 @@
 
             
 
-            <td class="description last">The scope of the polling request.</td>
+            <td class="description last">The amount for the payment link.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>scopeReference</code></td>
+                <td class="name"><code>currency</code></td>
             
 
             <td class="type">
@@ -603,14 +603,14 @@
 
             
 
-            <td class="description last">The scope reference of the polling request.</td>
+            <td class="description last">The currency for the payment link.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>fromTime</code></td>
+                <td class="name"><code>tillNumber</code></td>
             
 
             <td class="type">
@@ -626,14 +626,14 @@
 
             
 
-            <td class="description last">The starting time of the poll.</td>
+            <td class="description last">The till number to receive the payment.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>toTime</code></td>
+                <td class="name"><code>paymentReference</code></td>
             
 
             <td class="type">
@@ -649,7 +649,30 @@
 
             
 
-            <td class="description last">The ending time of the poll.</td>
+            <td class="description last">The payment reference.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>note</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A note for the payment link.</td>
         </tr>
 
     
@@ -673,6 +696,52 @@
             
 
             <td class="description last">The url that the result will be posted to asynchronously.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Extra information to include.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The access token for authorization.</td>
         </tr>
 
     
@@ -720,7 +789,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="polling.js.html">polling.js</a>, <a href="polling.js.html#line17">line 17</a>
+        <a href="payment_links.js.html">payment_links.js</a>, <a href="payment_links.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -749,7 +818,238 @@
 
         
 <div class="param-desc">
-    Promise object having the location url of the request
+    Promise object having the location url of the created payment link
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;string></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getStatus"><span class="type-signature">(static) </span>getStatus<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handles requests for querying a payment link status
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>location</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The location url of the request.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The access token for authorization.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="payment_links.js.html">payment_links.js</a>, <a href="payment_links.js.html#line62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Promise object having details on the status of the request
 </div>
 
 
