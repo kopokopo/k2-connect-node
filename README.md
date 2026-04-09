@@ -231,18 +231,22 @@ For more information, please read <https://api-docs.kopokopo.com/#receive-paymen
       - `phoneNumber`: Pay recipient's phone number `REQUIRED`
       - `email`: Pay recipient's email address
       - `network`: Pay recipient's network `REQUIRED`
+      - `nickname`: Pay recipient's nickname `OPTIONAL`
     - Bank Account Recipient(`bank_account`)
       - `accountName`: Pay recipient's account name `REQUIRED`
       - `accountNumber`: Pay recipient's account number `REQUIRED`
       - `bankBranchRef`: Bank branch reference from the kopokopo dashboard `REQUIRED`
+      - `nickname`: Pay recipient's nickname `OPTIONAL`
       - `settlementMethod`: Settlement Method `REQUIRED`
     - External Till Recipient(`till`)
       - `tillNumber`: Pay recipient's till number `REQUIRED`
       - `tillName`: Pay recipient's till name `REQUIRED`
+      - `nickname`: Pay recipient's nickname `OPTIONAL`
     - Paybill Recipient(`paybill`)
       - `paybillName`: Paybill name `REQUIRED`
       - `paybillNumber`: Paybill number `REQUIRED`
       - `paybillAccountNumber`: Paybill account number `REQUIRED`
+      - `nickname`: Pay recipient's nickname `OPTIONAL`
   - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
 
 
