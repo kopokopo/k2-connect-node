@@ -5,7 +5,7 @@ const nock = require('nock')
 var TEST_ACCOUNT = require('./credentials').TEST_ACCOUNT
 const response = require('./response/external_recipient')
 
-const BASE_URL = 'https://sandbox.kopokopo.com/api/v2'
+const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api/v2'
 
 var k2, externalRecipient
 

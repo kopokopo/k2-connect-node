@@ -27,6 +27,7 @@ router.post('/mobile', async function (req, res, next) {
 		email: req.body.email,
 		phoneNumber: req.body.phone,
 		network: 'Safaricom',
+		nickname: req.body.nickname,
 		accessToken: token_details.access_token
 	}
 
@@ -54,6 +55,7 @@ router.post('/bank', async function (req, res, next) {
 		accountNumber: req.body.account_number,
 		bankBranchRef: req.body.bank_branch_ref,
 		settlementMethod: 'EFT',
+		nickname: req.body.nickname,
 		accessToken: token_details.access_token
 	}
 
@@ -79,6 +81,7 @@ router.post('/till', async function (req, res, next) {
 		type: 'till',
 		tillName: req.body.till_name,
 		tillNumber: req.body.till_number,
+		nickname: req.body.nickname,
 		accessToken: token_details.access_token
 	}
 
@@ -105,6 +108,7 @@ router.post('/paybill', async function (req, res, next) {
 		paybillName: req.body.paybill_name,
 		paybillNumber: req.body.paybill_number,
 		paybillAccountNumber: req.body.paybill_account_number,
+		nickname: req.body.nickname,
 		accessToken: token_details.access_token
 	}
 
