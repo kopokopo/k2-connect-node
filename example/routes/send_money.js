@@ -56,50 +56,61 @@ router.post("/", async function (req, res, next) {
 
   const destType = req.body.destination_type;
 
-  if (destType === "mobile_wallet") {
-    const mobileWallets = req.body.mobile_wallet;
-    destinations = mobileWallets.map((item) => ({
-      type: "mobile_wallet",
-      phone_number: item.phone_number,
-      network: item.network,
-      nickname: item.nickname,
-      amount: item.amount,
-      description: String(item.description),
-      favourite: item.favourite,
-    }));
-  } else if (destType === "bank_account") {
-    const bankAccounts = req.body.bank_account;
-    destinations = bankAccounts.map((item) => ({
-      type: "bank_account",
-      bank_branch_ref: item.bank_branch_ref,
-      account_name: item.account_name,
-      account_number: item.account_number,
-      nickname: item.nickname,
-      amount: item.amount,
-      description: String(item.description),
-      favourite: item.favourite,
-    }));
-  } else {
-    let destination = {
-      type: destType,
-      amount: req.body.amount,
-      description: String(req.body.description),
-    };
-
-    switch (destType) {
-      case "till":
-        destination.till_number = req.body.till_number;
-        break;
-      case "paybill":
-        destination.paybill_number = req.body.paybill_number;
-        destination.paybill_account_number = req.body.paybill_account_number;
-        break;
-      case "merchant_wallet":
-      case "merchant_bank_account":
-        destination.reference = req.body.reference;
-        break;
-    }
-    destinations.push(destination);
+  switch (destType) {
+    case "mobile_wallet":
+      const mobileWallets = req.body.mobile_wallet;
+      destinations = mobileWallets.map((item) => ({
+        type: "mobile_wallet",
+        phone_number: item.phone_number,
+        network: item.network,
+        nickname: item.nickname,
+        amount: item.amount,
+        description: String(item.description),
+        favourite: item.favourite === 'true',
+      }));
+      break;
+    case "bank_account":
+      const bankAccounts = req.body.bank_account;
+      destinations = bankAccounts.map((item) => ({
+        type: "bank_account",
+        bank_branch_ref: item.bank_branch_ref,
+        account_name: item.account_name,
+        account_number: item.account_number,
+        nickname: item.nickname,
+        amount: item.amount,
+        description: String(item.description),
+        favourite: item.favourite === 'true',
+      }));
+      break;
+    case "till":
+      destinations.push({
+        type: destType,
+        amount: req.body.amount,
+        description: String(req.body.description),
+        till_number: req.body.till_number,
+      });
+      break;
+    case "paybill":
+      destinations.push({
+        type: destType,
+        amount: req.body.amount,
+        description: String(req.body.description),
+        paybill_number: req.body.paybill_number,
+        paybill_account_number: req.body.paybill_account_number,
+      });
+      break;
+    case "merchant_wallet":
+    case "merchant_bank_account":
+      destinations.push({
+        type: destType,
+        amount: req.body.amount,
+        description: String(req.body.description),
+        reference: req.body.reference,
+      });
+      break;
+    case "my_accounts":
+      destinations = [];
+      break;
   }
 
   var sendMoneyOpts = {
