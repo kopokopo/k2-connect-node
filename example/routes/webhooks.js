@@ -13,7 +13,6 @@ const options = {
 var K2 = require('k2-connect-node')(options)
 var Webhooks = K2.Webhooks
 var buyGoodsResource
-var customerResource
 var reversalResource
 
 router.post('/', function (req, res, next) {
@@ -21,17 +20,6 @@ router.post('/', function (req, res, next) {
 		.webhookHandler(req, res)
 		.then(response => {
 			buyGoodsResource = response
-		})
-		.catch(error => {
-			console.log(error)
-		})
-})
-
-router.post('/customercreated', function (req, res, next) {
-	Webhooks
-		.webhookHandler(req, res)
-		.then(response => {
-			customerResource = response
 		})
 		.catch(error => {
 			console.log(error)
@@ -47,20 +35,6 @@ router.post('/transactionreversed', function (req, res, next) {
 		.catch(error => {
 			console.log(error)
 		})
-})
-
-router.get('/customerresource', function (req, res, next) {
-	let resource = customerResource
-
-	if (resource != null) {
-		res.render('customerresource', {
-			sender_msisdn: resource.event.resource.msisdn,
-			name: resource.event.resource.first_name
-		})
-	} else {
-		console.log('Resource not yet created')
-		res.render('customerresource', { error: 'Resource not yet created' })
-	}
 })
 
 router.get('/reversalresource', function (req, res, next) {
