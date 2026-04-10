@@ -18,34 +18,6 @@ var Webhooks = K2.Webhooks
 var transferResource
 
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-	res.render('transfer', res.locals.commonData)
-})
-
-router.post('/', async function (req, res, next) {
-	token_details = await getToken()
-	var transferOpts = {
-		amount : req.body.amount,
-		currency: 'KES',
-		destinationReference: req.body.destinationReference,
-		callbackUrl: 'https://1a7abcb79da0.ngrok.io/transfer/result',
-		destinationType: req.body.destinationType,
-		accessToken: token_details.access_token
-	}
-
-	// Send message and capture the response or error
-	TransferService
-		.settleFunds(transferOpts)
-		.then(response => {
-			return res.render('transfer', { message: 'Transfer request sent successfully request url is: ' + response })
-		})
-		.catch(error => {
-			console.log(error)
-			return res.render('transfer', { message: 'Error: ' + error })
-		})
-})
-
 router.post('/createmerchantaccount', async function (req, res, next) {
 	token_details = await getToken()
 	var settlementAccountOpts = {
