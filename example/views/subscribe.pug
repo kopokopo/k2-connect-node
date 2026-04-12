@@ -36,6 +36,12 @@ block content
                     textarea#amount.form-control(name="url", type='text', placeholder='Enter URL' required)
                     small.form-text.text-muted
                         | Enter the webhook url
+            .form-group.row
+                label.col-sm-2.col-form-label(for="enable_daraja_payload") Daraja Payload
+                .col-sm-7
+                    input(name="enable_daraja_payload", type='checkbox', value='true')
+                    small.form-text.text-muted
+                        | Only applicable for Buygoods Transaction Received and B2B Transaction Received
             br
             .form-group.row
                 .col-sm-7

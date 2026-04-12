@@ -125,6 +125,39 @@ describe('Webhooks', function () {
 
 			})
 		})
+
+		it('#subscribe() succeeds with daraja_payload for buygoods_transaction_received', () => {
+			var opts = {}
+			opts.eventType = 'buygoods_transaction_received'
+			opts.url = 'http://localhost:8000/test'
+			opts.scope = 'till'
+			opts.scopeReference = 'tillNumber'
+			opts.enableDarajaPayload = true
+			opts.accessToken = 'hardToGuessKey'
+
+			return webhooks.subscribe(opts).then(response => {
+
+				expect(response).to.equal('https://sandbox.kopokopo.com/webhook_subscriptions/5af4c10a-f6de-4ac8-840d-42cb65454216')
+
+			})
+		})
+
+		it('#subscribe() succeeds with daraja_payload for b2b_transaction_received', () => {
+			var opts = {}
+			opts.eventType = 'b2b_transaction_received'
+			opts.url = 'http://localhost:8000/test'
+			opts.scope = 'till'
+			opts.scopeReference = 'tillNumber'
+			opts.enableDarajaPayload = true
+			opts.accessToken = 'hardToGuessKey'
+
+			return webhooks.subscribe(opts).then(response => {
+
+				expect(response).to.equal('https://sandbox.kopokopo.com/webhook_subscriptions/5af4c10a-f6de-4ac8-840d-42cb65454216')
+
+			})
+		})
+
 	})
 
 	describe('webhookHandler()', function () {
