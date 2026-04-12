@@ -89,7 +89,8 @@ router.post('/subscribe', async function (req, res, next) {
 		url: req.body.url,
 		accessToken: token_details.access_token,
 		scope: req.body.scope,
-		scopeReference: req.body.scope_ref
+		scopeReference: req.body.scope_ref,
+		enableDarajaPayload: req.body.enable_daraja_payload === 'true'
 	}
 
 	Webhooks
