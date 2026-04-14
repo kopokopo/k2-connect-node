@@ -31,7 +31,7 @@ router.post('/getstatus', async function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('statusresource', { message: 'Error: ' + error })
+			return res.render('statusresource', { message: 'Error: ' + error.error_message })
 		})
 })
 
