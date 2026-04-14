@@ -38,7 +38,7 @@ router.post('/mobile', async function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('mobileexternalrecipient', { message: 'Error: ' + error })
+			return res.render('mobileexternalrecipient', { message: 'Error: ' + error.error_message })
 		})
 })
 
@@ -66,7 +66,7 @@ router.post('/bank', async function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('bankexternalrecipient', { message: 'Error: ' + error })
+			return res.render('bankexternalrecipient', { message: 'Error: ' + error.error_message })
 		})
 })
 
@@ -92,7 +92,7 @@ router.post('/till', async function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('tillexternalrecipient', { message: 'Error: ' + error })
+			return res.render('tillexternalrecipient', { message: 'Error: ' + error.error_message })
 		})
 })
 
