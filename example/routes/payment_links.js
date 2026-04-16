@@ -74,7 +74,7 @@ router.post("/cancel", async function (req, res, next) {
         
         res.render("payment_links", {
             action: 'cancel',
-            message: `Response: ${JSON.stringify(response)}`,
+            message: `Response: ${JSON.stringify(response.data)}`,
             ...res.locals.commonData
         });
     } catch (error) {
