@@ -17,7 +17,11 @@ const buygoodsreversedhook = require('./response/hooks/buygoodsreversedhook')
 const customercreatedhook = require('./response/hooks/customercreatedhook')
 const transfercompletedhook = require('./response/hooks/transfercompleted')
 
-// Results 
+// Daraja webhook data
+const darajabuygoods = require('./response/hooks/darajabuygoods')
+const darajab2b = require('./response/hooks/darajab2b')
+
+// Results
 const stksuccessfulresult = require('./response/hooks/stksuccessresult')
 const stkunsuccessfulresult = require('./response/hooks/stkunsuccessfulresult')
 const payresult = require('./response/hooks/payresult')
@@ -216,6 +220,48 @@ describe('Webhooks', function () {
 					return webhooks.webhookHandler(req, res).then(response => {
 
 						expect(response.event.type).to.equal('Merchant to Merchant Transaction')
+
+					})
+				})
+
+				it('#webhookHandler() daraja buygoods_transaction_received succeeds', () => {
+					var req = mocks.createRequest({
+						method: 'POST',
+						url: '/webhook',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-KopoKopo-Signature': '563d50775945e2bb95a416d1b2fec6e9deda5061eadb380a83a5ccb2096151f6',
+						},
+						body: darajabuygoods
+					})
+					var res = mocks.createResponse()
+
+					return webhooks.webhookHandler(req, res).then(response => {
+
+						expect(response.TransID).to.equal('OJM6Q1W84K')
+						expect(response.TransactionType).to.equal('Pay Bill')
+						expect(response.MSISDN).to.equal('+254999999999')
+
+					})
+				})
+
+				it('#webhookHandler() daraja b2b_transaction_received succeeds', () => {
+					var req = mocks.createRequest({
+						method: 'POST',
+						url: '/webhook',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-KopoKopo-Signature': 'b2698db51577303967b104caba0c0324901c637443ba3b73de3754d2f5a2e36c',
+						},
+						body: darajab2b
+					})
+					var res = mocks.createResponse()
+
+					return webhooks.webhookHandler(req, res).then(response => {
+
+						expect(response.TransID).to.equal('OJQ8USH5XK')
+						expect(response.TransactionType).to.equal('Business Payment')
+						expect(response.MSISDN).to.equal('+254888888888')
 
 					})
 				})
