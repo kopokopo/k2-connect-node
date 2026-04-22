@@ -64,6 +64,7 @@ router.get('/resource', function (req, res, next) {
 		res.render('resource', {
 			origination_time: resource.event.resource.origination_time,
 			sender_msisdn: resource.event.resource.sender_phone_number,
+			hashed_sender_phone: resource.event.resource.hashed_sender_phone,
 			amount: resource.event.resource.amount,
 			currency: resource.event.resource.currency,
 			till_number: resource.event.resource.till_number,
