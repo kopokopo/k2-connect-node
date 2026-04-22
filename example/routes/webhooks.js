@@ -61,17 +61,31 @@ router.get('/resource', function (req, res, next) {
 	let resource = buyGoodsResource
 
 	if (resource != null) {
-		res.render('resource', {
-			origination_time: resource.event.resource.origination_time,
-			sender_msisdn: resource.event.resource.sender_phone_number,
-			hashed_sender_phone: resource.event.resource.hashed_sender_phone,
-			amount: resource.event.resource.amount,
-			currency: resource.event.resource.currency,
-			till_number: resource.event.resource.till_number,
-			name: resource.event.resource.sender_first_name + resource.event.resource.sender_middle_name + resource.event.resource.sender_last_name ,
-			status: resource.event.resource.status,
-			system: resource.event.resource.system
-		})
+		if (resource.TransID) {
+			res.render('resource', {
+				origination_time: resource.TransTime,
+				sender_msisdn: resource.MSISDN,
+				hashed_sender_phone: null,
+				amount: resource.TransAmount,
+				currency: 'KES',
+				till_number: resource.BusinessShortCode,
+				name: [resource.FirstName, resource.MiddleName, resource.LastName].filter(Boolean).join(' '),
+				status: null,
+				system: resource.TransactionType
+			})
+		} else {
+			res.render('resource', {
+				origination_time: resource.event.resource.origination_time,
+				sender_msisdn: resource.event.resource.sender_phone_number,
+				hashed_sender_phone: resource.event.resource.hashed_sender_phone,
+				amount: resource.event.resource.amount,
+				currency: resource.event.resource.currency,
+				till_number: resource.event.resource.till_number,
+				name: resource.event.resource.sender_first_name + resource.event.resource.sender_middle_name + resource.event.resource.sender_last_name,
+				status: resource.event.resource.status,
+				system: resource.event.resource.system
+			})
+		}
 	} else {
 		console.log('Resource not yet created')
 		res.render('resource', { error: 'Resource not yet created' })
