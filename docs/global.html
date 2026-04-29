@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: SmsNotificationService</title>
+    <title>JSDoc: Global</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: SmsNotificationService</h1>
+    <h1 class="page-title">Global</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>SmsNotificationService<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2></h2>
         
     
 </header>
@@ -38,128 +38,7 @@
     
         
 
-    
-
-    
-    <h4 class="name" id="SmsNotificationService"><span class="type-signature"></span>new SmsNotificationService<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Handles initiating an sms notification for a completed BuygoodsTransaction.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>baseUrl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
 
 
 <dl class="details">
@@ -189,11 +68,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sms_notification.js.html">sms_notification.js</a>, <a href="sms_notification.js.html#line6">line 6</a>
-    </li></ul></dd>
-    
 
     
 
@@ -203,24 +77,7 @@
 </dl>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
     
     </div>
 
@@ -247,7 +104,7 @@
     
 
     
-    <h4 class="name" id=".getStatus"><span class="type-signature">(static) </span>getStatus<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="getStatus"><span class="type-signature"></span>getStatus<span class="signature">(opts)</span><span class="type-signature"></span></h4>
     
 
     
@@ -255,7 +112,7 @@
 
 
 <div class="description">
-    Handles requests for querrying a transaction sms notification status
+    Gets the status of a reversal request
 </div>
 
 
@@ -349,7 +206,7 @@
 
             
 
-            <td class="description last">The location url of the request.</td>
+            <td class="description last">The location URL of the reversal request</td>
         </tr>
 
     
@@ -372,7 +229,7 @@
 
             
 
-            <td class="description last">The access token for authorization.</td>
+            <td class="description last">The access token</td>
         </tr>
 
     
@@ -420,7 +277,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sms_notification.js.html">sms_notification.js</a>, <a href="sms_notification.js.html#line54">line 54</a>
+        <a href="reversals.js.html">reversals.js</a>, <a href="reversals.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -445,28 +302,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Promise object having details on the status of the request
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -478,7 +313,7 @@
     
 
     
-    <h4 class="name" id=".sendTransactionSmsNotification"><span class="type-signature">(static) </span>sendTransactionSmsNotification<span class="signature">(opts)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="initiateReversal"><span class="type-signature"></span>initiateReversal<span class="signature">(opts)</span><span class="type-signature"></span></h4>
     
 
     
@@ -486,7 +321,7 @@
 
 
 <div class="description">
-    Handles polling requests
+    Initiates a reversal request
 </div>
 
 
@@ -552,6 +387,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -564,7 +401,7 @@
 
         <tr>
             
-                <td class="name"><code>webhookEventReference</code></td>
+                <td class="name"><code>transactionReference</code></td>
             
 
             <td class="type">
@@ -577,17 +414,25 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The webhook event reference of the completed BuygoodsTransaction.</td>
+            <td class="description last">The reference of the transaction to be reversed</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>message</code></td>
+                <td class="name"><code>reason</code></td>
             
 
             <td class="type">
@@ -600,10 +445,51 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The message to send to the customer.</td>
+            <td class="description last">The reason for the reversal</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Additional metadata for the reversal</td>
         </tr>
 
     
@@ -623,10 +509,51 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The url that the result will be posted to asynchronously.</td>
+            <td class="description last">The callback URL for reversal status updates</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The access token</td>
         </tr>
 
     
@@ -674,7 +601,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sms_notification.js.html">sms_notification.js</a>, <a href="sms_notification.js.html#line17">line 17</a>
+        <a href="reversals.js.html">reversals.js</a>, <a href="reversals.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -699,28 +626,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Promise object having the location url of the request
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -742,13 +647,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="K2.html">K2</a></li><li><a href="PayService.html">PayService</a></li><li><a href="PollingService.html">PollingService</a></li><li><a href="SmsNotificationService.html">SmsNotificationService</a></li><li><a href="StkService.html">StkService</a></li><li><a href="TokenService.html">TokenService</a></li><li><a href="TransferService.html">TransferService</a></li><li><a href="Webhooks.html">Webhooks</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ExternalRecipientService.html">ExternalRecipientService</a></li><li><a href="K2.html">K2</a></li><li><a href="PaymentLinkService.html">PaymentLinkService</a></li><li><a href="PollingService.html">PollingService</a></li><li><a href="ReversalService.html">ReversalService</a></li><li><a href="SendMoneyService.html">SendMoneyService</a></li><li><a href="StkService.html">StkService</a></li><li><a href="TokenService.html">TokenService</a></li><li><a href="TransferService.html">TransferService</a></li><li><a href="Webhooks.html">Webhooks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getStatus">getStatus</a></li><li><a href="global.html#initiateReversal">initiateReversal</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 13:55:40 GMT+0300 (East Africa Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Apr 29 2026 19:15:24 GMT+0300 (East Africa Time)
 </footer>
 
 <script> prettyPrint(); </script>

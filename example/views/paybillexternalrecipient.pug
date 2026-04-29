@@ -6,9 +6,9 @@ block content
 
     p !{message}
     .container
-        .title.h3 Add Pay Recipient
+        .title.h3 Add Paybill External Recipient
         br
-        form(action="/pay/paybillrecipient", method="post") 
+        form(action="/externalrecipient/paybill", method="post") 
             .form-group.row
                 label.col-sm-2.col-form-label Paybill Name
                 .col-sm-7
@@ -27,8 +27,13 @@ block content
                     input.form-control(name="paybill_account_number", type='text', placeholder='Enter Paybill Account Number' required)
                     small.form-text.text-muted
                         | Enter Paybill Account Number
-            
+            .form-group.row
+                label.col-sm-2.col-form-label Nickname
+                .col-sm-7
+                    input.form-control(name="nickname", type='text', placeholder='Enter Nickname' required)
+                    small.form-text.text-muted
+                        | Enter Nickname
             br
             .form-group.row
                 .col-sm-7
-                    button.btn.btn-success(type='submit') Add Paybill Pay Recipient
+                    button.btn.btn-success(type='submit') Add External Recipient

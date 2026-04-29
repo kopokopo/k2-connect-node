@@ -38,21 +38,19 @@ html
                                 a.dropdown-item(href='/stk/result') Process Payment Request Result
                                 a.dropdown-item(href='/status') Query Status
                         li.nav-item.dropdown(role='presentation')
-                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Send Money
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                a.dropdown-item(href='/pay') Create a Payment
-                                a.dropdown-item(href='/pay/mobilerecipient') Add Mobile Pay Recipient
-                                a.dropdown-item(href='/pay/bankrecipient') Add Bank Pay Recipient
-                                a.dropdown-item(href='/pay/tillrecipient') Add External Till Pay Recipient
-                                a.dropdown-item(href='/pay/paybillrecipient') Add Paybill Pay Recipient
+                                a.dropdown-item(href='/sendmoney') Create a send money request
+                                a.dropdown-item(href='/externalrecipient/mobile') Add Mobile External Recipient
+                                a.dropdown-item(href='/externalrecipient/bank') Add Bank External Recipient
+                                a.dropdown-item(href='/externalrecipient/till') Add External Till Recipient
+                                a.dropdown-item(href='/externalrecipient/paybill') Add Paybill External Recipient
                                 a.dropdown-item(href='/status') Query Status
-                                a.dropdown-item(href='/pay/result') Payment Result
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                a.dropdown-item(href='/transfer') Initiate a Transfer
                                 a.dropdown-item(href='/transfer/createmerchantaccount') Create a Merchant Bank Account
                                 a.dropdown-item(href='/transfer/createmerchantwallet') Create a Merchant Wallet
                                 a.dropdown-item(href='/status') Query Status
@@ -65,12 +63,20 @@ html
                                 a.dropdown-item(href='/status') Query Status
                                 a.dropdown-item(href='/polling/result') Polling Result
                         li.nav-item.dropdown(role='presentation')
-                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Transaction Sms Notification
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Payment Links
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                a.dropdown-item(href='/smsnotification') Send Sms Notification
+                                a.dropdown-item(href='/paymentlink') Create Payment Link
                                 a.dropdown-item(href='/status') Query Status
-                                a.dropdown-item(href='/smsnotification/result') Notification Result
+                                a.dropdown-item(href='/paymentlink/cancel') Cancel Payment Link
+                                a.dropdown-item(href='/paymentlink/result') Payment Link Result
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Reversals
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/reversals') Initiate a Reversal
+                                a.dropdown-item(href='/status') Query Status
+                                a.dropdown-item(href='/reversals/result') Reversal Result
                             
         .d-flex.align-items-xl-center.flex-column
             block content

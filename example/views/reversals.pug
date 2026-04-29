@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    br
+    br
+    p !{message}
+    p !{error}
+
+    .container
+        .title.h3 Initiate Reversal
+        br
+        form#initiateReversalForm(action="/reversals", method="post")
+            .form-group.row
+                label.col-sm-2.col-form-label Transaction Reference
+                .col-sm-7
+                    input.form-control(name="transaction_reference", type='text', placeholder='Enter Transaction Reference' required)
+                    small.form-text.text-muted
+                        | Enter Transaction Reference
+            .form-group.row
+                label.col-sm-2.col-form-label Reason
+                .col-sm-7
+                    input.form-control(name="reason", type='text', placeholder='Enter Reason' required)
+                    small.form-text.text-muted
+                        | Enter Reason for Reversal
+            br
+            .form-group.row
+                .col-sm-7
+                    button.btn.btn-success(type='submit') Initiate Reversal
+                     
+        if location_url
+            br
+            .alert.alert-success
+                strong Reversal Initiated Successfully!
+                br
+                | Response:
+                pre !{JSON.stringify(location_url, null, 2)}

@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    br
+    p !{message}
+    p !{error}
+    
+    .container
+        if action === 'create'
+            .title.h3 Create Payment Link
+            br
+            form(action="/paymentlink/create", method="post")
+                .form-group.row
+                    label.col-sm-2.col-form-label(for="amount") Amount
+                    .col-sm-7
+                        input.form-control(name="amount", type="number", placeholder="Enter Amount", required)
+                        small.form-text.text-muted Amount for the payment link
+                
+                .form-group.row
+                    label.col-sm-2.col-form-label(for="currency") Currency
+                    .col-sm-7
+                        select.form-control(name="currency", required)
+                            option(value="KES") KES
+                        small.form-text.text-muted Currency for the payment link
+                
+                .form-group.row
+                    label.col-sm-2.col-form-label(for="till_number") Till Number
+                    .col-sm-7
+                        input.form-control(name="till_number", type="text", placeholder="Enter Till Number", required)
+                        small.form-text.text-muted Till number to receive the payment
+                
+                .form-group.row
+                    label.col-sm-2.col-form-label(for="payment_reference") Payment Reference
+                    .col-sm-7
+                        input.form-control(name="payment_reference", type="text", placeholder="Enter Payment Reference")
+                        small.form-text.text-muted Optional payment reference
+                
+                .form-group.row
+                    label.col-sm-2.col-form-label(for="note") Note
+                    .col-sm-7
+                        textarea.form-control(name="note", placeholder="Enter Note")
+                        small.form-text.text-muted Optional note for the payment link
+                
+                br
+                .form-group.row
+                    .col-sm-7
+                        button.btn.btn-success(type="submit") Create Payment Link
+                        
+            if location_url
+                br
+                .alert.alert-success
+                    strong Payment Link Created Successfully!
+                    br
+                    | Location URL: 
+                    a(href=location_url, target="_blank") #{location_url}
+        
+        else if action === 'cancel'
+            .title.h3 Cancel Payment Link
+            br
+            form(action="/paymentlink/cancel", method="post")
+                .form-group.row
+                    label.col-sm-2.col-form-label(for="location") Location URL
+                    .col-sm-7
+                        input.form-control(name="location", type="text", placeholder="Enter Payment Link Location URL", required)
+                        small.form-text.text-muted Payment link location URL to cancel
+                
+                br
+                .form-group.row
+                    .col-sm-7
+                        button.btn.btn-danger(type="submit") Cancel Payment Link

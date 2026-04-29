@@ -6,9 +6,9 @@ block content
 
     p !{message}
     .container
-        .title.h3 Add Pay Recipient
+        .title.h3 Add Till External Recipient
         br
-        form(action="/pay/tillrecipient", method="post") 
+        form(action="/externalrecipient/till", method="post") 
             .form-group.row
                 label.col-sm-2.col-form-label Till Name
                 .col-sm-7
@@ -21,8 +21,13 @@ block content
                     input.form-control(name="till_number", type='text', placeholder='Enter Till Number' required)
                     small.form-text.text-muted
                         | Enter Till Number
-            
+            .form-group.row
+                label.col-sm-2.col-form-label Nickname
+                .col-sm-7
+                    input.form-control(name="nickname", type='text', placeholder='Enter Nickname' required)
+                    small.form-text.text-muted
+                        | Enter Nickname
             br
             .form-group.row
                 .col-sm-7
-                    button.btn.btn-success(type='submit') Add External Till Pay Recipient
+                    button.btn.btn-success(type='submit') Add External Recipient

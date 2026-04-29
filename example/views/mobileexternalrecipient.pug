@@ -6,9 +6,9 @@ block content
 
     p !{message}
     .container
-        .title.h3 Add Pay Recipient
+        .title.h3 Add Mobile External Recipient
         br
-        form(action="/pay/mobilerecipient", method="post")
+        form(action="/externalrecipient/mobile", method="post")
             .form-group.row
                 label.col-sm-2.col-form-label First Name
                 .col-sm-7
@@ -33,8 +33,13 @@ block content
                     input.form-control(name="phone", type='phone', placeholder='Enter Phone Number' required)
                     small.form-text.text-muted
                         | Enter Phone Number
-            
+            .form-group.row
+                label.col-sm-2.col-form-label Nickname
+                .col-sm-7
+                    input.form-control(name="nickname", type='text', placeholder='Enter Nickname' required)
+                    small.form-text.text-muted
+                        | Enter Nickname
             br
             .form-group.row
                 .col-sm-7
-                    button.btn.btn-success(type='submit') Add Pay Recipient
+                    button.btn.btn-success(type='submit') Add External Recipient

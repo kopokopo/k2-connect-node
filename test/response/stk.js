@@ -30,7 +30,7 @@ module.exports.status = {
 			},
 			"_links": {
 				"callback_url": "https://webhook.site/675d4ef4-0629-481f-83cd-d101f55e4bc8",
-				"self": "http://sandbox.kopokopo.com/api/v1/incoming_payments/a652f86f-f2aa-4d70-baa2-ccfe4b78f4fc"
+				"self": "http://sandbox.kopokopo.com/api/v2/incoming_payments/a652f86f-f2aa-4d70-baa2-ccfe4b78f4fc"
 			}
 		}
 	}
