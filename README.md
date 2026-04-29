@@ -40,7 +40,6 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [SendMoney](#sendMoneyservice) : `var SendMoneyService = K2.SendMoneyService`
 - [Transfer](#transferservice) : `var TransferService = K2.TransferService`
 - [Polling](#pollingservice) : `var PollingService = K2.PollingService`
-- [Transaction Sms Notification](#smsnotificationservice) : `var SmsNotificationService = K2.SmsNotificationService`
 - [Payment Links](#paymentlinkservice) : `var PaymentLinkService = K2.PaymentLinkService`
 - [Reversals](#reversalservice): `var ReversalService = K2.ReversalService`
 
@@ -347,23 +346,6 @@ This works the same for all requests that you get a location response.
 
 For more information, please read <https://api-docs.kopokopo.com/#polling>
 
-### `SmsNotificationService`
-
-- `SmsNotificationService.sendTransactionSmsNotification({ transactionNotificationOpts })`: `transactionNotificationOpts`: A hash of objects containing the following keys:
-
-  - `webhookEventReference`: The webhook event reference for a buygoods_transaction_received webhook.
-  - `message`: The message to be sent
-  - `callbackUrl`: Url that the [result](#responsesandresults) will be posted to `REQUIRED`
-  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`  
-
-- `SmsNotificationService.getStatus({ statusOpts })`: `statusOpts`: A hash of objects containing the following keys:
-
-  - `location`: The location url you got from the request `REQUIRED`
-  - `accessToken`: Gotten from the [`TokenService`](#tokenservice) response `REQUIRED`
-
-This works the same for all requests that you get a location response.
-
-For more information, please read <https://api-docs.kopokopo.com/#transaction-sms-notifications>
 
 ### `PaymentLinkService`
 
