@@ -42,7 +42,7 @@ Note: The `baseUrl` can be custom for testing purposes but we recommend using th
 - [Polling](#pollingservice) : `var PollingService = K2.PollingService`
 - [Transaction Sms Notification](#smsnotificationservice) : `var SmsNotificationService = K2.SmsNotificationService`
 - [Payment Links](#paymentlinkservice) : `var PaymentLinkService = K2.PaymentLinkService`
-- [Reversals](#reversalsservice): `var ReversalsService = K2.ReversalsService`
+- [Reversals](#reversalservice): `var ReversalService = K2.ReversalService`
 
 ## Usage
 
@@ -393,9 +393,9 @@ For more information, please read <https://api-docs.kopokopo.com/#transaction-sm
 
 For more information, please read <https://api-docs.kopokopo.com/#payment-links>
 
-### `ReversalsService`
+### `ReversalService`
 
-- `ReversalsService.initiateReversal({ reversalOptions })`: `reversalOptions`: A hash of objects containing the following keys:
+- `ReversalService.initiateReversal({ reversalOptions })`: `reversalOptions`: A hash of objects containing the following keys:
   - `transactionReference`: The reference of the transaction to be reversed. `REQUIRED`
   - `reason`: The reason for the reversal. `REQUIRED`
   - `metadata`: A hash containing up to 5 key–value pairs for additional information. `OPTIONAL`
@@ -404,7 +404,7 @@ For more information, please read <https://api-docs.kopokopo.com/#payment-links>
 
   Returns a Promise that resolves to the location URL of the reversal request.
 
-- `ReversalsService.getStatus({ statusOptions })`: `statusOptions`: A hash of objects containing the following keys:
+- `ReversalService.getStatus({ statusOptions })`: `statusOptions`: A hash of objects containing the following keys:
   - `location`: The location URL you got from the reversal request. `REQUIRED`
   - `accessToken`: Access token obtained from the [`TokenService`](#tokenservice) response. `REQUIRED`
 

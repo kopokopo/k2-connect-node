@@ -6,7 +6,7 @@ module.exports.location = {
 module.exports.status = {
     "data":{
         "id":"f000a63a-93bd-4922-8c98-06fcfd19efcf",
-        "type":"reversals",
+        "type":"reversal",
         "attributes": {
             "status":"Received",
             "created_at":"2026-01-22T18:06:02.369+03:00",

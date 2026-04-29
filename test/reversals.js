@@ -10,10 +10,10 @@ const BASE_URL = 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io/api
 
 let k2, reversals
 
-describe('Reversals Service', function () {
+describe('Reversal Service', function () {
     before(function () {
         k2 = require('../lib')(TEST_ACCOUNT)
-        reversals = k2.ReversalsService
+        reversals = k2.ReversalService
     })
 
     beforeEach(function () {

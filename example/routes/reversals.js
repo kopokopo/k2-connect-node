@@ -11,7 +11,7 @@ const options = {
 
 // Include kopokopo module
 var K2 = require("k2-connect-node")(options);
-var ReversalsService = K2.ReversalsService;
+var ReversalService = K2.ReversalService;
 var Webhooks = K2.Webhooks;
 
 var reversalResource;
@@ -36,7 +36,7 @@ router.post("/", async function (req, res, next) {
             accessToken: token_details.access_token,
         };
 
-        const response = await ReversalsService.initiateReversal(reversalOpts);
+        const response = await ReversalService.initiateReversal(reversalOpts);
         
         res.render("reversals", {
             message: "Reversal initiated successfully!",
