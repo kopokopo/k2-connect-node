@@ -2,6 +2,8 @@ const getToken = require("./token.js");
 const express = require("express");
 const router = express.Router();
 
+const appUrl = process.env.APP_URL;
+
 const options = {
     clientId: process.env.K2_CLIENT_ID,
     clientSecret: process.env.K2_CLIENT_SECRET,
@@ -28,7 +30,7 @@ router.post("/", async function (req, res, next) {
         var reversalOpts = {
             transactionReference: req.body.transaction_reference,
             reason: req.body.reason,
-            callbackUrl: "https://8650bfeddc80.ngrok.io/reversals/result",
+            callbackUrl: `${appUrl}/reversals/result`,
             metadata: {
                 notes: "Sample Reversal transaction",
                 customId: "custom123"

@@ -4,6 +4,8 @@ const router = express.Router()
 
 var stkResource
 
+const appUrl = process.env.APP_URL;
+
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
 	clientSecret: process.env.K2_CLIENT_SECRET,
@@ -72,7 +74,7 @@ router.post('/receive', async function (req, res, next) {
 			notes: 'Payment for invoice 123456'
 		},
 		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'https://1a7abcb79da0.ngrok.io/stk/result',
+		callbackUrl: `${appUrl}/stk/result`,
 
 		accessToken: token_details.access_token
 	}
@@ -85,7 +87,7 @@ router.post('/receive', async function (req, res, next) {
 		})
 		.catch(error => {
 			console.log(error)
-			return res.render('stkrequest', { message: 'Error ' + error })
+			return res.render('stkrequest', { message: 'Error ' + JSON.stringify(error) })
 
 		})
 })
