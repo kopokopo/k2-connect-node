@@ -2,6 +2,8 @@ const getToken = require("./token.js");
 const express = require("express");
 const router = express.Router();
 
+const appUrl = process.env.APP_URL;
+
 const options = {
   clientId: process.env.K2_CLIENT_ID,
   clientSecret: process.env.K2_CLIENT_SECRET,
@@ -120,7 +122,7 @@ router.post("/", async function (req, res, next) {
     metadata: {
       notes: "Sample Send Money transaction",
     },
-    callbackUrl: "https://your-ngrok-url.ngrok.io/sendmoney/result",
+    callbackUrl: `${appUrl}/sendmoney/result`,
     accessToken: token_details.access_token,
   };
 

@@ -2,6 +2,8 @@ const getToken = require("./token.js")
 const express = require("express");
 const router = express.Router();
 
+const appUrl = process.env.APP_URL;
+
 const options = {
     clientId: process.env.K2_CLIENT_ID,
     clientSecret: process.env.K2_CLIENT_SECRET,
@@ -30,7 +32,7 @@ router.post("/create", async function (req, res, next) {
             tillNumber: req.body.till_number,
             paymentReference: req.body.payment_reference,
             note: req.body.note,
-            callbackUrl: "https://8650bfeddc80.ngrok.io/paymentlink/result",
+            callbackUrl: `${appUrl}/paymentlink/result`,
             metadata: {
                 notes: "Sample Payment Link transaction",
                 customId: "custom123"

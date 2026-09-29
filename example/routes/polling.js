@@ -4,6 +4,8 @@ const router = express.Router()
 
 var pollingResource
 
+const appUrl = process.env.APP_URL;
+
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
 	clientSecret: process.env.K2_CLIENT_SECRET,
@@ -52,8 +54,8 @@ router.post('/', async function (req, res, next) {
 		toTime: req.body.to_time,
 		scope: req.body.scope,
 		scopeReference: req.body.scope_ref,
-		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'https://8650bfeddc80.ngrok.io/polling/result',
+		// This is where kopokopo will post the response once the request is completed
+		callbackUrl: `${appUrl}/polling/result`,
 
 		accessToken: token_details.access_token
 	}
